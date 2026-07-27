@@ -1,12 +1,18 @@
 import { useState } from 'react'
 import '@/styles/main.scss'
 
+import Banner from '@/components/banner';
+import NavBar from '@/components/navbar';
+import Home from '@/components/folders/home';
+
 function App() {
 
   return (
-    <>
-      <h1>Hello World</h1>
-    </>
+    <div className="App">
+      <Banner></Banner>
+      <NavBar></NavBar>
+      <Home></Home>
+    </div>
   )
 }
 

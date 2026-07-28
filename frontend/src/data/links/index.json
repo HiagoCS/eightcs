@@ -1,0 +1,29 @@
+{
+    "data": [
+        {
+        "label": "Início",
+        "name": "HomePage",
+        "url": "/"
+        },
+        {
+        "label": "Web",
+        "name": "WebPage",
+        "url": "/apps/web"
+        },
+        {
+        "label": "Mobile",
+        "name": "MobilePage",
+        "url": "/apps/mobile"
+        },
+        {
+        "label": "Desktop",
+        "name": "DesktopPage",
+        "url": "/apps/desktop"
+        },
+        {
+        "label": "Contato",
+        "name": "ContactPage",
+        "url": "/contact"
+        }
+    ]
+}

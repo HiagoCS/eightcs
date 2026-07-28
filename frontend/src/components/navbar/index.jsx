@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Link } from 'react-router-dom';
 import Whatsapp from '@/assets/icons/whatsapp-svgrepo-com.svg?react';
 import Linkedin from '@/assets/icons/linkedin-svgrepo-com.svg?react';
 import Github from '@/assets/icons/github-142-svgrepo-com.svg?react';
+import Home from '@/assets/icons/home-1-svgrepo-com.svg?react';
 //
 import {data} from '@/data/links';
 
@@ -13,7 +14,7 @@ function main(){
             <ul className='nav'>
                 {data.map((link) => (
                     <li key={link.url}>
-                        <Link to={link.url}>{link['label']}</Link>
+                        <Link to={link.url}>{link.url=== '/'?<Home style={{width: '1.3pc', height: '1pc'}}/>:<></>} {link['label']}</Link>
                     </li>
                 ))}
             </ul>

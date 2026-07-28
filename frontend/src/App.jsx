@@ -13,6 +13,7 @@ function App() {
       <Router>
         <Banner />
         <NavBar />
+        <hr />
         <Routes>
           {data.map((link) => {
             const Component = links[link.name];

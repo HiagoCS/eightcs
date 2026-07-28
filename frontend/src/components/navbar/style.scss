@@ -3,6 +3,7 @@
     display: flex;
     justify-content: space-between;
     margin: 0 4pc;
+    height: 5pc;
     .nav{
         width: 55%;
         display: flex;
@@ -11,7 +12,10 @@
         align-items: center;
         font-size: 1pc;
         a{
+            display: flex;
             text-decoration: none;
+            align-items: center;
+            
             color:black;
         }
     }

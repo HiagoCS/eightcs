@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import '@/styles/main.scss'
 import {data} from '@/data/links';
 import {links} from '@/data/links/functions.jsx';
@@ -12,13 +11,13 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Banner></Banner>
-        <NavBar></NavBar>
+        <Banner />
+        <NavBar />
         <Routes>
-          {data.map((link, index) => {
+          {data.map((link) => {
             const Component = links[link.name];
             return (
-              <Route key={index} path={link.url} element={<Component />} />
+              <Route key={link.url} path={link.url} element={<Component />} />
             );
           })}
         </Routes>

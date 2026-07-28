@@ -1,16 +1,28 @@
 .main{
-    //background-color: red;
     font-family: "Quicksand-Bold";
     display: flex;
-    ul{
+    justify-content: space-between;
+    margin: 0 4pc;
+    .nav{
         width: 55%;
         display: flex;
         list-style: none;
         justify-content: space-around;
+        align-items: center;
         font-size: 1pc;
         a{
             text-decoration: none;
             color:black;
+        }
+    }
+    .icons{
+        
+        width: 0 5%;
+        padding: 0 4pc;
+        display: flex;
+        align-items: center;
+        p{
+            padding: 0 0.5pc;
         }
     }
 }

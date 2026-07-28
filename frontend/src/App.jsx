@@ -1,12 +1,28 @@
-import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import '@/styles/main.scss'
+import {data} from '@/data/links';
+import {links} from '@/data/links/functions.jsx';
+
+import Banner from '@/components/banner';
+import NavBar from '@/components/navbar';
+
 
 function App() {
-
   return (
-    <>
-      <h1>Hello World</h1>
-    </>
+    <div className="App">
+      <Router>
+        <Banner />
+        <NavBar />
+        <Routes>
+          {data.map((link) => {
+            const Component = links[link.name];
+            return (
+              <Route key={link.url} path={link.url} element={<Component />} />
+            );
+          })}
+        </Routes>
+      </Router>
+    </div>
   )
 }
 

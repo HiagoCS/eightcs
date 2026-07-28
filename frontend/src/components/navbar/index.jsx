@@ -1,14 +1,16 @@
 import React from 'react';
-import {links} from '@/data/links';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import {data} from '@/data/links';
+
 import './style.scss';
 function main(){
     return(
         <>
         <div className="main">
             <ul>
-                {links.map((link, index) => (
+                {data.map((link, index) => (
                     <li key={index}>
-                        <a href={link.url}>{link.name}</a>
+                        <Link to={link.url}>{link['text-name']}</Link>
                     </li>
                 ))}
             </ul>

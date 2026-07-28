@@ -1,23 +1,28 @@
 {
-    "links": [
+    "data": [
         {
-        "name": "Início",
+        "text-name": "Início",
+        "name": "HomePage",
         "url": "/"
         },
         {
-        "name": "Web",
+        "text-name": "Web",
+        "name": "WebPage",
         "url": "/apps/web"
         },
         {
-        "name": "Mobile",
+        "text-name": "Mobile",
+        "name": "MobilePage",
         "url": "/apps/mobile"
         },
         {
-        "name": "Desktop",
+        "text-name": "Desktop",
+        "name": "DesktopPage",
         "url": "/apps/desktop"
         },
         {
-        "name": "Contato",
+        "text-name": "Contato",
+        "name": "ContactPage",
         "url": "/contact"
         }
     ]

@@ -8,8 +8,8 @@ function main() {
                     <h2>Desenvolvedor Full-Stack</h2>
                 </div>
                 <div className="logo">
-                    <text className='logo-text'>eight.cs</text>
-                    <text className='sublogo-text'>development</text>
+                    <span className='logo-text'>eight.cs</span>
+                    <span className='sublogo-text'>development</span>
                 </div>
             </div>
         </div>

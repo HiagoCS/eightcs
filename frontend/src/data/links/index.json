@@ -1,27 +1,27 @@
 {
     "data": [
         {
-        "text-name": "Início",
+        "label": "Início",
         "name": "HomePage",
         "url": "/"
         },
         {
-        "text-name": "Web",
+        "label": "Web",
         "name": "WebPage",
         "url": "/apps/web"
         },
         {
-        "text-name": "Mobile",
+        "label": "Mobile",
         "name": "MobilePage",
         "url": "/apps/mobile"
         },
         {
-        "text-name": "Desktop",
+        "label": "Desktop",
         "name": "DesktopPage",
         "url": "/apps/desktop"
         },
         {
-        "text-name": "Contato",
+        "label": "Contato",
         "name": "ContactPage",
         "url": "/contact"
         }

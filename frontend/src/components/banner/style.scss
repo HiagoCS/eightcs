@@ -1,6 +1,7 @@
+@use "@/styles/root.scss" as *;
 .app {
     padding: 0.5pc;
-    &.banner {background-color: #77BDF1;}
+    &.banner {background-color: $blue-color;}
     .banner {
         display: flex;
         justify-content: space-between;
@@ -14,6 +15,9 @@
         .name {
             margin: 0 1vw;
             color: #ffffff;
+            h1{
+                font-family: 'Quicksand-Bold';
+            }
         }
 
         .logo {

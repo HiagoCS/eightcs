@@ -1,7 +1,7 @@
 import './style.scss';
 function main() {
     return (
-        <div className="app">
+        <div className="app banner">
             <div className="banner">
                 <div className="name">
                     <h1>Hiago Costa Santos</h1>

@@ -1,12 +1,12 @@
 .app {
-    background-color: #77BDF1;
     padding: 0.5pc;
+    &.banner {background-color: #77BDF1;}
     .banner {
         display: flex;
         justify-content: space-between;
         margin: 5px 4pc 0 4pc;
         border: 3px solid #ffffff;
-        background-color: #77BDF1;
+        
         color: #ffffff;
         h2{
             font-family: 'Quicksand-Regular';

@@ -1,5 +1,7 @@
 import './style.scss';
 import Download from '@/assets/icons/download.svg?react';
+import Laptop from '@/assets/icons/laptop-outline.svg?react';
+import Cellphone from '@/assets/icons/cellphone.svg?react';
 function main(){
     return(
         <div className="app home">
@@ -27,12 +29,19 @@ function main(){
             </div>
             <div className="images">
                 <div className="icon">
-
+                    <Laptop className="lap" style={{ width: '15vw', height: '30vh' }} />
+            
+                    <Cellphone className="cell" style={{ width: '15vw', height: '30vh' }} />
                 </div>
-                <div className="icon">
-                    
+            </div> 
+            {/* <div className="images">
+                <div className="icon lap">
+                    <Laptop style={{ width: '5vw', height: '30vh' }} />
                 </div>
-            </div>
+                <div className="icon cell">
+                    <Cellphone style={{ width: '5vw', height: '30vh' }} />
+                </div>
+            </div> */}
         </div>
     )
 }

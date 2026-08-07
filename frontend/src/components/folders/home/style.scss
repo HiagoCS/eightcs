@@ -1,9 +1,19 @@
 @use "@/styles/root.scss" as *;
 .app{
     &.home{
+        display: flex;
+        justify-content: space-between;
         height: 35vh;
         background: $blue-color;
         background: linear-gradient(230deg, rgba(119, 189, 241, 0.25) 0%, rgba(176, 215, 245, 0.5) 50%, rgba(207, 202, 202, 1) 100%);
+    }
+    .images{
+        width:50vw;
+        
+        display:flex;
+        justify-content:center;
+        align-items:center;
+
     }
     .info{
         

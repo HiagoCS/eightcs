@@ -1,5 +1,15 @@
 @use "@/styles/root.scss" as *;
-
+html {
+    scroll-behavior: smooth;
+}
+#web-section, #mobile-section, #desktop-section {
+    scroll-margin-top: 50px;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .app {
     display: flex;
     flex-direction: column;
@@ -80,6 +90,7 @@
                         color: $blue-color;
                         font-size: 65%;
                         cursor:pointer;
+                        text-decoration: none;
                     }
                 }
             }

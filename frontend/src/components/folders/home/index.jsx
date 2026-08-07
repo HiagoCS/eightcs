@@ -1,4 +1,5 @@
 import './style.scss';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 import Download from '@/assets/icons/download.svg?react';
 import Project from '@/assets/icons/project.svg?react';
 import Laptop from '@/assets/icons/laptop-outline.svg?react';
@@ -25,7 +26,7 @@ function main() {
                         <span className="all">
                             <button>
                                 <Project className="icon" style={{ width: '1.2pc', height: '1.5pc' }} />
-                                Ver Projetos
+                                O que é 8CS?
                             </button>
                         </span>
                         <span className="cv">
@@ -56,9 +57,12 @@ function main() {
                             <span className="text">
                                 Aplicações modernas, responsivas e otimizadas para entregar a melhor experiência na web.
                             </span>
-                            <span className="link">
-                                Ver Projetos ➡️
-                            </span>
+                            <a href="/#web-section" className='link'
+                            onClick={() => {
+                                setTimeout(()=>{
+                                    history.replaceState(null, '', window.location.pathname);
+                                }, 1)
+                            }}>Ver Projetos ➡️</a>
                         </div>
                     </div>
                     <div className="card mobile">
@@ -70,9 +74,12 @@ function main() {
                             <span className="text"> 
                                 Apps para IOS e Android com foco em performance, usabilidade e design moderno.
                             </span>
-                            <span className="link">
-                                Ver Projetos ➡️
-                            </span>
+                            <a href="/#mobile-section" className='link'
+                            onClick={() => {
+                                setTimeout(()=>{
+                                    history.replaceState(null, '', window.location.pathname);
+                                }, 1)
+                            }}>Ver Projetos ➡️</a>
                         </div>
                     </div>
                     <div className="card desktop">
@@ -84,9 +91,12 @@ function main() {
                             <span className="text">
                                 Soluções desktop utilizando tecnologias modernas e frameworks populares para atender às necessidades do usuário.
                             </span>
-                            <span className="link">
-                                Ver Projetos ➡️
-                            </span>
+                            <a href="/#desktop-section" className='link'
+                            onClick={() => {
+                                setTimeout(()=>{
+                                    history.replaceState(null, '', window.location.pathname);
+                                }, 1)
+                            }}>Ver Projetos ➡️</a>
                         </div>
                     </div>
                     <div className="card contact">
@@ -104,6 +114,15 @@ function main() {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div id="web-section">
+                <h1>WEB</h1>
+            </div>
+            <div id="mobile-section">
+                <h1>MOBILE</h1>
+            </div>
+            <div id="desktop-section">
+                <h1>DESKTOP</h1>
             </div>
         </div>
     )

@@ -1,6 +1,9 @@
 @use "@/styles/fonts/fonts.scss" as *;
-
+:root{
+  min-width:171px;
+}
 body {
+  
   margin: 0;
   font-family: "Quicksand-Regular";
 }

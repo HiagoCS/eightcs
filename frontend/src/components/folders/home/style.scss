@@ -1,6 +1,9 @@
+@use "@/styles/root.scss" as *;
 .app{
     &.home{
         height: 35vh;
+        background: $blue-color;
+        background: linear-gradient(230deg, rgba(119, 189, 241, 0.25) 0%, rgba(176, 215, 245, 0.5) 50%, rgba(207, 202, 202, 1) 100%);
     }
     .info{
         
@@ -12,7 +15,7 @@
         justify-content: space-around;
         flex-direction: column;
         .hello{
-            color: #ffffff;
+            color: #000000;
         }
         .name{
             font-size: 24px;
@@ -23,11 +26,29 @@
         }
     }
     .buttons{
-        background-color: red;
         display: flex;
         justify-content: space-around;
         align-items: center;
-        padding-right: 13vw;
-        
+        span{
+            &.cv{
+                button{
+                    display:flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+            button{
+                width:12vw;
+                height: 6vh;
+                background: none;
+                border: 2px solid $blue-color;
+                border-radius: 5px;
+                font-family: "Quicksand-Bold";
+                &:hover{
+                    background-color: $blue-color;
+                    color: #ffffff;
+                }
+            }
+        }
     }
 }

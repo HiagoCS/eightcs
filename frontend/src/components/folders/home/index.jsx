@@ -1,4 +1,5 @@
 import './style.scss';
+import Download from '@/assets/icons/download.svg?react';
 function main(){
     return(
         <div className="app home">
@@ -17,7 +18,10 @@ function main(){
                         <button>Ver Projetos</button>
                     </span>
                     <span className="cv">
-                        <button>Baixar Currículo</button>
+                        <button>
+                            <Download style={{ width: '1.2pc', height: '1.5pc' }} />
+                            Baixar Currículo
+                        </button>
                     </span>
                 </div>
             </div>

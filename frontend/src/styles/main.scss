@@ -1,6 +1,10 @@
 @use "@/styles/fonts/fonts.scss" as *;
 :root{
+  width:100%;
   min-width:171px;
+  @media (max-width: 171px){
+    overflow-x: hidden;
+  }
 }
 body {
   

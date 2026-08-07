@@ -4,6 +4,9 @@
     justify-content: space-between;
     margin: 0 4pc;
     height: 5pc;
+    .menu{
+        display:none;
+    }
     .nav{
         width: 55%;
         display: flex;
@@ -29,6 +32,28 @@
         align-items: center;
         p{
             padding: 0 0.5pc;
+        }
+    }
+}
+@media(max-width:777px){
+    .main{
+        .menu{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+        .nav{
+            display: none;
+        }
+    }
+}
+@media(max-width:604px){
+    .main{
+        .menu{
+            width:100vw;
+        }
+        .icons{
+            display: none;
         }
     }
 }

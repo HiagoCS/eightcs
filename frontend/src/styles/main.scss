@@ -1,13 +1,14 @@
 @use "@/styles/fonts/fonts.scss" as *;
 :root{
   width:100%;
-  min-width:171px;
-  @media (max-width: 171px){
-    overflow-x: hidden;
+  min-width:221px;
+  @media (max-width: 221px){
+    body{
+      display:none;
+    }
   }
 }
 body {
-  
   margin: 0;
   font-family: "Quicksand-Regular";
 }

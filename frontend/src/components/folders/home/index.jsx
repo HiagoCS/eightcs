@@ -41,8 +41,7 @@ function main() {
                 </div>
             </div>
             <div className="home">
-                <span className="title">O Que Eu Desenvolvo</span>
-                <br />
+                <span className="home-title">O Que Eu Desenvolvo</span>
                 <div className="cards-display">
                     <div className="card web">
                         <div className="icon">

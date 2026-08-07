@@ -9,62 +9,75 @@
         flex-direction: column;
         align-items: center;
 
-        .title {
+        .home-title {
             font-family: 'Quicksand-Bold';
             font-size: 24px;
-            margin: 2pc 0 2pc 0;
+            margin: 2vh 0 0 0;
         }
 
         .cards-display {
             display: flex;
-            justify-content: space-around;
-            width: 100%;
             flex-wrap: wrap;
+            justify-content: center;
+            align-items: stretch;
+            gap: 20px;
+            width: 100%;
+            margin: 10vh 0 0 0;
 
             .card {
-                width: 20%;
-                min-width: 200px;
-                height: 20vh;
+                flex: 1 1 200px;
+                max-width: 300px;
+                min-width: 171px;
+
                 transition: all 0.3s ease;
                 box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
                 border-radius: 5px;
+
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                margin-bottom: 2pc;
+
+                overflow: hidden;
 
                 &:hover {
                     transform: translateY(-4px);
                     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
                 }
-                .icon{
-                    display:flex;
-                    flex-direction:column;
-                    height:100%;
-                    margin: 1pc 1pc 1pc 1pc;
+
+                .icon {
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                    margin: 1pc 1pc 1pc 2pc;
                 }
+
                 .info {
                     display: flex;
+                    flex-wrap: wrap;
                     flex-direction: column;
                     justify-content: center;
                     align-items: start;
+                    font-size: 18px;
+
                     .title {
                         font-family: 'Quicksand-Bold';
-                        font-size: 18px;
                         margin: 0 0 1pc 1pc;
                     }
 
                     .text {
                         font-family: 'Quicksand-Regular';
-                        font-size: 14px;
                         text-align: start;
                         padding: 0 1pc;
+                        font-size: 70%;
+                        overflow: hidden;
+                        overflow-wrap: anywhere;
                     }
-                    .link{
-                        margin: 1pc 0 1pc 1pc;
-                        font-size: 12px;
-                        font-family:'Quicksand-Bold';
-                        color:$blue-color;
+
+                    .link {
+                        margin: 1pc 0 1pc 0;
+                        font-family: 'Quicksand-Bold';
+                        color: $blue-color;
+                        font-size: 65%;
                     }
                 }
             }

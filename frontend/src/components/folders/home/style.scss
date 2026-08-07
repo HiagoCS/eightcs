@@ -13,6 +13,7 @@
             font-family: 'Quicksand-Bold';
             font-size: 24px;
             margin: 2vh 0 0 0;
+            white-space:nowrap;
         }
 
         .cards-display {
@@ -78,6 +79,7 @@
                         font-family: 'Quicksand-Bold';
                         color: $blue-color;
                         font-size: 65%;
+                        cursor:pointer;
                     }
                 }
             }

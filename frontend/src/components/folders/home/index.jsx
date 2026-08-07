@@ -3,6 +3,10 @@ import Download from '@/assets/icons/download.svg?react';
 import Project from '@/assets/icons/project.svg?react';
 import Laptop from '@/assets/icons/laptop-outline.svg?react';
 import Cellphone from '@/assets/icons/cellphone.svg?react';
+import Web from '@/assets/icons/web.svg?react';
+import Mobile from '@/assets/icons/android-solid.svg?react';
+import Desktop from '@/assets/icons/desktop.svg?react';
+import Contact from '@/assets/icons/contact.svg?react';
 function main() {
     return (
         <div className="app">
@@ -45,12 +49,12 @@ function main() {
                 <div className="cards-display">
                     <div className="card web">
                         <div className="icon">
-                            <Laptop className="lap" style={{ width: '3pc', height: '3pc' }} />
+                            <Web style={{ width: '3pc', height: '3pc' }} />
                         </div>
                         <div className="info">
                             <span className="title">Web</span>
                             <span className="text">
-                                Desenvolvimento de aplicações web utilizando tecnologias modernas e frameworks populares.
+                                Aplicações modernas, responsivas e otimizadas para entregar a melhor experiência na web.
                             </span>
                             <span className="link">
                                 Ver Projetos ➡️
@@ -59,12 +63,12 @@ function main() {
                     </div>
                     <div className="card mobile">
                         <div className="icon">
-                            <Laptop className="lap" style={{ width: '3pc', height: '3pc' }} />
+                            <Mobile style={{ width: '3pc', height: '3pc' }} />
                         </div>
                         <div className="info">
                             <span className="title">Mobile</span>
-                            <span className="text">
-                                Desenvolvimento de aplicações mobile utilizando tecnologias modernas e frameworks populares.
+                            <span className="text"> 
+                                Apps para IOS e Android com foco em performance, usabilidade e design moderno.
                             </span>
                             <span className="link">
                                 Ver Projetos ➡️
@@ -73,12 +77,12 @@ function main() {
                     </div>
                     <div className="card desktop">
                         <div className="icon">
-                            <Laptop className="lap" style={{ width: '3pc', height: '3pc' }} />
+                            <Desktop style={{ width: '3pc', height: '3pc' }} />
                         </div>
                         <div className="info">
                             <span className="title">Desktop</span>
                             <span className="text">
-                                Desenvolvimento de aplicações desktop utilizando tecnologias modernas e frameworks populares.
+                                Soluções desktop utilizando tecnologias modernas e frameworks populares para atender às necessidades do usuário.
                             </span>
                             <span className="link">
                                 Ver Projetos ➡️
@@ -87,7 +91,7 @@ function main() {
                     </div>
                     <div className="card contact">
                         <div className="icon">
-                            <Laptop className="lap" style={{ width: '3pc', height: '3pc' }} />
+                            <Contact style={{ width: '3pc', height: '3pc' }} />
                         </div>
                         <div className="info">
                             <span className="title">Contato</span>

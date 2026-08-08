@@ -4,6 +4,7 @@ import Linkedin from '@/assets/icons/linkedin-svgrepo-com.svg?react';
 import Github from '@/assets/icons/github-142-svgrepo-com.svg?react';
 import Home from '@/assets/icons/home-1-svgrepo-com.svg?react';
 import HomeActive from '@/assets/icons/home-page-svgrepo-com.svg?react';
+import Menu from '@/assets/icons/menu-rounded.svg?react';
 import { data } from '@/data/links';
 import { useState } from 'react';
 
@@ -13,6 +14,9 @@ function main() {
     return (
         <>
             <div className="main">
+                <div className="menu">
+                    <Menu style={{ width: '2.5pc', height: '2.5pc' }} />
+                </div>
                 <ul className='nav' >
                     {data.map((link) => (
                         <li key={link.url}>

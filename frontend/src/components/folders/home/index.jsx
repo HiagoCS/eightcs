@@ -1,5 +1,8 @@
 import './style.scss';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import WebSection from '@/components/folders/web';
+import MobileSection from '@/components/folders/mobile';
+import DesktopSection from '@/components/folders/desktop';
+
 import Download from '@/assets/icons/download.svg?react';
 import Project from '@/assets/icons/project.svg?react';
 import Laptop from '@/assets/icons/laptop-outline.svg?react';
@@ -115,14 +118,15 @@ function main() {
                     </div>
                 </div>
             </div>
+
             <div id="web-section">
-                <h1>WEB</h1>
+                <WebSection></WebSection>
             </div>
             <div id="mobile-section">
-                <h1>MOBILE</h1>
+                <MobileSection></MobileSection>
             </div>
             <div id="desktop-section">
-                <h1>DESKTOP</h1>
+                <DesktopSection></DesktopSection>
             </div>
         </div>
     )

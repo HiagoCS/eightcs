@@ -1,6 +1,16 @@
+import "./style.scss"
+import WebCard from "./cards/index"
+import projects from "@/data/web-projects.json"
 function main(){
     return(
-        <h1>web</h1>
+        <div className="app" id="web-section">
+            <div className="cards">
+                <WebCard
+                key={projects[0].id}
+                project={projects[0]}
+                />
+            </div>
+        </div>
     )
 }
 

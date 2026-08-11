@@ -119,7 +119,7 @@ function main() {
                 </div>
             </div>
 
-            <div id="web-section">
+            <div>
                 <WebSection></WebSection>
             </div>
             <div id="mobile-section">

@@ -10,11 +10,12 @@ const getImages = (projectId) => {
 };
 //one src
 //getImages('2')[0]
-function card({project}){
+export default function Card({project}){
     return(
         <div className="card" id="project">
             <div className="image">
-                <img src={getImages('2')[0]} alt="" />
+                {console.log(project)}
+                <img src={getImages(project.id)[0]} alt="" />
             </div>
             <div className="info">
                 <span className="title">
@@ -27,4 +28,3 @@ function card({project}){
         </div>
     );
 }
-export default card;

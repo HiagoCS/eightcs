@@ -1,6 +1,6 @@
 @use "@/styles/root.scss" as *;
 .app {
-    padding: 0.5pc;
+    padding-bottom: 0.5pc;
     &.banner {background-color: $blue-color;}
     .banner {
         display: flex;

@@ -1,6 +1,20 @@
 @use "@/styles/fonts/fonts.scss" as *;
-:root{
+*{
+  box-sizing:border-box;
+}
+html,
+body,
+#root{
   width:100%;
+  max-width:100%;
+  margin:0;
+  padding:0;
+}
+html,
+body{
+  overflow-x:hidden;
+}
+:root{
   min-width:221px;
   @media (max-width: 221px){
     body{
@@ -9,6 +23,5 @@
   }
 }
 body {
-  margin: 0;
   font-family: "Quicksand-Regular";
 }

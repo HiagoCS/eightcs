@@ -4,12 +4,10 @@ import projects from "@/data/web-projects.json"
 function main(){
     return(
         <div className="app" id="web-section">
-            <div className="cards">
-                <WebCard
+            <WebCard
                 key={projects[0].id}
                 project={projects[0]}
-                />
-            </div>
+            />
         </div>
     )
 }

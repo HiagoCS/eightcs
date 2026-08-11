@@ -1,0 +1,475 @@
+@use "@/styles/root.scss" as *;
+html {
+    scroll-behavior: smooth;
+}
+#web-section, #mobile-section, #desktop-section {
+    scroll-margin-top: 50px;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.app {
+    display: flex;
+    flex-direction: column;
+
+    .home {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .home-title {
+            font-family: 'Quicksand-Bold';
+            font-size: 24px;
+            margin: 2vh 0 0 0;
+            white-space:nowrap;
+        }
+
+        .cards-display {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: stretch;
+            gap: 20px;
+            width: 100%;
+            margin: 10vh 0 0 0;
+
+            .card {
+                flex: 1 1 200px;
+                max-width: 300px;
+                min-width: 171px;
+
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                border-radius: 5px;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                overflow: hidden;
+
+                &:hover {
+                    transform: translateY(-4px);
+                    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+                }
+
+                .icon {
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                    margin: 1pc 1pc 1pc 2pc;
+                }
+
+                .info {
+                    display: flex;
+                    flex-wrap: wrap;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: start;
+                    font-size: 18px;
+
+                    .title {
+                        font-family: 'Quicksand-Bold';
+                        margin: 0 0 1pc 1pc;
+                    }
+
+                    .text {
+                        font-family: 'Quicksand-Regular';
+                        text-align: start;
+                        padding: 0 1pc;
+                        font-size: 70%;
+                        overflow: hidden;
+                        overflow-wrap: anywhere;
+                    }
+
+                    .link {
+                        margin: 1pc 0 1pc 0;
+                        font-family: 'Quicksand-Bold';
+                        color: $blue-color;
+                        font-size: 65%;
+                        cursor:pointer;
+                        text-decoration: none;
+                    }
+                }
+            }
+
+        }
+    }
+
+    .home-banner {
+        display: flex;
+        justify-content: space-between;
+        height: 35vh;
+        background: $blue-color;
+        background: linear-gradient(230deg, rgba(119, 189, 241, 0.25) 0%, rgba(176, 215, 245, 0.5) 50%, rgba(207, 202, 202, 1) 100%);
+
+        .images {
+            width: 50vw;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .info {
+
+            width: 40vw;
+            height: 100%;
+            margin: 0 0 0 5pc;
+            display: flex;
+            align-content: space-between;
+            justify-content: space-around;
+            flex-direction: column;
+
+            .hello {
+                color: #000000;
+            }
+
+            .name {
+                font-size: 24px;
+                font-family: 'Quicksand-Bold';
+            }
+
+            .text {
+                padding-right: 13vw;
+            }
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            span {
+                &.all {
+                    .icon {
+                        display: none;
+                    }
+                }
+
+                &.cv {
+                    button {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+
+                button {
+                    width: 12vw;
+                    height: 6vh;
+                    background: none;
+                    border: 2px solid $blue-color;
+                    border-radius: 5px;
+                    font-family: "Quicksand-Bold";
+
+                    &:hover {
+                        background-color: $blue-color;
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:1776px) {
+    .app {
+        .home-banner {
+            height: 40vh;
+
+            .info {
+                margin: 0 0 0 3pc;
+
+                .text {
+                    padding-right: 10vw;
+                }
+            }
+        }
+
+    }
+}
+
+@media (max-width:1142px) {
+    .app {
+        .home-banner {
+            .info {
+                .buttons {
+                    .cv {
+                        .icon {
+                            width: 80%;
+                            height: 80%;
+                        }
+
+                        button {
+                            font-size: 80%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:1040px) {
+    .app {
+        .home-banner {
+            height: 50vh;
+
+            .info {
+                margin: 0 0 0 2pc;
+
+                .text {
+                    padding-right: 5vw;
+                }
+            }
+        }
+
+    }
+}
+
+@media (max-width:1107px) {
+    .app {
+        .home-banner {
+            .info {
+                .buttons {
+                    .cv {
+                        .icon {
+                            width: 60%;
+                            height: 60%;
+                        }
+
+                        button {
+                            font-size: 60%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:895px) {
+    .app {
+        .home-banner {
+            .info {
+                .buttons {
+                    .cv {
+
+                        button {
+                            font-size: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:760px) {
+    .app {
+        .home-banner {
+            .info {
+                .buttons {
+                    .all {
+                        button {
+                            font-size: 60%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:733px) {
+    .app {
+        .home-banner {
+            height: 60vh;
+
+            .info {
+                margin: 0 0 0 1pc;
+
+                .name {
+                    span {
+                        font-size: 100% !important;
+                    }
+                }
+
+                .text {
+                    padding-right: 0vw;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:575px) {
+    .app {
+        .home-banner {
+            .info {
+                .buttons {
+                    .all {
+
+                        button {
+                            font-size: 0%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                            .icon {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:496px) {
+    .app {
+        .home-banner {
+            height: 70vh;
+
+            .info {
+                margin: 0 0 0 1pc;
+
+                .text {
+                    padding-right: 0vw;
+                }
+            }
+        }
+
+    }
+}
+
+@media(max-width:366px) {
+    .app {
+        .home-banner {
+            .info {
+                .name {
+                    span {
+                        font-size: 90% !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:351px) {
+    .app {
+        .home-banner {
+            height: 80vh;
+
+            .info {
+                margin: 0 0 0 1pc;
+
+                .text {
+                    padding-right: 0vw;
+                }
+            }
+        }
+
+    }
+}
+
+@media(max-width:329px) {
+    .app {
+        .home-banner {
+            .info {
+                .name {
+                    span {
+                        font-size: 80% !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:302px) {
+    .app {
+        .home-banner {
+            height: 90vh;
+
+            .info {
+                margin: 0 0 0 1pc;
+
+                .text {
+                    padding-right: 0vw;
+                }
+            }
+        }
+
+    }
+}
+
+@media(max-width:293px) {
+    .app {
+        .home-banner {
+            .info {
+                .name {
+                    span {
+                        font-size: 70% !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:256px) {
+    .app {
+        .home-banner {
+            .info {
+                .name {
+                    span {
+                        font-size: 60% !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:220px) {
+    .app {
+        .home-banner {
+            .info {
+                .name {
+                    span {
+                        font-size: 40% !important;
+                    }
+                }
+
+                .text {
+                    font-size: 40% !important;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:240px) {
+    .app {
+        .home-banner {
+            height: 100vh;
+
+            .info {
+                margin: 0 0 0 1pc;
+
+                .text {
+                    padding-right: 0vw;
+                }
+            }
+        }
+    }
+}

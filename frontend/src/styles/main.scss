@@ -1,11 +1,14 @@
 @use "@/styles/fonts/fonts.scss" as *;
-@use "@/styles/root.scss" as *;
-
+:root{
+  width:100%;
+  min-width:221px;
+  @media (max-width: 221px){
+    body{
+      display:none;
+    }
+  }
+}
 body {
   margin: 0;
-  font-family: "Quicksand";
-}
-
-h1 {
-  color: $primary-color;
+  font-family: "Quicksand-Regular";
 }

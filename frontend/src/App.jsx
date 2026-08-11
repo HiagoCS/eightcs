@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import '@/styles/main.scss'
+import '@/styles/root.scss'
 import {data} from '@/data/links';
 import {links} from '@/data/links/functions.jsx';
 
@@ -11,8 +12,8 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Banner />
-        <NavBar />
+        <Banner></Banner>
+        <NavBar></NavBar>
         <Routes>
           {data.map((link) => {
             const Component = links[link.name];

@@ -23,7 +23,7 @@ export default function Card({ project }) {
                             onClick={() => setCurrentImage(index)} />
                     ))}
                 </div>
-                <img src={images[currentImage]} />
+                <img src={images[currentImage]} loading="lazy" decoding="async"/>
             </div>
             <div className="info">
                 <span className="title">

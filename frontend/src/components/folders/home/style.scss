@@ -94,11 +94,12 @@ html {
         display: flex;
         justify-content: space-between;
         height: auto;
+        padding: 5vh 0;
         background: $blue-color;
         background: linear-gradient(230deg, rgba(119, 189, 241, 0.25) 0%, rgba(176, 215, 245, 0.5) 50%, rgba(207, 202, 202, 1) 100%);
 
         .images {
-            width: 50vw;
+            width: 50%;
 
             display: flex;
             justify-content: center;
@@ -107,26 +108,21 @@ html {
         }
 
         .info {
-
-            width: 40vw;
-            height: 100%;
-            margin: 0 0 0 5pc;
+            width: 40%;
             display: flex;
             align-content: space-between;
             justify-content: space-around;
             flex-direction: column;
-
+            margin: 0 0 0 5vw;
+            font-size: clamp(12px, 1.5vw, 24px);
             .hello {
                 color: #000000;
+                white-space: nowrap;
             }
 
             .name {
-                font-size: 24px;
+                font-size: clamp(12px, 1.5vw, 24px);
                 font-family: 'Quicksand-Bold';
-            }
-
-            .text {
-                padding-right: 13vw;
             }
         }
 
@@ -137,16 +133,24 @@ html {
 
             span {
                 &.all {
+                    button{
+                        font-size: clamp(6px, 1vw, 18px);
+                    }
                     .icon {
                         display: none;
                     }
                 }
 
                 &.cv {
+                    .icon{
+                        width: clamp(20px, 5vw, 40px);
+                        height: clamp(20px, 5vw, 40px);
+                    }
                     button {
                         display: flex;
                         align-items: center;
                         justify-content: center;
+                        font-size: clamp(6px, 1vw, 18px);
                     }
                 }
 
@@ -168,78 +172,6 @@ html {
     }
 }
 
-@media (max-width:1776px) {
-    .app {
-        .home-banner {
-            .info {
-                margin: 0 0 0 3pc;
-
-                .text {
-                    padding-right: 10vw;
-                }
-            }
-        }
-
-    }
-}
-
-@media (max-width:1142px) {
-    .app {
-        .home-banner {
-            .info {
-                .buttons {
-                    .cv {
-                        .icon {
-                            width: 80%;
-                            height: 80%;
-                        }
-
-                        button {
-                            font-size: 80%;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media(max-width:1040px) {
-    .app {
-        .home-banner {
-            .info {
-                margin: 0 0 0 2pc;
-
-                .text {
-                    padding-right: 5vw;
-                }
-            }
-        }
-
-    }
-}
-
-@media (max-width:1107px) {
-    .app {
-        .home-banner {
-            .info {
-                .buttons {
-                    .cv {
-                        .icon {
-                            width: 60%;
-                            height: 60%;
-                        }
-
-                        button {
-                            font-size: 60%;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
 @media (max-width:895px) {
     .app {
         .home-banner {
@@ -251,42 +183,6 @@ html {
                             font-size: 0;
                         }
                     }
-                }
-            }
-        }
-    }
-}
-
-@media (max-width:760px) {
-    .app {
-        .home-banner {
-            .info {
-                .buttons {
-                    .all {
-                        button {
-                            font-size: 60%;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media(max-width:733px) {
-    .app {
-        .home-banner {
-            .info {
-                margin: 0 0 0 1pc;
-
-                .name {
-                    span {
-                        font-size: 100% !important;
-                    }
-                }
-
-                .text {
-                    padding-right: 0vw;
                 }
             }
         }
@@ -313,137 +209,6 @@ html {
                             }
                         }
                     }
-                }
-            }
-        }
-    }
-}
-
-@media(max-width:496px) {
-    .app {
-        .home-banner {
-            .info {
-                margin: 0 0 0 1pc;
-                .text {
-                    padding-right: 0vw;
-                }
-            }
-        }
-
-    }
-}
-
-@media(max-width:366px) {
-    .app {
-        .home-banner {
-            .info {
-                .name {
-                    span {
-                        font-size: 90% !important;
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media(max-width:351px) {
-    .app {
-        .home-banner {
-            .info {
-                margin: 0 0 0 1pc;
-                .text {
-                    padding-right: 0vw;
-                }
-            }
-        }
-
-    }
-}
-
-@media(max-width:329px) {
-    .app {
-        .home-banner {
-            .info {
-                .name {
-                    span {
-                        font-size: 80% !important;
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media(max-width:302px) {
-    .app {
-        .home-banner {
-            .info {
-                margin: 0 0 0 1pc;
-
-                .text {
-                    padding-right: 0vw;
-                }
-            }
-        }
-
-    }
-}
-
-@media(max-width:293px) {
-    .app {
-        .home-banner {
-            .info {
-                .name {
-                    span {
-                        font-size: 70% !important;
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media(max-width:256px) {
-    .app {
-        .home-banner {
-            .info {
-                .name {
-                    span {
-                        font-size: 60% !important;
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media(max-width:220px) {
-    .app {
-        .home-banner {
-            .info {
-                .name {
-                    span {
-                        font-size: 40% !important;
-                    }
-                }
-
-                .text {
-                    font-size: 40% !important;
-                }
-            }
-        }
-    }
-}
-
-@media(max-width:240px) {
-    .app {
-        .home-banner {
-            .info {
-                margin: 0 0 0 1pc;
-
-                .text {
-                    padding-right: 0vw;
                 }
             }
         }

@@ -1,21 +1,29 @@
 import "./style.scss"
-const imageFiles = import.meta.glob("@/assets/img/web-carousel/*/*.{png,jpg,jpeg,webp}", {eager:true, query:"?url", import:'default'})
-const getImages = (projectId) => {
-    const folder = `/web-carousel/${projectId}/`;
+import { useState } from "react";
+const imageFiles = import.meta.glob("@/assets/img/web-carousel/*/*.{png,jpg,jpeg,webp}", { eager: true, query: "?url", import: 'default' })
 
-    return Object.entries(imageFiles)
-        .filter(([path]) => path.includes(folder))
-        .sort(([a], [b]) => a.localeCompare(b))
-        .map(([, image]) => image);
-};
-//one src
-//getImages('2')[0]
-export default function Card({project}){
-    return(
+export default function Card({ project }) {
+    const getImages = (projectId) => {
+        const folder = `/web-carousel/${projectId}/`;
+
+        return Object.entries(imageFiles)
+            .filter(([path]) => path.includes(folder))
+            .sort(([a], [b]) => a.localeCompare(b))
+            .map(([, image]) => image);
+    };
+    const [currentImage, setCurrentImage] = useState(0);
+    const images = getImages(project.id);
+    return (
         <div className="card" id="project">
             <div className="image">
-                {console.log(project)}
-                <img src={getImages(project.id)[0]} alt="" />
+                <div className="indicators">
+                    {images.map((_, index) => (
+                        <button key={index}
+                            className={index === currentImage ? 'active' : ''}
+                            onClick={() => setCurrentImage(index)} />
+                    ))}
+                </div>
+                <img src={images[currentImage]} />
             </div>
             <div className="info">
                 <span className="title">

@@ -54,7 +54,7 @@ function main() {
 
                         return (
                             <li key={id}>
-                                <a href={url}>
+                                <a href={url} target="_blank" rel="noopener noreferrer">
                                     <Component
                                         style={{
                                             width: '2.5pc',

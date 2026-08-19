@@ -2,7 +2,7 @@ import "./style.scss"
 import { useState } from "react";
 const imageFiles = import.meta.glob("@/assets/img/web-carousel/*/*.{png,jpg,jpeg,webp}", { eager: true, query: "?url", import: 'default' })
 
-export default function Card({ project }) {
+export default function Card({ project, onClick }) {
     const getImages = (projectId) => {
         const folder = `/web-carousel/${projectId}/`;
 
@@ -14,7 +14,7 @@ export default function Card({ project }) {
     const [currentImage, setCurrentImage] = useState(0);
     const images = getImages(project.id);
     return (
-        <div className="card" id="project">
+        <div className="card" id="project" onClick={onClick}>
             <div className="image">
                 <div className="indicators">
                     {images.map((_, index) => (

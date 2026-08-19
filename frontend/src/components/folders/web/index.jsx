@@ -2,7 +2,7 @@ import "./style.scss"
 import { useState } from "react";
 import WebCard from "./cards/index"
 import projects from "@/data/web-projects.json"
-import WebModal from "./modal";
+import WebModal from "./modal/index";
 function main(){
     const [selectedProject, setSelectedProject] = useState(null);
     return(
@@ -13,7 +13,8 @@ function main(){
                 projects.map((project) =>(
                     <WebCard
                     key={project.id}
-                    project={project}/>
+                    project={project}
+                    onClick={() => setSelectedProject(project)}/>
                 ))
             }
             {

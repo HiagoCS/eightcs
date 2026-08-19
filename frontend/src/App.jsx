@@ -18,7 +18,7 @@ function App() {
           {data.map((link) => {
             const Component = links[link.name];
             return (
-              <Route key={link.url} path={link.url} element={<Component />} />
+              <Route key={link.url} path={link.url} element={<Component id="pages"/>} />
             );
           })}
         </Routes>

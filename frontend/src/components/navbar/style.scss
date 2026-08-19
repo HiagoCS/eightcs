@@ -38,8 +38,9 @@
         display: flex;
         align-items: center;
 
-        p {
+        li{
             padding: 0 0.5pc;
+            list-style: none;
         }
     }
 }

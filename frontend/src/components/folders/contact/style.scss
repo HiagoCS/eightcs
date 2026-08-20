@@ -92,12 +92,34 @@
                     padding: 1vh 0;
                     .icon{
                         
-                        width:2vw;
-                        height: 5vh;
+                        width:20px;
+                        height: 20px;
                     }
                     p {
                         margin: 0;
                         overflow-wrap: anywhere;
+                    }
+                }
+            }
+        }
+    }
+    @media (max-width:655px){
+        .contacts{
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            .info{
+                width: 100%;
+            }
+            .frameworks{
+                width: 100%;
+            }
+            .addr{
+                width: 100%;
+                .info{
+                    padding: 0;
+                    .text{
+                        padding: 0;
                     }
                 }
             }

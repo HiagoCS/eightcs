@@ -1,5 +1,8 @@
 import "./style.scss";
 import { useEffect, useState } from "react";
+import ArrowRight from '@/assets/icons/arrow-right-svgrepo-com.svg?react';
+import ArrowLeft from '@/assets/icons/arrow-left-svgrepo-com.svg?react';
+import CloseIcon from '@/assets/icons/close-svgrepo-com.svg?react';
 
 const imageFiles = import.meta.glob(
     "@/assets/img/web-carousel/*/modal/*.{png,jpg,jpeg,webp}",
@@ -70,20 +73,12 @@ export default function WebModal({ project, onClose }) {
 
     return (
         <div className="modal">
-
-            <button
-                className="close"
-                onClick={onClose}
-            >
-                ×
-            </button>
-
-            <button
-                className="previous"
-                onClick={previous}
-            >
-                ‹
-            </button>
+            <div className="close" onClick={onClose}>
+                <CloseIcon style={{width:'2.5vw', height:'2.5vh'}} />
+            </div>
+            <div className="previous" onClick={previous}>
+                <ArrowLeft style={{width:'2.5vw', height:'2.5vh'}} />
+            </div>
 
             <div className="modal-content">
 
@@ -111,14 +106,9 @@ export default function WebModal({ project, onClose }) {
                 </div>
 
             </div>
-
-            <button
-                className="next"
-                onClick={next}
-            >
-                ›
-            </button>
-
+            <div className="next" onClick={next}>
+                <ArrowRight style={{width:'2.5vw', height:'2.5vh'}}></ArrowRight>
+            </div>
         </div>
     );
 }

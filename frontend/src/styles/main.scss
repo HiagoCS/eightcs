@@ -21,6 +21,11 @@ body{
       display:none;
     }
   }
+  @media (max-height: 266px){
+    body{
+      display:none;
+    }
+  }
 }
 body {
   font-family: "Quicksand-Regular";

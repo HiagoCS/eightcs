@@ -21,7 +21,7 @@ function main(){
                 selectedProject &&
                 <WebModal 
                     project={selectedProject}
-                    onClosed={() => setSelectedProject(null)}
+                    onClose={() => setSelectedProject(null)}
                 />
             }
         </div>

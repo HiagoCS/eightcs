@@ -2,6 +2,7 @@ import './style.scss';
 import WebSection from '@/components/folders/web';
 import MobileSection from '@/components/folders/mobile';
 import DesktopSection from '@/components/folders/desktop';
+import ContactSection from '@/components/folders/contact';
 
 import Download from '@/assets/icons/download.svg?react';
 import Project from '@/assets/icons/project.svg?react';
@@ -111,22 +112,29 @@ function main() {
                             <span className="text">
                                 Gostou da plataforma, entre em contato comigo para que possamos conversar sobre o seu projeto.
                             </span>
-                            <span className="link">
-                                Fale Conosco ➡️
-                            </span>
+                            <a href="/#contact-section" className='link'
+                            onClick={() => {
+                                setTimeout(()=>{
+                                    history.replaceState(null, '', window.location.pathname);
+                                }, 1)
+                            }}>Fale Conosco ➡️</a>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div>
-                <WebSection></WebSection>
+                <WebSection/>
             </div>
-            <div id="mobile-section">
-                <MobileSection></MobileSection>
+            <div>
+                <MobileSection/>
             </div>
-            <div id="desktop-section">
-                <DesktopSection></DesktopSection>
+            <div>
+                <DesktopSection/>
+            </div>
+
+            <div>
+                <ContactSection/>
             </div>
         </div>
     )

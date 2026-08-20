@@ -1,0 +1,106 @@
+.app#contact-section {
+    display: flex;
+    align-items: center;
+    width: 100vw;
+
+    .contacts {
+        display: flex;
+        width: 90%;
+        border-radius: 10px;
+        background: #373e49;
+        color: #fff;
+        padding: 2.5vh 5vw;
+        font-family: "Quicksand-Book";
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            width: 25%;
+
+            .title {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                color: #77BDF1;
+
+                h2 {
+                    margin: 0;
+                    font-family: "Quicksand-Bold";
+                }
+
+                h3 {
+                    margin: 0;
+                }
+            }
+
+            .text {
+                overflow-wrap: anywhere;
+
+            }
+        }
+
+        .frameworks {
+            display: flex;
+            flex-direction: column;
+            width: 55%;
+
+            .title {
+                p {
+                    margin: 0;
+                }
+            }
+
+            .icons {
+                margin: 0;
+                display: flex;
+
+                .icon {
+                    margin: 0;
+                    padding: 0;
+                    width: 10vw;
+                    height: 10vh;
+                }
+            }
+        }
+
+        .addr {
+            display: flex;
+            flex-direction: column;
+            width: 20%;
+
+            .title {
+                display: flex;
+
+                margin: 0;
+                padding: 0;
+
+                p {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+
+            .info {
+                display: flex;
+                flex-direction: column;
+                padding-top: 5vh;
+                width: 100%;
+                .text {
+                    display: flex;
+                    align-content: center;
+                    padding: 1vh 0;
+                    .icon{
+                        
+                        width:2vw;
+                        height: 5vh;
+                    }
+                    p {
+                        margin: 0;
+                        overflow-wrap: anywhere;
+                    }
+                }
+            }
+        }
+    }
+}

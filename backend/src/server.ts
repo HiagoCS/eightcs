@@ -1,4 +1,5 @@
 import Fastify = require("fastify");
+const { db } = require("./db/index.js");
 
 const server = Fastify({
     logger: true

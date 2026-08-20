@@ -14,7 +14,7 @@ export default function Card({ project, onClick }) {
     const [currentImage, setCurrentImage] = useState(0);
     const images = getImages(project.id);
     return (
-        <div className="card" id="project" onClick={onClick}>
+        <div className="card" id="project">
             <div className="image">
                 <div className="indicators">
                     {images.map((_, index) => (
@@ -23,9 +23,9 @@ export default function Card({ project, onClick }) {
                             onClick={() => setCurrentImage(index)} />
                     ))}
                 </div>
-                <img src={images[currentImage]} loading="lazy" decoding="async"/>
+                <img src={images[currentImage]} loading="lazy" decoding="async" onClick={onClick}/>
             </div>
-            <div className="info">
+            <div className="info" onClick={onClick}>
                 <span className="title">
                     {project.title}
                 </span>

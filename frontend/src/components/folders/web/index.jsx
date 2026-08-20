@@ -1,7 +1,7 @@
 import "./style.scss"
 import { useState } from "react";
 import WebCard from "./cards/index"
-import projects from "@/data/web-projects.json"
+import projects from "@/data/projects/web-projects.json"
 import WebModal from "./modal/index";
 function main(){
     const [selectedProject, setSelectedProject] = useState(null);

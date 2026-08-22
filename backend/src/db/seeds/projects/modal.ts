@@ -1,7 +1,7 @@
 const { sqlite } = require("../../index");
 
 function modalSeed(){
-    const insert = sqlite.prepare(`INSERT INTO modal(project_id, text, extension) VALUES (?, ?, ?)`);
+    const insert = sqlite.prepare(`INSERT OR IGNORE INTO modal(project_id, text, extension) VALUES (?, ?, ?)`);
     const modals = [
         [1, "tela de login com credencias de email e login, email sendo verificado para segurança dos usuários.", ".png"],
         [1, "frente de caixa com campos de pesquisa para nome, codigo reduzido e codigo de barras. ajuste de filtro, seleção / criação de clientes e edição de produtos em tempo real.", ".png"],

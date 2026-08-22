@@ -38,7 +38,7 @@ const navbarLinks = sqliteTable("navbar_links",{
 });
 const iconsLinks = sqliteTable("icons_links",{
     id: integer("id").primaryKey(),
-    function:text("text").notNull(),
+    function:text("function").notNull(),
     externalUrl:text("external_url").notNull()
 });
 module.exports = {projectType, project, projectModal, navbarLinks, iconsLinks, personalInfos}

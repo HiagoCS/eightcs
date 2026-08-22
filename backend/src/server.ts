@@ -1,15 +1,13 @@
 import Fastify = require("fastify");
-const { db } = require("./db/index.js");
+const getRoute = require("./routes/get/index");
+
 
 const server = Fastify({
     logger: true
 });
 
-server.get("/", async () => {
-    return {
-        message: "EightCS API funcionando!"
-    };
-});
+server.register(getRoute, {prefix:"/api"});
+
 
 server.listen({
     port: 3000

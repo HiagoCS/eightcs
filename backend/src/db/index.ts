@@ -8,8 +8,6 @@ const databasePath = path.resolve(
 
 const sqlite = new DatabaseSync(databasePath);
 
-console.log("DATABASE PATH:", databasePath);
-
 module.exports = {
     sqlite,
     databasePath

@@ -1,8 +1,16 @@
-const {DatabaseSync} = require("node:sqlite");
-const { drizzle } = require("drizzle-orm/node-sqlite");
+const path = require("node:path");
+const { DatabaseSync } = require("node:sqlite");
 
-const sqlite = new DatabaseSync("./database.sqlite");
+const databasePath = path.resolve(
+    __dirname,
+    "../../database.sqlite"
+);
 
-const db = drizzle(sqlite);
+const sqlite = new DatabaseSync(databasePath);
 
-module.exports = { db };
+console.log("DATABASE PATH:", databasePath);
+
+module.exports = {
+    sqlite,
+    databasePath
+};

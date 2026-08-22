@@ -30,6 +30,7 @@ out/
 
 # Drizzle local/generated data
 .drizzle/
+src/db/migrations/
 
 # Storage generated/uploaded files
 storage/

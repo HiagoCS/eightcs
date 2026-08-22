@@ -2,15 +2,15 @@ const {integer, text, sqliteTable} = require("drizzle-orm/sqlite-core");
 //PERSONAL INFOS
 const personalInfos = sqliteTable("infos",{
     id: integer("id").primaryKey(),
-    name:text("name").notNull(),
-    email:text("email"),
-    phone:text("phone"),
-    location:text("location")
+    name:text("name").unique(),
+    email:text("email").unique(),
+    phone:text("phone").unique(),
+    location:text("location").unique()
 });
 //PROJETOS
 const projectType = sqliteTable("project_type",{
     id: integer("id").primaryKey(),
-    type: text("type").notNull(),
+    type: text("type").notNull().unique(),
     status: integer("status",{mode:"boolean"}).notNull()
 });
 const project = sqliteTable("project",{
@@ -23,7 +23,7 @@ const project = sqliteTable("project",{
 });
 const projectModal = sqliteTable("modal",{
     id: integer("id").primaryKey(),
-    projectId: integer("project_id").notNull().references(() => project.typeId),
+    projectId: integer("project_id").notNull().references(() => project.id),
     text: text("text").notNull(),
     extension:text("extension").notNull()
 });

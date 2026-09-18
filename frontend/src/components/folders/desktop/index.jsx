@@ -14,7 +14,9 @@ function main(){
     if(error) return <p>Error: {error.message}</p>
     if(!projects.data?.length) return <p>Nenhum projecto encontrado!</p>
 
-    
+    projects.data.map((project) =>{
+        console.log("project", project)
+    });
     return(
         <div className="app" id="desktop-section">
             

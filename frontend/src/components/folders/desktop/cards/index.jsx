@@ -1,10 +1,10 @@
 import "./style.scss"
 import { useState } from "react";
-const imageFiles = import.meta.glob("@/assets/img/desktop-carousel/*/*.{png,jpg,jpeg,webp}", { eager: true, query: "?url", import: 'default' })
+const imageFiles = import.meta.glob("@/assets/img/projects/*/*.{png,jpg,jpeg,webp}", { eager: true, query: "?url", import: 'default' })
 
 export default function Card({ project, onClick }) {
     const getImages = (projectId) => {
-        const folder = `/desktop-carousel/${projectId}/`;
+        const folder = `/projects/${projectId}/`;
 
         return Object.entries(imageFiles)
             .filter(([path]) => path.includes(folder))

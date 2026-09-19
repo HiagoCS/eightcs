@@ -8,34 +8,30 @@ import { useProjects } from "@/data/hooks/useProjects";
 function main(){
     const [selectedProject, setSelectedProject] = useState(null);
 
-    const { data: projects, isLoading, error } = useProjects(2);
+    const { data: projects, isLoading, error } = useProjects("Mobile");
     console.log(projects)
     if(isLoading) return <p>Loading...</p>
     if(error) return <p>Error: {error.message}</p>
-    if(!projects.data?.length) return <p>Nenhum projecto encontrado!</p>
-
-    projects.data.map((project) =>{
-        console.log("project", project)
-    });
+    if(!projects?.length) return <p>Nenhum projecto encontrado!</p>
     return(
         <div className="app" id="desktop-section">
             
             {
                 
-                projects.data.map((project) =>(
+                projects.map((project) =>(
                     <DesktopCard
                     key={project.id}
                     project={project}
                     onClick={() => setSelectedProject(project)}/>
                 ))
             }
-            {/* {
+            {
                 selectedProject &&
                 <DesktopModal 
                     project={selectedProject}
                     onClose={() => setSelectedProject(null)}
                 />
-            } */}
+            }
         </div>
     )
 }

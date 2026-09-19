@@ -7,10 +7,10 @@ async function projects(fastify: FastifyInstance) {
             `SELECT *
              FROM project
              WHERE status = true`).all();
-        if(projects.length === 0)
+        if (projects.length === 0)
             return reply.code(404).send({
-                message:"Sem Projetos",
-                data:null
+                message: "Sem Projetos",
+                data: null
             });
         reply.code(200).send({
             message: "Successful Request",
@@ -18,66 +18,79 @@ async function projects(fastify: FastifyInstance) {
         });
     });
 
-    fastify.get("/projects/type/:id", async (request, reply) => {
-        const { id } = request.params as { id: string };
-        const projects = sqlite.prepare(
-            `SELECT *
-             FROM project
-             WHERE status = true
-             AND type_id = ${id}`).all();
-        if(projects.length === 0)
+    fastify.get("/projects/type/:type", async (request, reply) => {
+        const { type } = request.params as { type: string };
+
+        const rows = sqlite.prepare(`
+        SELECT
+            p.id,
+            p.title,
+            p.description,
+            p.external_url,
+            p.type_id,
+            p.status,
+
+            m.id AS modal_id,
+            m.project_id AS modal_project_id,
+            m.text AS modal_text,
+            m.extension AS modal_extension
+
+        FROM project p
+
+        INNER JOIN project_type pt
+            ON p.type_id = pt.id
+
+        LEFT JOIN modal m
+            ON m.project_id = p.id
+
+        WHERE pt.type = ?
+        AND p.status = 1
+
+        ORDER BY p.id, m.id
+    `).all(type);
+
+        if (rows.length === 0) {
             return reply.code(404).send({
-                message:"Sem Projetos",
-                data:null
+                message: "Nenhum projeto encontrado",
+                data: []
             });
-        reply.code(200).send({
+        }
+
+        const projects: any[] = [];
+
+        for (const row of rows) {
+
+            let project = projects.find(
+                (project) => project.id === row.id
+            );
+
+            if (!project) {
+                project = {
+                    id: row.id,
+                    title: row.title,
+                    description: row.description,
+                    externalUrl: row.external_url,
+                    typeId: row.type_id,
+                    status: Boolean(row.status),
+                    modal: []
+                };
+
+                projects.push(project);
+            }
+
+            if (row.modal_id !== null) {
+                project.modal.push({
+                    id: row.modal_id,
+                    project_id: row.modal_project_id,
+                    text: row.modal_text,
+                    extension: row.modal_extension
+                });
+            }
+        }
+
+        return reply.code(200).send({
             message: "Successful Request",
             data: projects
-        });
-    });
-
-    fastify.get("/project/:id/modal/identifiers", async(request, reply) =>{
-        const { id } = request.params as { id: string };
-        const modals = sqlite.prepare(
-            `SELECT modal.id as modal_id
-             FROM modal
-             INNER JOIN project ON modal.project_id = project.id
-             WHERE project.id = ${id}`).all();
-        const req = {
-            "total": modals.length,
-            "id_array": [] as number[]
-        };
-        modals.map((data: { modal_id: number }) =>{
-            req["id_array"].push(data.modal_id);
-        });
-        
-        if(modals.length === 0)
-            return reply.code(404).send({
-                message:"Sem Modals",
-                data:null
-            });
-        reply.code(200).send({
-            message: "Successful Request",
-            data: req
-        });
-    });
-
-    fastify.get("/project/:id/modal/:modal_id", async(request, reply) =>{
-        const { id,  modal_id} = request.params as { id: string,  modal_id: string};
-        const modal = sqlite.prepare(
-            `SELECT project.title, modal.text, modal.extension
-             FROM modal
-             INNER JOIN project ON modal.project_id = project.id
-             WHERE project.id = ${id}
-             AND modal.id = ${modal_id}`).get();
-        if(modal.length === 0)
-            return reply.code(404).send({
-                message:"Sem Modal Compativel",
-                data:null
-            });
-        reply.code(200).send({
-            message: "Successful Request",
-            data: modal
         });
     });
 }

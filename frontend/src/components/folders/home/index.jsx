@@ -9,7 +9,7 @@ import Web from '@/assets/icons/web.svg?react';
 import Mobile from '@/assets/icons/android-solid.svg?react';
 import Desktop from '@/assets/icons/desktop.svg?react';
 import Contact from '@/assets/icons/contact.svg?react';
-export default function homePage() {
+export default function HomePage() {
     return (
         <div className="app">
             <div className="home-banner">
@@ -124,7 +124,7 @@ export default function homePage() {
                 </div>
             </div>
             {data.map((link) => {
-                if (links[link.name] && link.name.toLowerCase() !== "homePage".toLowerCase() && link.type_id) {
+                if (links[link.name] && link.url !== "/" && link.type_id) {
                     const Component = links[link.name];
                     return (
                         <Component id="pages" type={link.name.toLowerCase().replace("page","")} />
@@ -132,7 +132,7 @@ export default function homePage() {
                 }
             })}
             {data.map((link) => {
-                if (links[link.name] && link.name.toLowerCase() !== "homePage".toLowerCase() && !link.type_id) {
+                if (links[link.name] && link.url !== "/" && !link.type_id) {
                     const Component = links[link.name];
                     return (
                         <Component id="pages" class={`${link.name.toLowerCase().replace("page","")}`}/>

@@ -1,19 +1,21 @@
-import { BrowserRouter as Router, Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-
-import Home from '@/assets/icons/home-1-svgrepo-com.svg?react';
-import HomeActive from '@/assets/icons/home-page-svgrepo-com.svg?react';
-import Menu from '@/assets/icons/menu-rounded.svg?react';
-import { data } from '@/data/links';
-import contacts from '@/data/contacts/index.json';
-import { contactIcons } from '@/data/contacts/functions.jsx';
+import { BrowserRouter as Router, Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
 import './style.scss';
+import Home from '@/assets/icons/home-1-svgrepo-com.svg?react';
+import HomeActive from '@/assets/icons/home-page-svgrepo-com.svg?react';
+import Menu from '@/assets/icons/menu-rounded.svg?react';
+
+import { useDynamicLinks  } from '@/data/links/functions.jsx';
+import contacts from '@/data/contacts/index.json';
+import { contactIcons } from '@/data/contacts/functions.jsx';
+
 function main() {
     const [activeLink, setActiveLink] = useState(useLocation().pathname);
     const [toggleMenu, setToggleMenu] = useState('');
-    console.log('activeLink', useLocation().pathname);
+
+    const { links, isLoading, data } = useDynamicLinks();
+    if(isLoading) return console.log("<p>Loading...</p>")
     return (
         <>
             <div className={`main ${toggleMenu}`}>
@@ -71,7 +73,6 @@ function main() {
                 <ul className='icons'>
                     {contacts.map(({ id, icon, url }) => {
                         const Component = contactIcons[icon];
-
                         return (
                             <li key={id}>
                                 <a href={url} target="_blank" rel="noopener noreferrer">

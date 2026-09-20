@@ -1,6 +1,5 @@
 import './style.scss';
-import { data } from '@/data/links';
-import { links } from '@/data/links/functions.jsx';
+import { useDynamicLinks  } from '@/data/links/functions.jsx';
 import Download from '@/assets/icons/download.svg?react';
 import Project from '@/assets/icons/project.svg?react';
 import Laptop from '@/assets/icons/laptop-outline.svg?react';
@@ -10,6 +9,8 @@ import Mobile from '@/assets/icons/android-solid.svg?react';
 import Desktop from '@/assets/icons/desktop.svg?react';
 import Contact from '@/assets/icons/contact.svg?react';
 export default function HomePage() {
+    const { links, isLoading, data } = useDynamicLinks();
+    if(isLoading) return console.log("<p>Loading...</p>")
     return (
         <div className="app">
             <div className="home-banner">
@@ -124,18 +125,20 @@ export default function HomePage() {
                 </div>
             </div>
             {data.map((link) => {
-                if (links[link.name] && link.url !== "/" && link.type_id) {
-                    const Component = links[link.name];
+                if (links[link.function] && link.url !== "/" && link.type_id) {
+                    const Component = links[link.function];
+                    const type = link.function.toLowerCase().replace("page","");
                     return (
-                        <Component id="pages" type={link.name.toLowerCase().replace("page","")} />
+                        <Component id="pages" key={type} type={type} />
                     );
                 }
             })}
             {data.map((link) => {
-                if (links[link.name] && link.url !== "/" && !link.type_id) {
-                    const Component = links[link.name];
+                if (links[link.function] && link.url !== "/" && !link.type_id) {
+                    const Component = links[link.function];
+                    const type = link.function.toLowerCase().replace("page","");
                     return (
-                        <Component id="pages" class={`${link.name.toLowerCase().replace("page","")}`}/>
+                        <Component id="pages" key={type} type={type} />
                     );
                 }
             })}

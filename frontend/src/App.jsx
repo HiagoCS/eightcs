@@ -1,14 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import '@/styles/main.scss'
 import '@/styles/root.scss'
-import { data } from '@/data/links';
-import { links } from '@/data/links/functions.jsx';
+import { useDynamicLinks  } from '@/data/links/functions.jsx';
 
 import Banner from '@/components/banner';
 import NavBar from '@/components/navbar';
 
 
 function App() {
+  const { links, isLoading, data } = useDynamicLinks();
+  if(isLoading) return console.log("<p>Loading...</p>")
   return (
     <div className="App">
       <Router>
@@ -16,10 +17,10 @@ function App() {
         <NavBar></NavBar>
         <Routes>
           {data.map((link) => {
-            if (links[link.name]) {
-              const Component = links[link.name];
+            if (links[link.function]) {
+              const Component = links[link.function];
               return (
-                <Route key={link.url} path={link.url} element={<Component id="pages" type={link.name.toLowerCase().replace("page","")} />} />
+                <Route key={link.url} path={link.url} element={<Component id="pages" type={link.function.toLowerCase().replace("page","")} />} />
               );
             }
           })}

@@ -5,30 +5,40 @@ import { useLocation } from 'react-router-dom';
 import Card from "./cards/index"
 import Modal from "./modal/index";
 import { useProjects } from "@/data/hooks/useProjects";
-export default function projectPage({type}) {
+import { useProjectImages } from "@/data/hooks/useProjectImages";
+export default function projectPage({ type }) {
     const [selectedProject, setSelectedProject] = useState(null);
+    const [imagesGlob, setImagesGlob] = useState([]);
     const { data: projects, isLoading, error } = useProjects(type);
-    if(isLoading && useLocation().pathname !== "/") return <p>Loading...</p>
-    if(error && useLocation().pathname !== "/") return <p>{error.message}</p>
-    if(!projects?.length) return (useLocation().pathname !== "/" ? <p>Nenhum projeto encontrado!</p> : null)
-    
-    return(
+    const imageQueries = useProjectImages(projects);
+    if (isLoading && useLocation().pathname !== "/") return <p>Loading...</p>
+    if (error && useLocation().pathname !== "/") return <p>{error.message}</p>
+    if (!projects?.length) return (useLocation().pathname !== "/" ? <p>Nenhum projeto encontrado!</p> : null)
+    return (
         <div className={`project ${type}`}>
-            
+
             {
-                
-                projects.map((project) =>(
-                    <Card
-                    key={project.id}
-                    project={project}
-                    onClick={() => setSelectedProject(project)}/>
-                ))
+
+                projects.map((project, index) => {
+                    const images = imageQueries[index]?.data?.images ?? [];
+                    return(
+                        <Card
+                            key={project.id}
+                            project={project}
+                            images={images}
+                            onClick={() => {
+                                setSelectedProject(project)
+                                setImagesGlob(imageQueries[index]?.data?.modal ?? [])
+                            }} />
+                    )
+                })
             }
             {
                 selectedProject &&
-                <Modal 
+                <Modal
                     project={selectedProject}
                     onClose={() => setSelectedProject(null)}
+                    images={imagesGlob}
                 />
             }
         </div>

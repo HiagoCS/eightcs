@@ -1,18 +1,8 @@
 import "./style.scss"
 import { useState } from "react";
-const imageFiles = import.meta.glob("@/assets/img/projects/*/*.{png,jpg,jpeg,webp}", { eager: true, query: "?url", import: 'default' })
 
-export default function Card({ project, onClick }) {
-    const getImages = (projectId) => {
-        const folder = `/projects/${projectId}/`;
-
-        return Object.entries(imageFiles)
-            .filter(([path]) => path.includes(folder))
-            .sort(([a], [b]) => a.localeCompare(b))
-            .map(([, image]) => image);
-    };
+export default function Card({ project, onClick, images }) {
     const [currentImage, setCurrentImage] = useState(0);
-    const images = getImages(project.id);
     return (
         <div className="card" id="project">
             <div className="image">
@@ -23,7 +13,7 @@ export default function Card({ project, onClick }) {
                             onClick={() => setCurrentImage(index)} />
                     ))}
                 </div>
-                <img src={images[currentImage]} loading="lazy" decoding="async" onClick={onClick}/>
+                <img src={`${import.meta.env.VITE_API_URL}${images[currentImage]}`} loading="lazy" decoding="async" onClick={onClick} />
             </div>
             <div className="info" onClick={onClick}>
                 <span className="title">

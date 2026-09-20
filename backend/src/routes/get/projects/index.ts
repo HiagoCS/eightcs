@@ -1,23 +1,49 @@
 import type { FastifyInstance } from "fastify";
 const { sqlite } = require("../../../db/index");
+import path = require("node:path");
+import fs = require("node:fs/promises");
 
 async function projects(fastify: FastifyInstance) {
-    fastify.get("/projects", async (request, reply) => {
-        const projects = sqlite.prepare(
-            `SELECT *
-             FROM project
-             WHERE status = true`).all();
-        if (projects.length === 0)
-            return reply.code(404).send({
-                message: "Sem Projetos",
-                data: null
-            });
-        reply.code(200).send({
-            message: "Successful Request",
-            data: projects
-        });
-    });
+    fastify.get("/projects/:id/images", async (request, reply) => {
+        const { id } = request.params as { id: string };
 
+        const folder = path.join(
+            process.cwd(),
+            "storage/img/projects",
+            id
+        );
+        const modalFolder = path.join(
+            process.cwd(),
+            `storage/img/projects`,
+            id,
+            "modal"
+        );
+        try {
+            const files = await fs.readdir(folder);
+            const modalFiles = await fs.readdir(modalFolder);
+            const images = files
+                .filter(file =>
+                    /\.(png|jpe?g|webp)$/i.test(file)
+                )
+                .sort((a, b) => a.localeCompare(b))
+                .map(file => `/storage/img/projects/${id}/${file}`);
+            const modal = modalFiles.filter(file =>
+                    /\.(png|jpe?g|webp)$/i.test(file)
+                )
+                .sort((a, b) => a.localeCompare(b))
+                .map(file => `/storage/img/projects/${id}/modal/${file}`);
+
+            return {
+                message: "Successful Request",
+                data: {'images' : images, 'modal': modal}
+            };
+        } catch {
+            return reply.code(404).send({
+                message: "Pasta de imagens não encontrada",
+                data: []
+            });
+        }
+    });
     fastify.get("/projects/type/:type", async (request, reply) => {
         const { type } = request.params as { type: string };
 
@@ -59,7 +85,7 @@ async function projects(fastify: FastifyInstance) {
         const projects: any[] = [];
         let refactorModal = 1;
         for (const row of rows) {
-            
+
             let project = projects.find(
                 (project) => project.id === row.id
             );

@@ -10,9 +10,9 @@ import PhpIcon from "@/assets/icons/frameworks/php-svgrepo-com.svg?react"
 import EmailIcon from "@/assets/icons/email-1-svgrepo-com.svg?react"
 import PhoneIcon from "@/assets/icons/phone-call-svgrepo-com.svg?react"
 import PinIcon from "@/assets/icons/location-pin-svgrepo-com.svg?react"
-function main(){
+export default function ContactPage(){
     return(
-        <div className="app" id="contact-section">
+        <div className="app contact">
             <div className="contacts">
                 <div className="info">
                     <div className="title">
@@ -60,5 +60,3 @@ function main(){
         </div>
     )
 }
-
-export default main

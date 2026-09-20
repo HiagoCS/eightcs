@@ -50,16 +50,16 @@ async function projects(fastify: FastifyInstance) {
     `).all(type);
 
         if (rows.length === 0) {
-            return reply.code(404).send({
+            return reply.code(200).send({
                 message: "Nenhum projeto encontrado",
                 data: []
             });
         }
 
         const projects: any[] = [];
-
+        let refactorModal = 1;
         for (const row of rows) {
-
+            
             let project = projects.find(
                 (project) => project.id === row.id
             );
@@ -80,7 +80,7 @@ async function projects(fastify: FastifyInstance) {
 
             if (row.modal_id !== null) {
                 project.modal.push({
-                    id: row.modal_id,
+                    id: refactorModal++,
                     project_id: row.modal_project_id,
                     text: row.modal_text,
                     extension: row.modal_extension

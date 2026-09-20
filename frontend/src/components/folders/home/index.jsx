@@ -1,9 +1,6 @@
 import './style.scss';
-import WebSection from '@/components/folders/web';
-import MobileSection from '@/components/folders/mobile';
-import DesktopSection from '@/components/folders/desktop';
-import ContactSection from '@/components/folders/contact';
-
+import { data } from '@/data/links';
+import { links } from '@/data/links/functions.jsx';
 import Download from '@/assets/icons/download.svg?react';
 import Project from '@/assets/icons/project.svg?react';
 import Laptop from '@/assets/icons/laptop-outline.svg?react';
@@ -12,7 +9,7 @@ import Web from '@/assets/icons/web.svg?react';
 import Mobile from '@/assets/icons/android-solid.svg?react';
 import Desktop from '@/assets/icons/desktop.svg?react';
 import Contact from '@/assets/icons/contact.svg?react';
-function main() {
+export default function homePage() {
     return (
         <div className="app">
             <div className="home-banner">
@@ -61,12 +58,13 @@ function main() {
                             <span className="text">
                                 Aplicações modernas, responsivas e otimizadas para entregar a melhor experiência na web.
                             </span>
-                            <a href="/#web-section" className='link'
-                            onClick={() => {
-                                setTimeout(()=>{
-                                    history.replaceState(null, '', window.location.pathname);
-                                }, 1)
-                            }}>Ver Projetos ➡️</a>
+                            <a className='link'
+                                onClick={() => {
+                                    const el = document.querySelector(".project.web");
+                                    if (el) {
+                                        el.scrollIntoView({ behavior: "smooth", block: "center"});
+                                    }
+                                }}>Ver Projetos ➡️</a>
                         </div>
                     </div>
                     <div className="card mobile">
@@ -75,15 +73,16 @@ function main() {
                         </div>
                         <div className="info">
                             <span className="title">Mobile</span>
-                            <span className="text"> 
+                            <span className="text">
                                 Apps para IOS e Android com foco em performance, usabilidade e design moderno.
                             </span>
-                            <a href="/#mobile-section" className='link'
-                            onClick={() => {
-                                setTimeout(()=>{
-                                    history.replaceState(null, '', window.location.pathname);
-                                }, 1)
-                            }}>Ver Projetos ➡️</a>
+                            <a className='link'
+                                onClick={() => {
+                                    const el = document.querySelector(".project.mobile");
+                                    if (el) {
+                                        el.scrollIntoView({ behavior: "smooth", block: "center"});
+                                    }
+                                }}>Ver Projetos ➡️</a>
                         </div>
                     </div>
                     <div className="card desktop">
@@ -95,12 +94,13 @@ function main() {
                             <span className="text">
                                 Soluções desktop utilizando tecnologias modernas e frameworks populares para atender às necessidades do usuário.
                             </span>
-                            <a href="/#desktop-section" className='link'
-                            onClick={() => {
-                                setTimeout(()=>{
-                                    history.replaceState(null, '', window.location.pathname);
-                                }, 1)
-                            }}>Ver Projetos ➡️</a>
+                            <a className='link'
+                                onClick={() => {
+                                    const el = document.querySelector(".project.desktop");
+                                    if (el) {
+                                        el.scrollIntoView({ behavior: "smooth", block: "center"});
+                                    }
+                                }}>Ver Projetos ➡️</a>
                         </div>
                     </div>
                     <div className="card contact">
@@ -112,32 +112,33 @@ function main() {
                             <span className="text">
                                 Gostou da plataforma, entre em contato comigo para que possamos conversar sobre o seu projeto.
                             </span>
-                            <a href="/#contact-section" className='link'
-                            onClick={() => {
-                                setTimeout(()=>{
-                                    history.replaceState(null, '', window.location.pathname);
-                                }, 1)
-                            }}>Fale Conosco ➡️</a>
+                            <a className='link'
+                                onClick={() => {
+                                    const el = document.querySelector(".app.contact");
+                                    if (el) {
+                                        el.scrollIntoView({ behavior: "smooth", block: "center"});
+                                    }
+                                }}>Fale Conosco ➡️</a>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div>
-                <WebSection/>
-            </div>
-            <div>
-                <MobileSection/>
-            </div>
-            <div>
-                <DesktopSection/>
-            </div>
-
-            <div>
-                <ContactSection/>
-            </div>
+            {data.map((link) => {
+                if (links[link.name] && link.name.toLowerCase() !== "homePage".toLowerCase() && link.type_id) {
+                    const Component = links[link.name];
+                    return (
+                        <Component id="pages" type={link.name.toLowerCase().replace("page","")} />
+                    );
+                }
+            })}
+            {data.map((link) => {
+                if (links[link.name] && link.name.toLowerCase() !== "homePage".toLowerCase() && !link.type_id) {
+                    const Component = links[link.name];
+                    return (
+                        <Component id="pages" class={`${link.name.toLowerCase().replace("page","")}`}/>
+                    );
+                }
+            })}
         </div>
     )
 }
-
-export default main

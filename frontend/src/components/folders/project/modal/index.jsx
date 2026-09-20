@@ -5,7 +5,7 @@ import ArrowLeft from '@/assets/icons/arrow-left-svgrepo-com.svg?react';
 import CloseIcon from '@/assets/icons/close-svgrepo-com.svg?react';
 
 const imageFiles = import.meta.glob(
-    "@/assets/img/mobile-carousel/*/modal/*.{png,jpg,jpeg,webp}",
+    "@/assets/img/projects/*/modal/*.{png,jpg,jpeg,webp}",
     {
         eager: true,
         query: "?url",
@@ -14,7 +14,7 @@ const imageFiles = import.meta.glob(
 );
 
 function getModalImage(projectId, modalId, extension) {
-    const target = `/mobile-carousel/${projectId}/modal/${modalId}${extension}`;
+    const target = `/projects/${projectId}/modal/${modalId}${extension}`;
 
     const image = Object.entries(imageFiles).find(
         ([path]) => path.includes(target)
@@ -23,7 +23,7 @@ function getModalImage(projectId, modalId, extension) {
     return image ? image[1] : null;
 }
 
-export default function MobileModal({ project, onClose }) {
+export default function modal({ project, onClose }) {
 
     const [currentIndex, setCurrentIndex] = useState(0);
 

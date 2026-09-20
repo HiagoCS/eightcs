@@ -1,13 +1,19 @@
-import HomePage from '@/components/folders/home';
-import WebPage from '@/components/folders/web';
-import MobilePage from '@/components/folders/mobile';
-import DesktopPage from '@/components/folders/desktop';
-import ContactPage from '@/components/folders/contact';
-
-export const links = {
-    HomePage: HomePage,
-    WebPage: WebPage,
-    MobilePage: MobilePage,
-    DesktopPage: DesktopPage,
-    ContactPage: ContactPage
-}
+import { data } from '@/data/links';
+const pagesComponents = import.meta.glob("@/components/folders/*/index.jsx", { eager: true, import: 'default' });
+const links = {}
+const getFunctions = () => {
+    return Object.entries(pagesComponents)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([, jsx]) => jsx);
+};
+const functions = getFunctions();
+data.map((link, index) => {
+    if(link.type_id){
+        links[data[index]?.name] = functions[functions.findIndex(func => func.name === 'projectPage')];
+    }
+    else if(!link.type_id && functions[functions.findIndex(func => func.name.toLowerCase() === data[index]?.name.toLowerCase())]){
+        links[data[index]?.name] = functions[functions.findIndex(func => func.name.toLowerCase() === data[index]?.name.toLowerCase())];
+    }
+    
+})
+export { links };

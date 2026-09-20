@@ -1,29 +1,35 @@
 {
     "data": [
         {
+        "label": "Contato",
+        "name": "ContactPage",
+        "url": "/contact",
+        "type_id": null
+        },
+        {
         "label": "Início",
         "name": "HomePage",
-        "url": "/"
+        "url": "/",
+        "type_id": null
         },
         {
         "label": "Web",
         "name": "WebPage",
-        "url": "/apps/web"
+        "url": "/apps/web",
+        "type_id": 1
         },
         {
         "label": "Mobile",
         "name": "MobilePage",
-        "url": "/apps/mobile"
+        "url": "/apps/mobile",
+        "type_id": 2
         },
         {
         "label": "Desktop",
         "name": "DesktopPage",
-        "url": "/apps/desktop"
-        },
-        {
-        "label": "Contato",
-        "name": "ContactPage",
-        "url": "/contact"
+        "url": "/apps/desktop",
+        "type_id": 3
         }
+        
     ]
 }

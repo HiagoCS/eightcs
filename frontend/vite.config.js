@@ -12,4 +12,11 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    minify: 'terser', // Força o uso do Terser para podermos configurar a minificação
+    terserOptions: {
+      keep_fnames: true, // OBRIGATÓRIO: Impede que o Vite mude o nome das suas funções/componentes (ex: HomePage continuará sendo HomePage)
+      keep_classnames: true
+    }
+  }
 })

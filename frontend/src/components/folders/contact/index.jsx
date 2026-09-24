@@ -10,7 +10,13 @@ import PhpIcon from "@/assets/icons/frameworks/php-svgrepo-com.svg?react"
 import EmailIcon from "@/assets/icons/email-1-svgrepo-com.svg?react"
 import PhoneIcon from "@/assets/icons/phone-call-svgrepo-com.svg?react"
 import PinIcon from "@/assets/icons/location-pin-svgrepo-com.svg?react"
+
+import { useInfos } from "@/data/hooks/useInfos";
 export default function ContactPage(){
+    const { data: infos, isLoading, error } = useInfos();
+    if (isLoading) return console.log("Loading...")
+    if (error) return console.log(error.message)
+    if (!infos) return console.log("Nenhuma informação de cliente encontrada!")
     return(
         <div className="app contact">
             <div className="contacts">
@@ -44,15 +50,15 @@ export default function ContactPage(){
                     <div className="info">
                         <div className="text">
                             <EmailIcon className="icon"/>
-                            <p>contato@gmail.com</p>
+                            <p>{infos['email']}</p>
                         </div>
                         <div className="text">
                             <PhoneIcon className="icon"/>
-                            <p>(11)9 5826-7059</p>
+                            <p>{infos['phone']}</p>
                         </div>
                         <div className="text">
                             <PinIcon className="icon"/>
-                            <p>São Paulo, SP</p>
+                            <p>{infos['location']}</p>
                         </div>
                     </div>
                 </div>

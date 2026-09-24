@@ -4,7 +4,7 @@ import 'dotenv/config';
 import path = require("node:path");
 import fastifyStatic = require("@fastify/static");
 const getRoute = require("./routes/get/index");
-const port = Number(process.env.FASTIFY_API_PORT || 3000)
+const port = Number(process.env.PORT || process.env.FASTIFY_API_PORT || 3000);
 
 const server = Fastify({
     logger: true

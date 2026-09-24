@@ -6,7 +6,7 @@ interface infosResponse {
 export async function getInfos(): Promise<infos[]> {
 
     const response = await fetch(
-        `http://localhost:3000/api/infos`
+        `${(import.meta as ImportMeta & { env: { VITE_API_URL: string } }).env.VITE_API_URL}/api/infos`
     );
 
     const result: infosResponse = await response.json();

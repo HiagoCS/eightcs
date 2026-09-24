@@ -6,7 +6,7 @@ interface NavbarLinksResponse {
 export async function getNavbarLinks(): Promise<navbarLink[]> {
 
     const response = await fetch(
-        `http://localhost:3000/api/pages`
+        `${(import.meta as ImportMeta & { env: { VITE_API_URL: string } }).env.VITE_API_URL}/api/pages`
     );
 
     const result: NavbarLinksResponse = await response.json();

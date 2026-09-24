@@ -6,7 +6,7 @@ interface ProjectsResponse {
 export async function getProjects(type: string): Promise<Project[]> {
 
     const response = await fetch(
-        `http://localhost:3000/api/projects/type/${type.toLowerCase()}`
+        `${(import.meta as ImportMeta & { env: { VITE_API_URL: string } }).env.VITE_API_URL}/api/projects/type/${type.toLowerCase()}`
     );
 
     const result: ProjectsResponse = await response.json();

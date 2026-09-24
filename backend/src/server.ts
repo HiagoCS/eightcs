@@ -1,8 +1,10 @@
 import Fastify = require("fastify");
 import cors = require("@fastify/cors");
+import 'dotenv/config';
 import path = require("node:path");
 import fastifyStatic = require("@fastify/static");
 const getRoute = require("./routes/get/index");
+const port = Number(process.env.FASTIFY_API_PORT || 3000)
 
 const server = Fastify({
     logger: true
@@ -15,6 +17,6 @@ server.register(fastifyStatic, {
 });
 
 server.listen({
-    port: 3000,
-    host:"localhost"
+    port: port,
+    host: process.env.FASTIFY_API_HOST || "0.0.0.0"
 });

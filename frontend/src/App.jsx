@@ -9,7 +9,7 @@ import NavBar from '@/components/navbar';
 
 function App() {
   const { links, isLoading, data } = useDynamicLinks();
-  if(isLoading) return console.log("<p>Loading...</p>")
+  if(isLoading) return <div className="loading-screen">Loading System...</div>;
   return (
     <div className="App">
       <Router>

@@ -15,13 +15,8 @@ body{
   overflow-x:hidden;
 }
 :root{
-  min-width:221px;
-  @media (max-width: 221px){
-    body{
-      display:none;
-    }
-  }
-  @media (max-height: 266px){
+  min-width:320px;
+  @media (max-width: 320px){
     body{
       display:none;
     }

@@ -1,21 +1,145 @@
 @use "@/styles/root.scss" as *;
+
 html {
     scroll-behavior: smooth;
 }
+
 .app {
     display: flex;
     flex-direction: column;
 
+    .home-banner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 0.1fr);
+        align-items: center;
+        gap: 2rem;
+
+        padding: 4rem clamp(2rem, 7vw, 7rem);
+
+        background: linear-gradient(120deg,
+                #f8fcff,
+                #eaf6ff);
+
+        .banner-content {
+            min-width: 0;
+            z-index: 1000;
+            @media (max-width: 511px) {
+                width: 100vw;
+                height: auto;
+                
+            }
+            span{
+                @media (max-width: 511px) {
+                    position: absolute;
+                    padding: 1px;
+                    width: 85vw;
+                    text-align: center;
+                    font-size: clamp(18px, 2vw, 54px);
+                }
+            }
+            h1 {
+                font-size: clamp(18px, 3vw, 54px);
+                @media (max-width: 511px) {
+                    width: 85vw;
+                    text-align: center;
+                    font-size: clamp(18px, 5vw, 54px);
+                }
+            }
+
+            h2 {
+                font-size: clamp(18px, 2vw, 54px);
+                @media (max-width: 511px) {
+                    width: 85vw;
+                    text-align: center;
+                    font-size: clamp(18px, 4vw, 54px);
+                }
+            }
+
+            p {
+                font-size: clamp(8px, 1vw, 24px);
+                overflow-wrap: anywhere;
+            }
+
+            @media (max-width: 606px) {
+                p {
+                    display: none;
+                }
+            }
+
+            .banner-buttons {
+                display: flex;
+                gap: 1.5rem;
+                flex-wrap: nowrap;
+                @media (max-width: 511px) {
+                    position: absolute;
+                    width: 85vw;
+                    justify-content: space-around;
+                }
+                button {
+                    min-width: 12vw;
+                    height: 6vh;
+                    background: none;
+                    border: 2px solid $blue-color;
+                    border-radius: 5px;
+                    font-family: "Quicksand-Bold";
+                    font-size: clamp(6px, 1vw, 18px);
+                    overflow-wrap: anywhere;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    &:hover {
+                        background-color: $blue-color;
+                        color: #ffffff;
+                    }
+
+                    @media (max-width:860px) {
+                        display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            span{
+                                font-size: 0;
+                            }
+                            .icon {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                            }
+                    }
+                }
+            }
+        }
+
+        .banner-illustration {
+            width: min(100%, 600px);
+            justify-self: center;
+            z-index: 900;
+            transition: opacity 0.25s ease, position 0.25s ease;
+            @media (max-width: 511px) {
+                position: absolute;
+                opacity: 50%;
+                
+            }
+        }
+
+        .banner-illustration svg {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    }
     .home {
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 2rem;
 
+        padding: 4rem clamp(2rem, 7vw, 7rem);
         .home-title {
             font-family: 'Quicksand-Bold';
             font-size: 24px;
             margin: 2vh 0 0 0;
-            white-space:nowrap;
+            white-space: nowrap;
         }
 
         .cards-display {
@@ -81,7 +205,7 @@ html {
                         font-family: 'Quicksand-Bold';
                         color: $blue-color;
                         font-size: 65%;
-                        cursor:pointer;
+                        cursor: pointer;
                         text-decoration: none;
                     }
                 }
@@ -90,127 +214,5 @@ html {
         }
     }
 
-    .home-banner {
-        display: flex;
-        justify-content: space-between;
-        height: auto;
-        padding: 5vh 0;
-        background: $blue-color;
-        background: linear-gradient(230deg, rgba(119, 189, 241, 0.25) 0%, rgba(176, 215, 245, 0.5) 50%, rgba(207, 202, 202, 1) 100%);
-
-        .images {
-            width: 50%;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-        }
-
-        .info {
-            width: 40%;
-            display: flex;
-            align-content: space-between;
-            justify-content: space-around;
-            flex-direction: column;
-            margin: 0 0 0 5vw;
-            font-size: clamp(12px, 1.5vw, 24px);
-            .hello {
-                color: #000000;
-                white-space: nowrap;
-            }
-
-            .name {
-                font-size: clamp(12px, 1.5vw, 24px);
-                font-family: 'Quicksand-Bold';
-            }
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-
-            span {
-                &.all {
-                    button{
-                        font-size: clamp(6px, 1vw, 18px);
-                    }
-                    .icon {
-                        display: none;
-                    }
-                }
-
-                &.cv {
-                    .icon{
-                        width: clamp(20px, 5vw, 40px);
-                        height: clamp(20px, 5vw, 40px);
-                    }
-                    button {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        font-size: clamp(6px, 1vw, 18px);
-                    }
-                }
-
-                button {
-                    width: 12vw;
-                    height: 6vh;
-                    background: none;
-                    border: 2px solid $blue-color;
-                    border-radius: 5px;
-                    font-family: "Quicksand-Bold";
-
-                    &:hover {
-                        background-color: $blue-color;
-                        color: #ffffff;
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media (max-width:895px) {
-    .app {
-        .home-banner {
-            .info {
-                .buttons {
-                    .cv {
-
-                        button {
-                            font-size: 0;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media (max-width:860px) {
-    .app {
-        .home-banner {
-            .info {
-                .buttons {
-                    .all {
-
-                        button {
-                            font-size: 0%;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-
-                            .icon {
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+    
 }

@@ -5,6 +5,7 @@ import Project from '@/assets/icons/project.svg?react';
 import Laptop from '@/assets/icons/laptop-outline.svg?react';
 import Cellphone from '@/assets/icons/cellphone.svg?react';
 
+import BannerIllustration from './BannerComponent';
 import cards from '@/data/cards/index.json';
 import { cardsIcons } from '@/data/cards/functions.jsx';
 export default function HomePage() {
@@ -14,37 +15,32 @@ export default function HomePage() {
     return (
         <div className="app">
             <div className="home-banner">
-                <div className="info">
-                    <div className="hello">
-                        <span>Olá, meu nome é</span>
-                    </div>
-                    <div className="name">
-                        <span style={{ fontSize: '3pc', fontFamily: 'Quicksand-Bold' }}>Hiago Costa Santos</span>
-                    </div>
-                    <div className="text">
-                        <span>Desenvolvedor Full-Stack formado em Análise e Desenvolvimento de Sistemas pela instituição Centro Paula Souza</span>
-                    </div>
-                    <div className="buttons">
-                        <span className="all">
-                            <button>
-                                <Project className="icon" style={{ width: '1.2pc', height: '1.5pc' }} />
-                                O que é 8CS?
-                            </button>
-                        </span>
-                        <span className="cv">
-                            <button title="Baixar Currículo">
-                                <Download className="icon" style={{ width: '1.2pc', height: '1.5pc' }} />
-                                Baixar Currículo
-                            </button>
-                        </span>
+
+                <div className="banner-content">
+                    <span>Olá, meu nome é</span>
+
+                    <h1>Hiago Costa Santos</h1>
+
+                    <h2>Desenvolvedor Full-Stack</h2>
+
+                    <p>
+                        Desenvolvedor Full-Stack formado em Análise e
+                        Desenvolvimento de Sistemas.
+                    </p>
+
+                    <div className="banner-buttons">
+                        <button>
+                            <Project className="icon" style={{ width: '1.2pc', height: '1.5pc' }} />
+                            <span>O que é 8CS?</span>
+                        </button>
+                        <button>
+                            <Download className="icon" style={{ width: '1.2pc', height: '1.5pc' }} />
+                            <span>Baixar Currículo</span>
+                        </button>
                     </div>
                 </div>
-                <div className="images">
-                    <div className="icon">
-                        <Laptop className="lap" style={{ width: '15vw', height: '30vh' }} />
-
-                        <Cellphone className="cell" style={{ width: '15vw', height: '30vh' }} />
-                    </div>
+                <div className="banner-illustration">
+                    <BannerIllustration />
                 </div>
             </div>
             <div className="home">

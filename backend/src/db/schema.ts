@@ -36,4 +36,15 @@ const navbarLinks = sqliteTable("navbar_links",{
     url: text("url").notNull(),
     typeId: integer("type_id").default(null).references(() => projectType.id),
 });
-module.exports = {projectType, project, projectModal, navbarLinks, personalInfos}
+
+//PAGES CARDS
+const homeCards = sqliteTable("home_cards",{
+    id: integer("id").primaryKey(),
+    title: text("title").notNull(),
+    text: text("text").notNull(),
+    class: text("class").notNull(),
+    icon: text("icon").notNull(),
+    linkId: integer("link_id").references(() => navbarLinks.id),
+    typeId: integer("type_id").default(null).references(() => projectType.id),
+});
+module.exports = {projectType, project, projectModal, navbarLinks, personalInfos, homeCards}

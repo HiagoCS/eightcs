@@ -36,9 +36,4 @@ const navbarLinks = sqliteTable("navbar_links",{
     url: text("url").notNull(),
     typeId: integer("type_id").default(null).references(() => projectType.id),
 });
-const iconsLinks = sqliteTable("icons_links",{
-    id: integer("id").primaryKey(),
-    function:text("function").notNull(),
-    externalUrl:text("external_url").notNull()
-});
-module.exports = {projectType, project, projectModal, navbarLinks, iconsLinks, personalInfos}
+module.exports = {projectType, project, projectModal, navbarLinks, personalInfos}

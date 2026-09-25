@@ -11,15 +11,6 @@ async function links(fastify: FastifyInstance) {
             data:pages
         };
     });
-    fastify.get("/icons", async () => {
-        const icons = sqlite.prepare(`
-            SELECT * 
-            FROM icons_links`).all();
-        return {
-            message: "Successful Request",
-            data:icons
-        };
-    });
 }
 
 module.exports = (links);

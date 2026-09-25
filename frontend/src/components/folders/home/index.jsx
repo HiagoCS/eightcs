@@ -1,20 +1,23 @@
 import './style.scss';
+import { useState } from "react";
 import { useDynamicLinks } from '@/data/links/functions.jsx';
 import Download from '@/assets/icons/download.svg?react';
 import Project from '@/assets/icons/project.svg?react';
 
 import BannerIllustration from './BannerComponent';
+import Modal from "./modal/index";
 import cards from '@/data/cards/index.json';
 import { cardsIcons } from '@/data/cards/functions.jsx';
 
 import { useInfos } from "@/data/hooks/useInfos";
 export default function HomePage() {
+    const [openModal, setOpenModal] = useState(false);
     const { data: infos } = useInfos();
     const { links, data } = useDynamicLinks();
     const { icons } = cardsIcons();
     if (!infos) return console.log("Nenhuma informação de cliente encontrada!")
-    if(!data) return console.log("Nenhuma função encontrada!")
-    if(!links) return console.log("Nenhum link encontrado!")
+    if (!data) return console.log("Nenhuma função encontrada!")
+    if (!links) return console.log("Nenhum link encontrado!")
     return (
         <div className="app">
             <div className="home-banner">
@@ -31,11 +34,16 @@ export default function HomePage() {
                     <div className="banner-buttons">
                         <button>
                             <Project className="icon" style={{ width: '1.2pc', height: '1.5pc' }} />
-                            <span>O que é 8CS?</span>
+                            <span onClick={() =>{setOpenModal(true)}}>Vitrine Digital</span>
                         </button>
                         <button>
                             <Download className="icon" style={{ width: '1.2pc', height: '1.5pc' }} />
-                            <span>Baixar Currículo</span>
+                            <span>
+                                <a href='https://drive.google.com/file/d/1pSqkLFcbEieGHmJKhJLZCrUExbRUXAY0/view?usp=sharing' target="_blank" rel="noopener noreferrer"
+                                    style={{ 'textDecoration': 'none', 'color': '#000' }}>
+                                    Baixar Currículo
+                                </a>
+                            </span>
                         </button>
                     </div>
                 </div>
@@ -91,6 +99,12 @@ export default function HomePage() {
                     );
                 }
             })}
+
+            {
+                openModal && <Modal
+                    onClose={() => setOpenModal(false)}
+                />
+            }
         </div>
     )
 }

@@ -6,9 +6,9 @@ function infosSeed(){
     insert.run(
         1,
         "Hiago Costa Santos",
-        "Desenvolvedor Full-Stack",
+        "Desenvolvimento Full-Stack",
         "eight.cs development",
-        "contato8cs@gmail.com",
+        "hiago8cs@gmail.com",
         "(11) 9 5826-7059",
         "São Paulo, SP",
         "Desenvolvedor Full-Stack formado em Análise e Desenvolvimento de Sistemas."

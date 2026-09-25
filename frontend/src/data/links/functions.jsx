@@ -18,10 +18,10 @@ export function useDynamicLinks(){
         return { links: {}, error: true };
     }
     navbarLinks.map((link, index) => {
-        if (link.type_id) {
+        if (link.typeId) {
             links[navbarLinks[index]?.function] = functions[functions.findIndex(func => func.name === 'projectPage')];
         }
-        else if (!link.type_id && functions[functions.findIndex(func => func.name.toLowerCase() === navbarLinks[index]?.function.toLowerCase())]) {
+        else if (!link.typeId && functions[functions.findIndex(func => func.name.toLowerCase() === navbarLinks[index]?.function.toLowerCase())]) {
             links[navbarLinks[index]?.function] = functions[functions.findIndex(func => func.name.toLowerCase() === navbarLinks[index]?.function.toLowerCase())];
         }
 

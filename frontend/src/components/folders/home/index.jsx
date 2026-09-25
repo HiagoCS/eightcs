@@ -1,16 +1,16 @@
 import './style.scss';
-import { useDynamicLinks  } from '@/data/links/functions.jsx';
+import { useDynamicLinks } from '@/data/links/functions.jsx';
 import Download from '@/assets/icons/download.svg?react';
 import Project from '@/assets/icons/project.svg?react';
 import Laptop from '@/assets/icons/laptop-outline.svg?react';
 import Cellphone from '@/assets/icons/cellphone.svg?react';
-import Web from '@/assets/icons/web.svg?react';
-import Mobile from '@/assets/icons/android-solid.svg?react';
-import Desktop from '@/assets/icons/desktop.svg?react';
-import Contact from '@/assets/icons/contact.svg?react';
+
+import cards from '@/data/cards/index.json';
+import { cardsIcons } from '@/data/cards/functions.jsx';
 export default function HomePage() {
     const { links, isLoading, data } = useDynamicLinks();
-    if(isLoading) return console.log("<p>Loading...</p>")
+    const { icons } = cardsIcons();
+    if (isLoading) return console.log("<p>Loading...</p>")
     return (
         <div className="app">
             <div className="home-banner">
@@ -50,93 +50,46 @@ export default function HomePage() {
             <div className="home">
                 <span className="home-title">O Que Eu Desenvolvo</span>
                 <div className="cards-display">
-                    <div className="card web">
-                        <div className="icon">
-                            <Web style={{ width: '3pc', height: '3pc' }} />
-                        </div>
-                        <div className="info">
-                            <span className="title">Web</span>
-                            <span className="text">
-                                Aplicações modernas, responsivas e otimizadas para entregar a melhor experiência na web.
-                            </span>
-                            <a className='link'
-                                onClick={() => {
-                                    const el = document.querySelector(".project.web");
-                                    if (el) {
-                                        el.scrollIntoView({ behavior: "smooth", block: "center"});
-                                    }
-                                }}>Ver Projetos ➡️</a>
-                        </div>
-                    </div>
-                    <div className="card mobile">
-                        <div className="icon">
-                            <Mobile style={{ width: '3pc', height: '3pc' }} />
-                        </div>
-                        <div className="info">
-                            <span className="title">Mobile</span>
-                            <span className="text">
-                                Apps para IOS e Android com foco em performance, usabilidade e design moderno.
-                            </span>
-                            <a className='link'
-                                onClick={() => {
-                                    const el = document.querySelector(".project.mobile");
-                                    if (el) {
-                                        el.scrollIntoView({ behavior: "smooth", block: "center"});
-                                    }
-                                }}>Ver Projetos ➡️</a>
-                        </div>
-                    </div>
-                    <div className="card desktop">
-                        <div className="icon">
-                            <Desktop style={{ width: '3pc', height: '3pc' }} />
-                        </div>
-                        <div className="info">
-                            <span className="title">Desktop</span>
-                            <span className="text">
-                                Soluções desktop utilizando tecnologias modernas e frameworks populares para atender às necessidades do usuário.
-                            </span>
-                            <a className='link'
-                                onClick={() => {
-                                    const el = document.querySelector(".project.desktop");
-                                    if (el) {
-                                        el.scrollIntoView({ behavior: "smooth", block: "center"});
-                                    }
-                                }}>Ver Projetos ➡️</a>
-                        </div>
-                    </div>
-                    <div className="card contact">
-                        <div className="icon">
-                            <Contact style={{ width: '3pc', height: '3pc' }} />
-                        </div>
-                        <div className="info">
-                            <span className="title">Contato</span>
-                            <span className="text">
-                                Gostou da plataforma, entre em contato comigo para que possamos conversar sobre o seu projeto.
-                            </span>
-                            <a className='link'
-                                onClick={() => {
-                                    const el = document.querySelector(".app.contact");
-                                    if (el) {
-                                        el.scrollIntoView({ behavior: "smooth", block: "center"});
-                                    }
-                                }}>Fale Conosco ➡️</a>
-                        </div>
-                    </div>
+                    {
+                        data.map((link) => {
+                            if (link.card.id) {
+                                const Component = icons[cards[cards.findIndex((card) => card.icon.toLowerCase() === link.card.icon.toLowerCase())].icon];
+                                return (
+                                    <div key={link.card.id} className={`card ${link.card.class}`}>
+                                        <div className="icon">
+                                            <Component style={{ width: '3pc', height: '3pc' }} />
+                                        </div>
+                                        <div className="info">
+                                            <span className="title">{link.card.title}</span>
+                                            <span className="text">{link.card.text}</span>
+                                            <a className='link'
+                                                onClick={() => {
+                                                    const el = document.querySelector(`.${link.card.type_id ? "project" : "app"}.${link.card.class}`);
+                                                    if (el) {
+                                                        el.scrollIntoView({ behavior: "smooth", block: "center" });
+                                                    }
+                                                }}>{link.card.type_id ? "Ver Projetos" : link.card.title} ➡️</a>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        })
+                    }
                 </div>
             </div>
             {data.map((link) => {
-                if (links[link.function] && link.url !== "/" && link.type_id) {
+                if (links[link.function] && link.url !== "/" && link.typeId) {
                     const Component = links[link.function];
-                    const type = link.function.toLowerCase().replace("page","");
+                    const type = link.function.toLowerCase().replace("page", "");
                     return (
                         <Component id="pages" key={type} type={type} />
                     );
                 }
             })}
             {data.map((link) => {
-                if (links[link.function] && link.url !== "/" && !link.type_id) {
+                if (links[link.function] && link.url !== "/" && !link.typeId) {
                     const Component = links[link.function];
-                    const type = link.function.toLowerCase().replace("page","");
+                    const type = link.function.toLowerCase().replace("page", "");
                     return (
                         <Component id="pages" key={type} type={type} />
                     );

@@ -1,16 +1,9 @@
 import type { FastifyInstance } from "fastify";
-const {sqlite} = require("../../../db/index");
+const { sqlite } = require("../../../db/index");
+import path = require("node:path");
+import fs = require("node:fs/promises");
 
 async function links(fastify: FastifyInstance) {
-    /* fastify.get("/pages", async () => {
-        const pages = sqlite.prepare(`
-            SELECT * 
-            FROM navbar_links`).all();
-        return {
-            message: "Successful Request",
-            data:pages
-        };
-    }); */
     fastify.get("/pages", async (request, reply) => {
         const rows = sqlite.prepare(`
         SELECT 
@@ -41,7 +34,7 @@ async function links(fastify: FastifyInstance) {
             });
         }
         const pages: any[] = [];
-        for(const row of rows){
+        for (const row of rows) {
             let page = pages.find(
                 (page) => page.id === row.id
             );

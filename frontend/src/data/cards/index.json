@@ -1,0 +1,18 @@
+[
+    {
+        "id":"1",
+        "icon":"web"
+    },
+    {
+        "id":"2",
+        "icon":"mobile"
+    },
+    {
+        "id":"3",
+        "icon":"desktop"
+    },
+    {
+        "id":"4",
+        "icon":"contact"
+    }
+]

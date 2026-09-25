@@ -67,14 +67,13 @@
         .menu {
             display: flex;
             align-items: center;
-
+            transition: all 0.25s ease;
             .menu-icon {
                 width: 2.5pc;
                 height: 2.5pc;
 
                 position: relative;
                 z-index: 1002;
-                transition: all 0.25s ease;
                 &.active {
                     margin-left: 5pc;
                 }
@@ -144,7 +143,7 @@
         padding: 0;
 
         .menu {
-            width: 90vw;
+            width: 100vw;
             justify-content: center;
 
             .menu-icon {
@@ -157,14 +156,6 @@
 
         .icons {
             display: none;
-        }
-    }
-}
-
-@media(max-width:511px) {
-    .main {
-        .menu {
-            width: 100vw;
         }
     }
 }

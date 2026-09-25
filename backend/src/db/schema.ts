@@ -3,9 +3,12 @@ const {integer, text, sqliteTable} = require("drizzle-orm/sqlite-core");
 const personalInfos = sqliteTable("infos",{
     id: integer("id").primaryKey(),
     name:text("name").unique(),
+    occupation:text("occupation").unique(),
+    company:text("company").unique(),
     email:text("email").unique(),
     phone:text("phone").unique(),
-    location:text("location").unique()
+    location:text("location").unique(),
+    description:text("description").unique()
 });
 //PROJETOS
 const projectType = sqliteTable("project_type",{

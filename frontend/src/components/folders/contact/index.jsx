@@ -17,13 +17,14 @@ export default function ContactPage(){
     if (isLoading) return console.log("Loading...")
     if (error) return console.log(error.message)
     if (!infos) return console.log("Nenhuma informação de cliente encontrada!")
+    const title = infos['company'] && infos['company'] != '' ? infos['company'].split(' ') : infos['name'].split(' ')
     return(
         <div className="app contact">
             <div className="contacts">
                 <div className="info">
                     <div className="title">
-                        <h2>eight.cs</h2>
-                        <h3>development</h3>
+                        <h2>{title[0]}</h2>
+                        <h3>{title[1]}</h3>
                     </div>
                     <div className="text">
                         <p>Transformando ideias em soluções digitais, criativas, eficientes e de impacto</p>

@@ -2,16 +2,19 @@ import './style.scss';
 import { useDynamicLinks } from '@/data/links/functions.jsx';
 import Download from '@/assets/icons/download.svg?react';
 import Project from '@/assets/icons/project.svg?react';
-import Laptop from '@/assets/icons/laptop-outline.svg?react';
-import Cellphone from '@/assets/icons/cellphone.svg?react';
 
 import BannerIllustration from './BannerComponent';
 import cards from '@/data/cards/index.json';
 import { cardsIcons } from '@/data/cards/functions.jsx';
+
+import { useInfos } from "@/data/hooks/useInfos";
 export default function HomePage() {
-    const { links, isLoading, data } = useDynamicLinks();
+    const { data: infos } = useInfos();
+    const { links, data } = useDynamicLinks();
     const { icons } = cardsIcons();
-    if (isLoading) return console.log("<p>Loading...</p>")
+    if (!infos) return console.log("Nenhuma informação de cliente encontrada!")
+    if(!data) return console.log("Nenhuma função encontrada!")
+    if(!links) return console.log("Nenhum link encontrado!")
     return (
         <div className="app">
             <div className="home-banner">
@@ -19,14 +22,11 @@ export default function HomePage() {
                 <div className="banner-content">
                     <span>Olá, meu nome é</span>
 
-                    <h1>Hiago Costa Santos</h1>
+                    <h1>{infos['name']}</h1>
 
-                    <h2>Desenvolvedor Full-Stack</h2>
+                    <h2>{infos['occupation']}</h2>
 
-                    <p>
-                        Desenvolvedor Full-Stack formado em Análise e
-                        Desenvolvimento de Sistemas.
-                    </p>
+                    <p>{infos['description']}</p>
 
                     <div className="banner-buttons">
                         <button>

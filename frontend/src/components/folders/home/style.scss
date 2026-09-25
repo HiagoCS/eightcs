@@ -22,7 +22,7 @@ html {
 
         .banner-content {
             min-width: 0;
-            z-index: 1000;
+            z-index: 11;
             @media (max-width: 511px) {
                 width: 100vw;
                 height: auto;
@@ -113,7 +113,7 @@ html {
         .banner-illustration {
             width: min(100%, 600px);
             justify-self: center;
-            z-index: 900;
+            z-index: 10;
             transition: opacity 0.25s ease, position 0.25s ease;
             @media (max-width: 511px) {
                 position: absolute;

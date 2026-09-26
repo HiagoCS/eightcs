@@ -18,8 +18,7 @@ async function projects(fastify: FastifyInstance) {
             id,
             "modal"
         );
-        try {
-            const files = await fs.readdir(folder);
+        const files = await fs.readdir(folder);
             const modalFiles = await fs.readdir(modalFolder);
             const images = files
                 .filter(file =>
@@ -33,11 +32,12 @@ async function projects(fastify: FastifyInstance) {
                 .sort((a, b) => a.localeCompare(b))
                 .map(file => `/storage/img/projects/${id}/modal/${file}`);
 
+        if(images){
             return {
                 message: "Successful Request",
                 data: {'images' : images, 'modal': modal}
             };
-        } catch {
+        }else{
             return reply.code(404).send({
                 message: "Pasta de imagens não encontrada",
                 data: []

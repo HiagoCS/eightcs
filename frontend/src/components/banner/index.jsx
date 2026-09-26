@@ -5,7 +5,9 @@ function main() {
         if (isLoading) return console.log("Loading...")
         if (error) return console.log(error.message)
         if (!infos) return console.log("Nenhuma informação de cliente encontrada!")
-    const company = infos['company'].includes(' ') ? infos['company'].split(' ') : null;
+    const company = '';
+    if(infos['company'])
+        company = infos['company'].includes(' ') ? infos['company'].split(' ') : null;
     return (
         <div className="app banner">
             <div className="banner">
@@ -14,7 +16,7 @@ function main() {
                     <h2>{infos['occupation']}</h2>
                 </div>
                 <div className="logo">
-                    <span className='logo-text'>{company ? company[0] : infos['company']}</span>
+                    <span className='logo-text'>{company ? (company[0] ? company[0] : company) : infos['company']}</span>
                     <span className='sublogo-text'>{company ? company[1]: null}</span>
                 </div>
             </div>

@@ -2,16 +2,16 @@
     {
         "id":"1",
         "icon":"whatsapp",
-        "url":""
+        "url":"https://wa.me/5511957613439"
     },
     {
         "id":"2",
-        "icon":"linkedin",
-        "url":""
+        "icon":"instagram",
+        "url":"https://www.instagram.com/glaumotos_/"
     },
-    {
+        {
         "id":"3",
-        "icon":"github",
-        "url":""
+        "icon":"mercadolivre",
+        "url":"https://meli.la/2z5CRBz"
     }
 ]

@@ -17,18 +17,18 @@ html {
         padding: 4rem clamp(2rem, 7vw, 7rem);
 
         background: linear-gradient(120deg,
-                #f8fcff,
-                #eaf6ff);
+                #f5f5f5,
+                #e6e6e6);
 
         .banner-content {
-            min-width: 0;
+            max-width: 50%;
             z-index: 11;
-            @media (max-width: 511px) {
-                width: 100vw;
-                height: auto;
-                
+
+            @media (max-width: 900px) {
+                display: none;
             }
-            span{
+
+            span {
                 @media (max-width: 511px) {
                     position: absolute;
                     padding: 1px;
@@ -37,8 +37,10 @@ html {
                     font-size: clamp(18px, 2vw, 54px);
                 }
             }
+
             h1 {
                 font-size: clamp(18px, 3vw, 54px);
+
                 @media (max-width: 511px) {
                     width: 85vw;
                     text-align: center;
@@ -48,6 +50,7 @@ html {
 
             h2 {
                 font-size: clamp(18px, 2vw, 54px);
+
                 @media (max-width: 511px) {
                     width: 85vw;
                     text-align: center;
@@ -70,11 +73,13 @@ html {
                 display: flex;
                 gap: 1.5rem;
                 flex-wrap: nowrap;
+
                 @media (max-width: 511px) {
                     position: absolute;
                     width: 85vw;
                     justify-content: space-around;
                 }
+
                 button {
                     min-width: 12vw;
                     height: 6vh;
@@ -95,16 +100,18 @@ html {
 
                     @media (max-width:860px) {
                         display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        span {
+                            font-size: 0;
+                        }
+
+                        .icon {
+                            display: flex;
                             justify-content: center;
                             align-items: center;
-                            span{
-                                font-size: 0;
-                            }
-                            .icon {
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                            }
+                        }
                     }
                 }
             }
@@ -115,19 +122,18 @@ html {
             justify-self: center;
             z-index: 10;
             transition: opacity 0.25s ease, position 0.25s ease;
-            @media (max-width: 511px) {
-                position: absolute;
-                opacity: 50%;
-                
-            }
         }
 
         .banner-illustration svg {
             display: block;
             width: 100%;
             height: auto;
+            @media(max-width: 900px){
+                left: 50%;
+            }
         }
     }
+
     .home {
         display: flex;
         flex-direction: column;
@@ -135,6 +141,7 @@ html {
         gap: 2rem;
 
         padding: 4rem clamp(2rem, 7vw, 7rem);
+
         .home-title {
             font-family: 'Quicksand-Bold';
             font-size: 24px;
@@ -214,5 +221,5 @@ html {
         }
     }
 
-    
+
 }

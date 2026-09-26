@@ -5,13 +5,13 @@ function infosSeed(){
 
     insert.run(
         1,
-        "Hiago Costa Santos",
-        "Desenvolvedor Full-Stack",
-        "eight.cs development",
-        "contato8cs@gmail.com",
-        "(11) 9 5826-7059",
-        "São Paulo, SP",
-        "Desenvolvedor Full-Stack formado em Análise e Desenvolvimento de Sistemas."
+        "Glauber Silva de Jesus",
+        "Oficina Mecânica",
+        "GlauGrau Motopeças",
+        "contatoglaugrau@gmail.com",
+        "(11)9 5761-3439",
+        "Rua do Manifesto, 2262, Ipiranga, SP",
+        "Oferecemos uma ampla variedade de peças para sua moto, com qualidade, praticidade e tudo o que você precisa para manter sua moto sempre pronta para a estrada."
     );
 }
 module.exports = {infosSeed}

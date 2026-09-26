@@ -1,50 +1,138 @@
 const { sqlite } = require("../../index");
 
 function modalSeed(){
-    const insert = sqlite.prepare(`INSERT OR IGNORE INTO modal(project_id, text, extension) VALUES (?, ?, ?)`);
-    const modals = [
-        [1, "tela de login com credencias de email e login, email sendo verificado para segurança dos usuários.", ".png"],
-        [1, "frente de caixa com campos de pesquisa para nome, codigo reduzido e codigo de barras. ajuste de filtro, seleção / criação de clientes e edição de produtos em tempo real.", ".png"],
-        [1, "clientes podem ser registrados com ou sem cpf", ".png"],
-        [1, "sistema equipado com exportação de nota fiscal por PDF ou impressão xml", ".png"],
-        [1, "exemplo nota fiscal pdf", ".png"],
-        [1, "seleção de cliente no ato da venda", ".png"],
-        [1, "visualização e exportação de notas fiscais", ".png"],
-        [1, "crud completo de produtos com campos de pesquisa e ações de edição, exclusão e copiar.", ".png"],
-        [1, "visualização de produto", ".png"],
-        [1, "botões: adicionar +1 no estoque, remover -1 no estoque, copiar produto, editar produto, excluir produto.", ".png"],
-        [1, "relatorios de entradas, vendas e saidas do estoque - visualização geral de todos os produtos.", ".png"],
-        [1, "visualização de toda movimentação do estoque simplificada", ".png"],
-        [1, "visualização de toda movimentação do estoque detalhada", ".png"],
-        [1, "dados de percentual de lucro para cada produto registrado", ".png"],
-        [1, "exportação da movimentação de estoque de cada produto.", ".png"],
-        [1, "relatórios graficos da movimentação do estoque.", ".png"],
-        [1, "exportação de todo o estoque.", ".png"],
-        [1, "modulo de serviços, alternativa de produtos, adiciona valor da mão de obra + adicionar produtos a soma.", ".png"],
-        [1, "registro de todos os clientes", ".png"],
-        [1, "configuração do perfil pessoal, configuração do perfil do comercio, configuração de permissões de usuarios + controle de usuarios.", ".png"],
-        [1, "menu responsivo com todos os modulos:\ncaixa - produtos visao geral - produtos estoque - produtos relatorios - serviços visao geral - serviços relatorios - clientes vendas - clientes visao geral", ".png"],
+    const insert = sqlite.prepare(`
+        INSERT OR IGNORE INTO modal(project_id, text, extension)
+        VALUES (?, ?, ?)
+    `);
 
-        [2, "Tela inicial de autenticação com acesso seguro através de email e senha.", ".png"],
-        [2, "Dashboard mobile com acesso rápido aos principais módulos do sistema.", ".png"],
-        [2, "Frente de caixa adaptada para dispositivos móveis, permitindo pesquisar produtos por nome, código reduzido ou código de barras.", ".png"],
-        [2, "Carrinho de venda otimizado para telas menores, com edição de quantidade e remoção de produtos.", ".png"],
-        [2, "Seleção e cadastro de clientes diretamente durante o processo de venda", ".png"],
-        [2, "Cadastro de clientes com informações essenciais e possibilidade de utilização sem CPF.", ".png"],
-        [2, "Consulta rápida dos produtos cadastrados com informações de preço, estoque e identificação.", ".png"],
-        [2, "Gerenciamento de estoque com ações rápidas para adicionar ou remover unidades de um produto.", ".png"],
-        [2, "Visualização detalhada de produtos com informações comerciais e indicadores de estoque.", ".png"],
-        [2, "Histórico de movimentações do estoque organizado para consulta em dispositivos móveis.", ".png"],
-        [2, "Consulta de vendas realizadas e acesso aos respectivos documentos fiscais.", ".png"],
-        [2, "Visualização de relatórios de vendas, entradas e saídas do estoque.", ".png"],
-        [2, "Módulo de serviços para registrar mão de obra e combinar serviços com produtos na mesma operação.", ".png"],
-        [2, "Menu lateral responsivo reunindo os módulos de caixa, produtos, estoque, serviços, clientes e relatórios.", ".png"],
-        [2, "Interface adaptada para navegação por toque, priorizando ações rápidas e utilização com apenas uma mão.", ".png"]
+    const modals = [
+
+        // =========================
+        // GUIDÃO QUALYMOTORS
+        // project_id: 1
+        // =========================
+
+        [
+            1,
+            "Guidões Qualymotors desenvolvidos para diferentes estilos de pilotagem, oferecendo resistência, conforto e controle durante a condução.",
+            ".png"
+        ],
+
+        // =========================
+        // ALIVIADOR DE EMBREAGEM
+        // project_id: 2
+        // =========================
+
+        [
+            2,
+            "Aliviadores de embreagem desenvolvidos para reduzir o esforço necessário no acionamento da manete.",
+            ".png"
+        ],
+
+        // =========================
+        // PARALAMAS 300F PARA 160
+        // project_id: 3
+        // =========================
+
+        [
+            3,
+            "Paralamas 300F adaptados para Titan e Fan 160, trazendo um visual mais moderno e esportivo para a moto.",
+            ".png"
+        ],
+
+        // =========================
+        // TOMADA USB
+        // project_id: 4
+        // =========================
+
+        [
+            4,
+            "Tomadas USB para motocicletas que permitem carregar seu celular e outros dispositivos durante os deslocamentos.",
+            ".png"
+        ],
+
+        // =========================
+        // PASTILHAS DE FREIO
+        // project_id: 5
+        // =========================
+
+        [
+            5,
+            "Pastilhas de freio para reposição e manutenção do sistema de frenagem de diferentes modelos de motocicletas.",
+            ".png"
+        ],
+
+        // =========================
+        // CAPA DE BANCO
+        // project_id: 6
+        // =========================
+
+        [
+            6,
+            "Capas de banco para renovar a aparência e proteger o banco da sua motocicleta contra o desgaste do uso diário.",
+            ".png"
+        ],
+
+        // =========================
+        // CARGA DE BATERIA
+        // project_id: 7
+        // =========================
+
+        [
+            7,
+            "Serviço de carga de bateria para motocicletas que apresentam dificuldades de partida ou necessitam de recuperação da carga.",
+            ".png"
+        ],
+
+        // =========================
+        // TROCA DE ÓLEO
+        // project_id: 8
+        // =========================
+
+        [
+            8,
+            "Serviço de troca de óleo para manter a lubrificação adequada e contribuir para o bom funcionamento do motor.",
+            ".png"
+        ],
+
+        // =========================
+        // TROCA DE EMBREAGEM
+        // project_id: 9
+        // =========================
+
+        [
+            9,
+            "Serviço de troca de embreagem para motocicletas que apresentam desgaste ou problemas no sistema de acionamento.",
+            ".png"
+        ],
+
+        // =========================
+        // PEÇAS SOB ENCOMENDA
+        // project_id: 10
+        // =========================
+
+        [
+            10,
+            "Não encontrou a peça que procura? Consulte nossa equipe para verificar a possibilidade de encomenda.",
+            ".png"
+        ],
+
+        // =========================
+        // PEÇAS ESPECÍFICAS
+        // project_id: 11
+        // =========================
+
+        [
+            11,
+            "Encomenda de peças específicas para diferentes modelos de motocicletas conforme a necessidade do cliente.",
+            ".png"
+        ],
     ];
 
-    modals.map((data) =>{
+    modals.map((data) => {
         insert.run(...data);
     });
-
 }
-module.exports = {modalSeed}
+
+module.exports = { modalSeed };

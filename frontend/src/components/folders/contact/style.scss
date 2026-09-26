@@ -7,8 +7,10 @@
         display: flex;
         width: 90%;
         border-radius: 10px;
-        background: #373e49;
-        color: #fff;
+        background: linear-gradient(120deg,
+                #222222,
+                #1D1D1D);
+        color: #FFF;
         padding: 2.5vh 5vw;
         font-family: "Quicksand-Book";
         justify-content: space-between;
@@ -22,7 +24,7 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: flex-start;
-                color: #77BDF1;
+                color: #FFF;
 
                 h2 {
                     margin: 0;
@@ -40,29 +42,6 @@
             }
         }
 
-        .frameworks {
-            display: flex;
-            flex-direction: column;
-            width: 55%;
-
-            .title {
-                p {
-                    margin: 0;
-                }
-            }
-
-            .icons {
-                margin: 0;
-                display: flex;
-
-                .icon {
-                    margin: 0;
-                    padding: 0;
-                    width: 10vw;
-                    height: 10vh;
-                }
-            }
-        }
 
         .addr {
             display: flex;

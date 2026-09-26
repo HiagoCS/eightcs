@@ -21,7 +21,7 @@
         font-size: 1pc;
 
         a.active {
-            color: #77BDF1;
+            color: #0056b3;
         }
 
         a {
@@ -51,7 +51,7 @@
     }
 }
 
-@media(max-width:777px) {
+@media(max-width:961px) {
     .main {
         &.active {
             position: fixed;
@@ -138,7 +138,7 @@
     }
 }
 
-@media(max-width:604px) {
+@media(max-width:818px) {
     .main {
         padding: 0;
 

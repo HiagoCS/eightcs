@@ -1,15 +1,15 @@
 [
     {
         "id":"1",
-        "icon":"web"
+        "icon":"accessories"
     },
     {
         "id":"2",
-        "icon":"mobile"
+        "icon":"maintenance"
     },
     {
         "id":"3",
-        "icon":"desktop"
+        "icon":"orders"
     },
     {
         "id":"4",

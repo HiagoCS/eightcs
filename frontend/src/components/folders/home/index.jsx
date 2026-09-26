@@ -1,7 +1,5 @@
 import './style.scss';
 import { useDynamicLinks } from '@/data/links/functions.jsx';
-import Download from '@/assets/icons/download.svg?react';
-import Project from '@/assets/icons/project.svg?react';
 
 import BannerIllustration from './BannerComponent';
 import cards from '@/data/cards/index.json';
@@ -20,7 +18,6 @@ export default function HomePage() {
             <div className="home-banner">
 
                 <div className="banner-content">
-                    <span>Olá, meu nome é</span>
 
                     <h1>{infos['name']}</h1>
 
@@ -28,23 +25,13 @@ export default function HomePage() {
 
                     <p>{infos['description']}</p>
 
-                    <div className="banner-buttons">
-                        <button>
-                            <Project className="icon" style={{ width: '1.2pc', height: '1.5pc' }} />
-                            <span>O que é 8CS?</span>
-                        </button>
-                        <button>
-                            <Download className="icon" style={{ width: '1.2pc', height: '1.5pc' }} />
-                            <span>Baixar Currículo</span>
-                        </button>
-                    </div>
                 </div>
                 <div className="banner-illustration">
                     <BannerIllustration />
                 </div>
             </div>
             <div className="home">
-                <span className="home-title">O Que Eu Desenvolvo</span>
+                <span className="home-title">Nossos serviços</span>
                 <div className="cards-display">
                     {
                         data.map((link) => {
@@ -64,7 +51,7 @@ export default function HomePage() {
                                                     if (el) {
                                                         el.scrollIntoView({ behavior: "smooth", block: "center" });
                                                     }
-                                                }}>{link.card.type_id ? "Ver Projetos" : link.card.title} ➡️</a>
+                                                }}>{link.card.type_id ? "Ver Produtos" : link.card.title} ➡️</a>
                                         </div>
                                     </div>
                                 )

@@ -1,9 +1,9 @@
 import Whatsapp from '@/assets/icons/whatsapp-svgrepo-com.svg?react';
-import Linkedin from '@/assets/icons/linkedin-svgrepo-com.svg?react';
-import Github from '@/assets/icons/github-142-svgrepo-com.svg?react';
+import MercadoLivre from '@/assets/icons/mercado-livre-87.svg?react';
+import Instagram from '@/assets/icons/instagram-svgrepo-com.svg?react';
 
 export const contactIcons = {
     whatsapp: Whatsapp,
-    linkedin: Linkedin,
-    github: Github
+    mercadolivre: MercadoLivre,
+    instagram: Instagram
 };

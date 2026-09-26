@@ -5,7 +5,7 @@ function main() {
         if (isLoading) return console.log("Loading...")
         if (error) return console.log(error.message)
         if (!infos) return console.log("Nenhuma informação de cliente encontrada!")
-    const company = '';
+    let company = '';
     if(infos['company'])
         company = infos['company'].includes(' ') ? infos['company'].split(' ') : null;
     return (

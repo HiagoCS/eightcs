@@ -36,7 +36,10 @@
 
             .text {
                 overflow-wrap: anywhere;
-
+                a{
+                    text-decoration: none;
+                    color: #fff;
+                }
             }
         }
 

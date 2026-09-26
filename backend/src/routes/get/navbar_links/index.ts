@@ -37,8 +37,6 @@ async function links(fastify: FastifyInstance) {
         ORDER BY p.id, hc.id
     `).all();
 
-    console.log("rows", rows);
-
     if (rows.length === 0) {
         return reply.code(200).send({
             message: "Nenhuma pagina encontrada",

@@ -11,21 +11,23 @@ async function links(fastify: FastifyInstance) {
             p.label,
             p.function,
             p.url,
-            p.type_id,
-            
+            p.type_id AS page_type_id,
+
             hc.id AS card_id,
             hc.title AS card_title,
             hc.text AS card_text,
             hc.class AS card_class,
             hc.icon AS card_icon,
-            hc.link_id AS link_id,
-            hc.type_id AS type_id
+            hc.link_id AS card_link_id,
+            hc.type_id AS card_type_id
+
         FROM navbar_links p
-        
+
         LEFT JOIN home_cards hc
             ON hc.link_id = p.id
-            
-        ORDER BY p.id, hc.id`).all();
+
+        ORDER BY p.id, hc.id
+    `).all();
 
         if (rows.length === 0) {
             return reply.code(200).send({
@@ -44,7 +46,7 @@ async function links(fastify: FastifyInstance) {
                     label: row.label,
                     function: row.function,
                     url: row.url,
-                    typeId: row.type_id,
+                    typeId: row.page_type_id,
                     card: {}
                 };
                 pages.push(page);

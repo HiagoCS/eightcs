@@ -6,7 +6,7 @@ import Home from '@/assets/icons/home-1-svgrepo-com.svg?react';
 import HomeActive from '@/assets/icons/home-page-svgrepo-com.svg?react';
 import Menu from '@/assets/icons/menu-rounded.svg?react';
 
-import { useDynamicLinks  } from '@/data/links/functions.jsx';
+import { useDynamicLinks } from '@/data/links/functions.jsx';
 import contacts from '@/data/contacts/index.json';
 import { contactIcons } from '@/data/contacts/functions.jsx';
 
@@ -15,7 +15,7 @@ function main() {
     const [toggleMenu, setToggleMenu] = useState('');
 
     const { links, isLoading, data } = useDynamicLinks();
-    if(isLoading) return console.log("<p>Loading...</p>")
+    if (isLoading) return console.log("<p>Loading...</p>")
     return (
         <>
             <div className={`main ${toggleMenu}`}>
@@ -47,28 +47,23 @@ function main() {
                             }{data[data.findIndex(link => link.url === '/')]['label']}
                         </Link>
                     </li>
-                    {data.map((link) => (
-                        <li key={link.url} style={link.type_id ? {} : { display: 'none' }}>
-                            {
-                                link.type_id ? (
-                                    <Link to={`${link.url}`} className={activeLink === link.url ? 'active' : ''} onClick={() => setActiveLink(link.url)}>
-                                        {link['label']}
-                                    </Link>
-                                ) : <></>
-                            }
-                        </li>
-                    ))}
-                    {data.map((link) => (
-                        <li key={link.url} style={!link.type_id && link.url !== "/" ? {} : { display: 'none' }}>
-                            {
-                                !link.type_id && link.url !== "/" ? (
-                                    <Link to={`${link.url}`} className={activeLink === link.url ? 'active' : ''} onClick={() => setActiveLink(link.url)}>
-                                        {link['label']}
-                                    </Link>
-                                ) : <></>
-                            }
-                        </li>
-                    ))}
+                    {data.filter((link) => link.id)
+                        .sort((a, b) => {
+                            if (a.typeId && !b.typeId) return -1;
+                            if (!a.typeId && b.typeId) return 1;
+                            return 0;
+                        })
+                        .map((link) => (
+                            <li key={link.url} style={link.url !== '/' ? {} : { display: 'none' }}>
+                                {
+                                    link.url !== '/' ? (
+                                        <Link to={`${link.url}`} className={activeLink === link.url ? 'active' : ''} onClick={() => setActiveLink(link.url)}>
+                                            {link['label']}
+                                        </Link>
+                                    ) : <></>
+                                }
+                            </li>
+                        ))}
                 </ul>
                 <ul className='icons'>
                     {contacts.map(({ id, icon, url }) => {

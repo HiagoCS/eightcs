@@ -95,24 +95,21 @@ export default function HomePage() {
                     }
                 </div>
             </div>
-            {data.map((link) => {
-                if (links[link.function] && link.url !== "/" && link.typeId) {
-                    const Component = links[link.function];
-                    const type = link.function.toLowerCase().replace("page", "");
-                    return (
-                        <Component id="pages" key={type} type={type} />
-                    );
-                }
-            })}
-            {data.map((link) => {
-                if (links[link.function] && link.url !== "/" && !link.typeId) {
-                    const Component = links[link.function];
-                    const type = link.function.toLowerCase().replace("page", "");
-                    return (
-                        <Component id="pages" key={type} type={type} />
-                    );
-                }
-            })}
+            {data.filter((link) => link.card.id)
+                .sort((a, b) => {
+                    if (a.card.type_id && !b.card.type_id) return -1;
+                    if (!a.card.type_id && b.card.type_id) return 1;
+                    return 0;
+                })
+                .map((link) => {
+                    if (links[link.function] && link.url !== "/") {
+                        const Component = links[link.function];
+                        const type = link.function.toLowerCase().replace("page", "");
+                        return (
+                            <Component id="pages" key={type} type={type} />
+                        );
+                    }
+                })}
         </div>
     )
 }

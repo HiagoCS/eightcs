@@ -4,38 +4,47 @@
  * Vitrine Digital - Configurador
  *
  * Execute na raiz do projeto:
- *
  *     npm run setup
  *
- * Este arquivo não possui dependências externas.
+ * Regras principais de navegação:
  *
- * O arquivo:
+ * 1. HomePage é obrigatória.
+ *    - A única informação perguntada é a label.
+ *    - function = HomePage
+ *    - url = /
+ *    - type_id = null
  *
- *     ./config/index.json
+ * 2. Outros links:
+ *    - label
+ *    - URL
+ *    - categoria/type_id
+ *    - function React por último
  *
- * é a fonte de configuração da Vitrine Digital.
+ *    Se possuir categoria:
+ *        function = nome da categoria + "Page"
  *
- * Ordem das dependências:
+ *    Exemplo:
+ *        Declarações Fiscais
+ *        ->
+ *        DeclaracoesFiscaisPage
  *
- * 1. Informações / Contatos
- * 2. Types
- * 3. Navbar / Pages
- * 4. Projetos / Serviços
- * 5. Modais
- * 6. Home Cards
- * 7. Theme
+ *    Se não possuir categoria:
+ *        function é perguntada manualmente.
  *
- * Dependências:
+ * 3. ContactPage é opcional e sempre fica por último.
+ *    - A única informação perguntada é a label.
+ *    - function = ContactPage
+ *    - url = /contato
+ *    - type_id = null
  *
- * Types
- *   ├── navbar_links.type_id
- *   └── project.type_id
+ * IDs:
+ *    Nenhum ID primário é perguntado ao usuário.
+ *    O setup gera automaticamente os IDs.
  *
- * Navbar + Types
- *   └── home_cards.link_id / type_id
- *
- * Projetos
- *   └── modal.project_id
+ * Foreign keys continuam sendo escolhidas normalmente:
+ *    - typeId
+ *    - linkId
+ *    - projectId
  */
 
 const fs = require("node:fs");
@@ -88,34 +97,14 @@ const DEFAULT_CONFIG = {
         address: ""
     },
 
-    /*
-     * Os links são configuráveis novamente.
-     *
-     * HomePage e ContactPage normalmente possuem
-     * type_id = null.
-     */
     navigation: [],
 
-    /*
-     * Categorias que alimentam project_type.
-     */
     types: [],
 
-    /*
-     * Projetos / serviços.
-     */
     projects: [],
 
-    /*
-     * Cards da Home.
-     */
     homeCards: [],
 
-    /*
-     * Theme ainda não participa de nenhuma seed.
-     *
-     * É salvo no config para utilização futura.
-     */
     theme: {
         primary: "#1D1D1D",
         secondary: "#3A3A3A",
@@ -138,23 +127,23 @@ const SEED_CANDIDATES = {
     ],
 
     pages: [
-        "backend/src/db/seeds/navbarLinks/pages.ts",
+        "backend/src/db/seeds/navbarLinks/pages.ts"
     ],
 
     types: [
-        "backend/src/db/seeds/projects/types.ts",
+        "backend/src/db/seeds/projects/types.ts"
     ],
 
     projects: [
-        "backend/src/db/seeds/projects/projects.ts",
+        "backend/src/db/seeds/projects/projects.ts"
     ],
 
     modal: [
-        "backend/src/db/seeds/projects/modal.ts",
+        "backend/src/db/seeds/projects/modal.ts"
     ],
 
     homeCards: [
-        "backend/src/db/seeds/navbarLinks/homeCards.ts",
+        "backend/src/db/seeds/navbarLinks/homeCards.ts"
     ]
 };
 
@@ -197,10 +186,52 @@ function slugify(value) {
             "-"
         );
 }
+function getHomeCardClass(
+    functionName
+) {
+    return normalizeText(
+        functionName
+    )
+        .replace(
+            /Page$/i,
+            ""
+        )
+        .toLowerCase();
+}
+/*
+ * Transforma o nome legível da categoria em um
+ * identificador válido para componente React.
+ *
+ * Exemplo:
+ *
+ * Declarações Fiscais
+ * ->
+ * DeclaracoesFiscaisPage
+ *
+ * Imposto de Renda
+ * ->
+ * ImpostoDeRendaPage
+ */
+function componentPageName(value) {
+    const parts =
+        slugify(value)
+            .split("-")
+            .filter(Boolean);
+
+    const base =
+        parts
+            .map(
+                (part) =>
+                    part.charAt(0).toUpperCase() +
+                    part.slice(1)
+            )
+            .join("-");
+
+    return `${base || "Page"}Page`;
+}
 
 function nowIso() {
-    return new Date()
-        .toISOString();
+    return new Date().toISOString();
 }
 
 function getRelative(file) {
@@ -216,16 +247,258 @@ function getRelative(file) {
 }
 
 function toJs(value) {
-    return JSON
-        .stringify(
-            value,
-            null,
-            8
+    return JSON.stringify(
+        value,
+        null,
+        8
+    ).replace(
+        /^( {8})/gm,
+        "        "
+    );
+}
+
+function isPositiveId(value) {
+    return (
+        Number.isInteger(
+            Number(value)
+        ) &&
+        Number(value) > 0
+    );
+}
+
+/*
+|--------------------------------------------------------------------------
+| IDS
+|--------------------------------------------------------------------------
+*/
+
+/*
+ * Mantém o ID existente quando válido.
+ *
+ * Item novo:
+ *     próximo ID após o maior existente.
+ */
+function nextId(
+    items,
+    currentId = null
+) {
+    if (
+        isPositiveId(
+            currentId
         )
-        .replace(
-            /^( {8})/gm,
-            "        "
+    ) {
+        return Number(
+            currentId
         );
+    }
+
+    const maxId =
+        (
+            Array.isArray(items)
+                ? items
+                : []
+        ).reduce(
+            (
+                max,
+                item
+            ) => {
+                const id =
+                    Number(
+                        item?.id
+                    );
+
+                return (
+                    Number.isInteger(id) &&
+                    id > max
+                )
+                    ? id
+                    : max;
+            },
+            0
+        );
+
+    return maxId + 1;
+}
+
+/*
+ * Garante IDs únicos dentro de uma coleção.
+ *
+ * IDs antigos válidos são preservados.
+ * IDs inválidos/duplicados recebem novos IDs.
+ */
+function ensureIds(
+    items,
+    prefix = "item"
+) {
+    if (
+        !Array.isArray(items)
+    ) {
+        return [];
+    }
+
+    const result = [];
+    const seen = new Set();
+
+    let maxId =
+        items.reduce(
+            (
+                max,
+                item
+            ) => {
+                const id =
+                    Number(
+                        item?.id
+                    );
+
+                return (
+                    Number.isInteger(id) &&
+                    id > max
+                )
+                    ? id
+                    : max;
+            },
+            0
+        );
+
+    for (
+        const original of
+        items
+    ) {
+        const copy = {
+            ...original
+        };
+
+        let id =
+            Number(
+                copy.id
+            );
+
+        if (
+            !Number.isInteger(id) ||
+            id <= 0 ||
+            seen.has(id)
+        ) {
+            id =
+                ++maxId;
+        }
+
+        seen.add(
+            id
+        );
+
+        copy.id =
+            id;
+
+        if (
+            copy.key === undefined ||
+            copy.key === null ||
+            copy.key === ""
+        ) {
+            copy.key =
+                slugify(
+                    copy.title ||
+                    copy.label ||
+                    copy.name ||
+                    copy.type ||
+                    `${prefix}-${id}`
+                );
+        }
+
+        result.push(
+            copy
+        );
+    }
+
+    return result;
+}
+
+/*
+ * IDs dos modais pertencem à tabela modal,
+ * então eles precisam ser únicos globalmente.
+ */
+function ensureGlobalModalIds(
+    config
+) {
+    const allModal = [];
+
+    for (
+        const project of
+        config.projects || []
+    ) {
+        for (
+            const modal of
+            project.modal || []
+        ) {
+            allModal.push(
+                modal
+            );
+        }
+    }
+
+    let maxId =
+        allModal.reduce(
+            (
+                max,
+                modal
+            ) => {
+                const id =
+                    Number(
+                        modal?.id
+                    );
+
+                return (
+                    Number.isInteger(id) &&
+                    id > max
+                )
+                    ? id
+                    : max;
+            },
+            0
+        );
+
+    const seen =
+        new Set();
+
+    for (
+        const project of
+        config.projects || []
+    ) {
+        if (
+            !Array.isArray(
+                project.modal
+            )
+        ) {
+            project.modal = [];
+
+            continue;
+        }
+
+        for (
+            const modal of
+            project.modal
+        ) {
+            let id =
+                Number(
+                    modal.id
+                );
+
+            if (
+                !Number.isInteger(id) ||
+                id <= 0 ||
+                seen.has(id)
+            ) {
+                id =
+                    ++maxId;
+            }
+
+            seen.add(
+                id
+            );
+
+            modal.id =
+                id;
+        }
+    }
 }
 
 /*
@@ -239,7 +512,9 @@ function deepMerge(
     incoming
 ) {
     if (
-        Array.isArray(base)
+        Array.isArray(
+            base
+        )
     ) {
         return Array.isArray(
             incoming
@@ -289,11 +564,13 @@ function deepMerge(
 
 /*
 |--------------------------------------------------------------------------
-| ARQUIVO DE CONFIGURAÇÃO
+| ARQUIVO DE CONFIG
 |--------------------------------------------------------------------------
 */
 
-function saveJson(config) {
+function saveJson(
+    config
+) {
     fs.mkdirSync(
         CONFIG_DIR,
         {
@@ -331,7 +608,9 @@ function loadJson() {
         return JSON.parse(
             raw
         );
-    } catch (error) {
+    } catch (
+    error
+    ) {
         throw new Error(
             `./config/index.json existe, mas não contém JSON válido: ${error.message}`
         );
@@ -369,19 +648,14 @@ function findFirstExisting(
     return null;
 }
 
-/**
- * Descobre:
- *
- * INSERT OR IGNORE INTO tabela
- * (colunas)
- * VALUES (?, ?)
- */
 function extractInsertSpec(
     seedPath
 ) {
     if (
         !seedPath ||
-        !fs.existsSync(seedPath)
+        !fs.existsSync(
+            seedPath
+        )
     ) {
         return null;
     }
@@ -478,7 +752,8 @@ function resolveSeedSpec(
 function defaultSeedSpecs() {
     return {
         infos: {
-            table: "infos",
+            table:
+                "infos",
 
             columns: [
                 "id",
@@ -549,6 +824,7 @@ function defaultSeedSpecs() {
                 "modal",
 
             columns: [
+                "id",
                 "project_id",
                 "text",
                 "extension"
@@ -592,8 +868,12 @@ function renderSeed(
 
     const placeholders =
         spec.columns
-            .map(() => "?")
-            .join(", ");
+            .map(
+                () => "?"
+            )
+            .join(
+                ", "
+            );
 
     const rowsCode =
         rows.length
@@ -625,8 +905,7 @@ function ${functionName}(){
     });
 ${extraCode
             ? `\n${extraCode}\n`
-            : ""
-        }}
+            : ""}}
 
 module.exports = { ${functionName} };
 `;
@@ -651,9 +930,6 @@ function ask(
     );
 }
 
-/**
- * Exibe valor vazio como "(vazio)".
- */
 function displayValue(
     value
 ) {
@@ -662,27 +938,6 @@ function displayValue(
         : String(value);
 }
 
-/*
-|--------------------------------------------------------------------------
-| RESPOSTAS
-|--------------------------------------------------------------------------
-*/
-
-/**
- * Required:
- *
- * Enter + original válido
- *     -> usa original
- *
- * Enter + sem original
- *     -> continua perguntando
- *
- * Valor preenchido
- *     -> confirma
- *
- * A confirmação sempre exibe
- * "(vazio)" quando necessário.
- */
 async function askRequired(
     rl,
     prompt,
@@ -709,9 +964,6 @@ async function askRequired(
                 )
             );
 
-        /**
-         * ENTER
-         */
         if (!answer) {
             const hasOriginal =
                 original !== undefined &&
@@ -768,21 +1020,6 @@ async function askRequired(
     }
 }
 
-/**
- * Optional:
- *
- * Enter + original válido
- *     -> usa original
- *
- * Enter + original vazio
- *     -> confirma "(vazio)" e registra ""
- *
- * Enter + sem original
- *     -> confirma "(vazio)" e registra ""
- *
- * Valor preenchido
- *     -> confirma
- */
 async function askOptional(
     rl,
     prompt,
@@ -809,9 +1046,6 @@ async function askOptional(
                 )
             );
 
-        /**
-         * ENTER
-         */
         if (!answer) {
             const hasOriginal =
                 original !== undefined &&
@@ -820,10 +1054,6 @@ async function askOptional(
                     original
                 ) !== "";
 
-            /**
-             * Se existe original:
-             * usa o original.
-             */
             if (
                 hasOriginal
             ) {
@@ -849,13 +1079,6 @@ async function askOptional(
                 continue;
             }
 
-            /**
-             * Sem original:
-             * registra realmente "".
-             *
-             * Na tela:
-             * "(vazio)"
-             */
             const accepted =
                 await confirm(
                     rl,
@@ -886,12 +1109,6 @@ async function askOptional(
         }
     }
 }
-
-/*
-|--------------------------------------------------------------------------
-| CONFIRMAÇÕES
-|--------------------------------------------------------------------------
-*/
 
 async function confirm(
     rl,
@@ -998,10 +1215,6 @@ async function askColor(
                 )
             );
 
-        /**
-         * Theme pode manter o valor atual
-         * com Enter.
-         */
         if (!answer) {
             const accepted =
                 await confirm(
@@ -1035,255 +1248,6 @@ async function askColor(
         }
     }
 }
-
-/*
-|--------------------------------------------------------------------------
-| IDS
-|--------------------------------------------------------------------------
-*/
-
-function ensureIds(
-    items,
-    prefix = "item"
-) {
-    if (
-        !Array.isArray(items)
-    ) {
-        return [];
-    }
-
-    const seen =
-        new Set();
-
-    let nextId = 1;
-
-    return items.map(
-        (item) => {
-            const copy = {
-                ...item
-            };
-
-            let id =
-                Number(
-                    copy.id
-                );
-
-            if (
-                !Number.isInteger(id) ||
-                id <= 0 ||
-                seen.has(id)
-            ) {
-                while (
-                    seen.has(
-                        nextId
-                    )
-                ) {
-                    nextId++;
-                }
-
-                id =
-                    nextId++;
-            }
-
-            seen.add(
-                id
-            );
-
-            copy.id =
-                id;
-
-            if (
-                !copy.key
-            ) {
-                copy.key =
-                    slugify(
-                        copy.title ||
-                        copy.label ||
-                        copy.type ||
-                        `${prefix}-${id}`
-                    );
-            }
-
-            return copy;
-        }
-    );
-}
-
-/*
-|--------------------------------------------------------------------------
-| NORMALIZAÇÃO
-|--------------------------------------------------------------------------
-*/
-
-function normalizeConfig(
-    config
-) {
-    const normalized =
-        deepMerge(
-            clone(
-                DEFAULT_CONFIG
-            ),
-            config
-        );
-
-    normalized.version = 1;
-
-    normalized.metadata = {
-        ...(normalized.metadata || {}),
-
-        updatedAt:
-            nowIso()
-    };
-
-    normalized.navigation =
-        ensureIds(
-            normalized.navigation,
-            "link"
-        );
-
-    normalized.types =
-        ensureIds(
-            normalized.types,
-            "tipo"
-        );
-
-    normalized.projects =
-        ensureIds(
-            normalized.projects,
-            "projeto"
-        );
-
-    normalized.homeCards =
-        ensureIds(
-            normalized.homeCards,
-            "card"
-        );
-
-    /*
-     * TYPES
-     *
-     * Compatibilidade com versões antigas
-     * que utilizavam "name".
-     */
-    normalized.types =
-        normalized.types.map(
-            (type) => {
-                const copy = {
-                    ...type
-                };
-
-                copy.type =
-                    copy.type ||
-                    copy.name ||
-                    "";
-
-                copy.name =
-                    copy.type;
-
-                copy.key =
-                    copy.key ||
-                    copy.slug ||
-                    slugify(
-                        copy.type
-                    );
-
-                copy.slug =
-                    copy.slug ||
-                    copy.key;
-
-                copy.status =
-                    copy.status === undefined
-                        ? 1
-                        : copy.status;
-
-                return copy;
-            }
-        );
-
-    /*
-     * NAVIGATION
-     */
-    normalized.navigation =
-        normalized.navigation.map(
-            (link) => ({
-                ...link,
-
-                typeKey:
-                    link.typeKey ??
-                    "",
-
-                typeId:
-                    link.typeId ??
-                    null
-            })
-        );
-
-    /*
-     * PROJECTS
-     */
-    normalized.projects =
-        normalized.projects.map(
-            (project) => ({
-                ...project,
-
-                key:
-                    project.key ||
-                    slugify(
-                        project.title
-                    ),
-
-                externalUrl:
-                    project.externalUrl ??
-                    "",
-
-                status:
-                    project.status === undefined
-                        ? 1
-                        : project.status,
-
-                modal:
-                    Array.isArray(
-                        project.modal
-                    )
-                        ? project.modal
-                        : []
-            })
-        );
-
-    /*
-     * HOME CARDS
-     */
-    normalized.homeCards =
-        normalized.homeCards.map(
-            (card) => ({
-                ...card,
-
-                linkId:
-                    card.linkId ??
-                    null,
-
-                typeKey:
-                    card.typeKey ??
-                    ""
-            })
-        );
-
-    /*
-     * OPTIONALS
-     */
-    normalized.company.occupation =
-        normalized.company
-            .occupation ??
-        "";
-
-    normalized.contacts.address =
-        normalized.contacts
-            .address ??
-        "";
-
-    return normalized;
-}
-
 /*
 |--------------------------------------------------------------------------
 | OBJETOS
@@ -1333,10 +1297,9 @@ async function editObject(
                 );
     }
 }
-
 /*
 |--------------------------------------------------------------------------
-| 1. INFORMAÇÕES / CONTATOS
+| INFORMAÇÕES / CONTATOS
 |--------------------------------------------------------------------------
 */
 
@@ -1460,17 +1423,20 @@ async function editCompany(
 
 /*
 |--------------------------------------------------------------------------
-| 2. TYPES
+| TYPES
 |--------------------------------------------------------------------------
 */
 
 async function createTypeItem(
     rl,
-    current = null
+    current = null,
+    config
 ) {
     const item =
         current
-            ? { ...current }
+            ? {
+                ...current
+            }
             : {
                 id:
                     0,
@@ -1492,35 +1458,74 @@ async function createTypeItem(
             };
 
     item.id =
-        Number(
+        nextId(
+            config.types,
+            current?.id
+        );
+
+    while (true) {
+        item.name =
             await askRequired(
                 rl,
-                "ID numérico da categoria",
-                current?.id
-            )
-        ) || 0;
+                "Nome do tipo / categoria",
+                current?.name ||
+                (
+                    current?.type &&
+                        !current?.name
+                        ? current.type
+                        : undefined
+                )
+            );
 
-    item.type =
-        await askRequired(
-            rl,
-            "Nome do tipo / categoria",
-            current?.type ||
-            current?.name
-        );
-
-    item.key =
-        await askRequired(
-            rl,
-            "Chave da categoria",
-            current?.key ||
-            current?.slug ||
+        const generatedType =
             slugify(
-                item.type
-            )
-        );
+                item.name
+            );
 
-    item.slug =
-        item.key;
+        if (
+            !generatedType
+        ) {
+            console.log(
+                "Não foi possível gerar um controle válido para este tipo."
+            );
+
+            continue;
+        }
+
+        const duplicated =
+            config.types.some(
+                (type) =>
+                    Number(
+                        type.id
+                    ) !==
+                    Number(
+                        item.id
+                    ) &&
+                    type.type ===
+                    generatedType
+            );
+
+        if (
+            duplicated
+        ) {
+            console.log(
+                `Já existe uma categoria com o controle "${generatedType}".`
+            );
+
+            continue;
+        }
+
+        item.type =
+            generatedType;
+
+        item.key =
+            generatedType;
+
+        item.slug =
+            generatedType;
+
+        break;
+    }
 
     item.status =
         await choose(
@@ -1545,14 +1550,6 @@ async function createTypeItem(
             ]
         );
 
-    /*
-     * Compatibilidade interna.
-     *
-     * A coluna do banco continua sendo "type".
-     */
-    item.name =
-        item.type;
-
     return item;
 }
 
@@ -1565,11 +1562,24 @@ async function editTypes(
             rl,
             "3/7 — CATEGORIAS / TYPES",
             config.types,
-            createTypeItem,
+
+            (
+                currentRl,
+                current
+            ) =>
+                createTypeItem(
+                    currentRl,
+                    current,
+                    config
+                ),
 
             (item) => {
                 console.log(
-                    `${item.id}. ${item.type}`
+                    `${item.id}. ${item.name}`
+                );
+
+                console.log(
+                    `   controle: ${item.type}`
                 );
 
                 console.log(
@@ -1588,22 +1598,169 @@ async function editTypes(
             "Cadastre pelo menos uma categoria."
         );
     }
+
+    config.types =
+        ensureIds(
+            config.types,
+            "tipo"
+        );
 }
 
 /*
 |--------------------------------------------------------------------------
-| 3. NAVBAR / PAGES
+| NAVIGATION
+|--------------------------------------------------------------------------
+*/
+
+function getNavigationFunctionSet(
+    config,
+    additionalLinks = [],
+    excludeId = null
+) {
+    const all = [
+        ...(config.navigation || []),
+        ...(additionalLinks || [])
+    ];
+
+    return new Set(
+        all
+            .filter(
+                (link) =>
+                    excludeId === null ||
+                    Number(
+                        link.id
+                    ) !==
+                    Number(
+                        excludeId
+                    )
+            )
+            .map(
+                (link) =>
+                    normalizeText(
+                        link.function
+                    ).toLowerCase()
+            )
+            .filter(Boolean)
+    );
+}
+
+function isReservedFunction(
+    value
+) {
+    const functionName =
+        normalizeText(
+            value
+        ).toLowerCase();
+
+    return (
+        functionName ===
+        "homepage" ||
+        functionName ===
+        "contactpage"
+    );
+}
+
+function isReservedUrl(
+    value
+) {
+    const url =
+        normalizeText(
+            value
+        );
+
+    return (
+        url === "/" ||
+        url === "/contato"
+    );
+}
+
+/*
+|--------------------------------------------------------------------------
+| HOMEPAGE
+|--------------------------------------------------------------------------
+*/
+
+async function editHomePage(
+    rl,
+    current,
+    config
+) {
+    const item =
+        current
+            ? {
+                ...current
+            }
+            : {
+                id:
+                    0,
+
+                label:
+                    "",
+
+                function:
+                    "HomePage",
+
+                url:
+                    "/",
+
+                typeKey:
+                    "",
+
+                typeId:
+                    null
+            };
+
+    item.id =
+        nextId(
+            config.navigation,
+            current?.id
+        );
+
+    /*
+     * ÚNICA pergunta da HomePage.
+     */
+    item.label =
+        await askRequired(
+            rl,
+            "Nome exibido da HomePage",
+            current?.label
+        );
+
+    /*
+     * Dados padronizados.
+     */
+    item.function =
+        "HomePage";
+
+    item.url =
+        "/";
+
+    item.typeKey =
+        "";
+
+    item.typeId =
+        null;
+
+    return item;
+}
+
+/*
+|--------------------------------------------------------------------------
+| OUTROS LINKS
 |--------------------------------------------------------------------------
 */
 
 async function createNavigationItem(
     rl,
     current = null,
-    config
+    config,
+    additionalLinks = []
 ) {
     const item =
         current
-            ? { ...current }
+            ? {
+                ...current
+            }
             : {
                 id:
                     0,
@@ -1625,75 +1782,49 @@ async function createNavigationItem(
             };
 
     item.id =
-        Number(
-            await askRequired(
-                rl,
-                "ID numérico do link",
-                current?.id
-            )
-        ) || 0;
+        nextId(
+            config.navigation,
+            current?.id
+        );
 
+    /*
+     * 1. LABEL
+     */
     item.label =
         await askRequired(
             rl,
-            "Texto exibido no menu",
+            "Nome exibido do link",
             current?.label
         );
 
-    item.function =
-        await askRequired(
-            rl,
-            "Função/página React",
-            current?.function
-        );
-
-    item.url =
-        await askRequired(
-            rl,
-            "URL/rota",
-            current?.url
-        );
-
     /*
-     * HomePage e ContactPage
-     * não precisam de type_id.
+     * 2. URL
      */
-    if (
-        item.function ===
-        "HomePage" ||
-        item.function ===
-        "ContactPage"
-    ) {
-        item.typeKey =
-            "";
-
-        item.typeId =
-            null;
-
-        const accepted =
-            await confirm(
+    while (true) {
+        item.url =
+            await askRequired(
                 rl,
-                `${item.function} ficará com type_id = null.`
+                "URL/rota do link",
+                current?.url
             );
 
         if (
-            !accepted
+            isReservedUrl(
+                item.url
+            )
         ) {
-            return createNavigationItem(
-                rl,
-                null,
-                config
+            console.log(
+                "Esta URL é reservada para HomePage (/) ou ContactPage (/contato)."
             );
+
+            continue;
         }
 
-        return item;
+        break;
     }
 
     /*
-     * Os demais links podem possuir
-     * type_id nulo, mas normalmente
-     * precisam de categoria para buscar
-     * os projetos correspondentes.
+     * 3. CATEGORIA
      */
     const typeOptions = [
         {
@@ -1712,7 +1843,7 @@ async function createNavigationItem(
         ...config.types.map(
             (type) => ({
                 label:
-                    `${type.id} — ${type.type}`,
+                    `${type.id} — ${type.name}`,
 
                 value: {
                     typeKey:
@@ -1725,60 +1856,562 @@ async function createNavigationItem(
         )
     ];
 
-    const selected =
-        await choose(
-            rl,
-            "Categoria do link (type_id):",
-            typeOptions
-        );
+    while (true) {
+        const selected =
+            await choose(
+                rl,
+                "Categoria do link (type_id):",
+                typeOptions
+            );
 
-    item.typeKey =
-        selected.typeKey;
+        item.typeKey =
+            selected.typeKey;
 
-    item.typeId =
-        selected.typeId;
+        item.typeId =
+            selected.typeId;
+
+        const matchingType =
+            item.typeId === null
+                ? null
+                : config.types.find(
+                    (type) =>
+                        Number(
+                            type.id
+                        ) ===
+                        Number(
+                            item.typeId
+                        )
+                );
+
+        let functionName;
+
+        /*
+         * 4. FUNCTION
+         *
+         * É o último dado lógico do link.
+         *
+         * Com type_id:
+         *     geração automática.
+         *
+         * Sem type_id:
+         *     pergunta ao usuário.
+         */
+        if (
+            matchingType
+        ) {
+            functionName =
+                componentPageName(
+                    matchingType.name
+                );
+
+            console.log(
+                `Função React gerada automaticamente: ${functionName}`
+            );
+        } else {
+            functionName =
+                await askRequired(
+                    rl,
+                    "Função/página React",
+                    current?.function
+                );
+
+            if (
+                isReservedFunction(
+                    functionName
+                )
+            ) {
+                console.log(
+                    "HomePage e ContactPage possuem cadastro exclusivo e não podem ser usadas em outros links."
+                );
+
+                continue;
+            }
+        }
+
+        /*
+         * Evita duas páginas apontando para a mesma function.
+         */
+        const usedFunctions =
+            getNavigationFunctionSet(
+                config,
+                additionalLinks,
+                item.id
+            );
+
+        if (
+            usedFunctions.has(
+                functionName.toLowerCase()
+            )
+        ) {
+            console.log(
+                `A função React "${functionName}" já está sendo usada por outro link.`
+            );
+
+            if (
+                matchingType
+            ) {
+                console.log(
+                    "Escolha outra categoria para gerar uma função diferente."
+                );
+            } else {
+                console.log(
+                    "Informe outra função React que ainda não esteja sendo usada."
+                );
+            }
+
+            continue;
+        }
+
+        item.function =
+            functionName;
+
+        break;
+    }
 
     return item;
 }
+
+function printNavigationItem(
+    item
+) {
+    console.log(
+        `${item.id}. ${item.label} → ${item.url}`
+    );
+
+    console.log(
+        `   função: ${item.function}`
+    );
+
+    console.log(
+        `   type_id: ${item.typeId ?? "null"}`
+    );
+}
+
+async function editNavigationOthers(
+    rl,
+    config,
+    items
+) {
+    const result = [];
+
+    for (
+        let index = 0;
+        index < items.length;
+        index++
+    ) {
+        const item =
+            items[index];
+
+        console.log(
+            `\n[${index + 1}/${items.length}]`
+        );
+
+        printNavigationItem(
+            item
+        );
+
+        const action =
+            await choose(
+                rl,
+                "O que deseja fazer?",
+                [
+                    {
+                        label:
+                            "Manter",
+
+                        value:
+                            "keep"
+                    },
+
+                    {
+                        label:
+                            "Editar",
+
+                        value:
+                            "edit"
+                    },
+
+                    {
+                        label:
+                            "Remover",
+
+                        value:
+                            "remove"
+                    }
+                ]
+            );
+
+        if (
+            action ===
+            "keep"
+        ) {
+            result.push({
+                ...item
+            });
+
+            const accepted =
+                await confirm(
+                    rl,
+                    "Item mantido sem alterações."
+                );
+
+            if (
+                !accepted
+            ) {
+                result.pop();
+
+                result.push(
+                    await createNavigationItem(
+                        rl,
+                        item,
+                        config,
+                        result
+                    )
+                );
+            }
+
+            continue;
+        }
+
+        if (
+            action ===
+            "remove"
+        ) {
+            const remove =
+                await confirm(
+                    rl,
+                    "Confirme a remoção deste item."
+                );
+
+            if (
+                !remove
+            ) {
+                result.push({
+                    ...item
+                });
+            }
+
+            continue;
+        }
+
+        result.push(
+            await createNavigationItem(
+                rl,
+                item,
+                config,
+                result
+            )
+        );
+    }
+
+    /*
+     * NOVOS LINKS
+     */
+    while (true) {
+        const add =
+            await choose(
+                rl,
+                "Deseja adicionar outro link?",
+                [
+                    {
+                        label:
+                            "Sim",
+
+                        value:
+                            true
+                    },
+
+                    {
+                        label:
+                            "Não",
+
+                        value:
+                            false
+                    }
+                ]
+            );
+
+        if (
+            !add
+        ) {
+            break;
+        }
+
+        const newItem =
+            await createNavigationItem(
+                rl,
+                null,
+                config,
+                result
+            );
+
+        result.push(
+            newItem
+        );
+    }
+
+    return result;
+}
+
+/*
+|--------------------------------------------------------------------------
+| CONTACT PAGE
+|--------------------------------------------------------------------------
+*/
+
+async function editContactLink(
+    rl,
+    current,
+    config
+) {
+    const addContact =
+        await choose(
+            rl,
+            current
+                ? "Deseja manter/adicionar a zona de contatos?"
+                : "Deseja adicionar uma zona de contatos?",
+            [
+                {
+                    label:
+                        "Sim",
+
+                    value:
+                        true
+                },
+
+                {
+                    label:
+                        "Não",
+
+                    value:
+                        false
+                }
+            ]
+        );
+
+    if (
+        !addContact
+    ) {
+        return null;
+    }
+
+    const item =
+        current
+            ? {
+                ...current
+            }
+            : {
+                id:
+                    0,
+
+                label:
+                    "",
+
+                function:
+                    "ContactPage",
+
+                url:
+                    "/contato",
+
+                typeKey:
+                    "",
+
+                typeId:
+                    null
+            };
+
+    item.id =
+        nextId(
+            config.navigation,
+            current?.id
+        );
+
+    /*
+     * ÚNICA pergunta do ContactPage.
+     */
+    item.label =
+        await askRequired(
+            rl,
+            "Nome exibido da zona de contatos",
+            current?.label
+        );
+
+    /*
+     * Dados padronizados.
+     */
+    item.function =
+        "ContactPage";
+
+    item.url =
+        "/contato";
+
+    item.typeKey =
+        "";
+
+    item.typeId =
+        null;
+
+    return item;
+}
+
+/*
+|--------------------------------------------------------------------------
+| EDIÇÃO DA NAVEGAÇÃO
+|--------------------------------------------------------------------------
+*/
 
 async function editNavigation(
     rl,
     config
 ) {
-    config.navigation =
-        await editCollection(
+    console.log(
+        "\n════════════════════════════════════════"
+    );
+
+    console.log(
+        "4/7 — NAVBAR / PAGES"
+    );
+
+    console.log(
+        "════════════════════════════════════════"
+    );
+
+    const existingNavigation =
+        Array.isArray(
+            config.navigation
+        )
+            ? config.navigation
+            : [];
+
+    /*
+     * Encontra a HomePage existente.
+     *
+     * A URL "/" também é considerada HomePage
+     * para compatibilidade com configs antigas.
+     */
+    const currentHome =
+        existingNavigation.find(
+            (link) =>
+                link.function ===
+                "HomePage" ||
+                link.url === "/"
+        ) ||
+        null;
+
+    /*
+     * Encontra ContactPage existente.
+     *
+     * A URL "/contato" também é considerada.
+     */
+    const currentContact =
+        existingNavigation.find(
+            (link) =>
+                link.function ===
+                "ContactPage" ||
+                link.url ===
+                "/contato"
+        ) ||
+        null;
+
+    /*
+     * Remove HomePage e ContactPage
+     * dos "outros links".
+     */
+    const otherLinks =
+        existingNavigation.filter(
+            (link) =>
+                link !==
+                currentHome &&
+                link !==
+                currentContact
+        );
+
+    /*
+     * =========================================================
+     * 1 — HOMEPAGE
+     * =========================================================
+     */
+    const home =
+        await editHomePage(
             rl,
-            "4/7 — NAVBAR / PAGES",
-            config.navigation,
+            currentHome,
+            config
+        );
 
-            (currentRl, current) =>
-                createNavigationItem(
-                    currentRl,
-                    current,
-                    config
-                ),
+    /*
+     * Mantemos a navegação antiga temporariamente
+     * para que os IDs e funções existentes sejam respeitados
+     * durante a edição dos outros links.
+     */
+    const previousNavigation =
+        config.navigation;
 
-            (item) => {
-                console.log(
-                    `${item.id}. ${item.label} → ${item.url}`
-                );
+    config.navigation =
+        existingNavigation;
 
-                console.log(
-                    `   função: ${item.function}`
-                );
+    /*
+     * =========================================================
+     * 2 — OUTROS LINKS
+     * =========================================================
+     */
+    const others =
+        await editNavigationOthers(
+            rl,
+            config,
+            otherLinks
+        );
 
-                console.log(
-                    `   type_id: ${item.typeId ??
-                    "null"
-                    }`
-                );
+    /*
+     * A ordem agora fica:
+     *
+     * HomePage
+     * Outros links
+     */
+    config.navigation = [
+        home,
+        ...others
+    ];
+
+    /*
+     * =========================================================
+     * 3 — CONTATO
+     * =========================================================
+     */
+    const contact =
+        await editContactLink(
+            rl,
+            currentContact,
+            {
+                ...config,
+
+                navigation: [
+                    ...config.navigation,
+                    ...(previousNavigation || [])
+                ]
             }
+        );
+
+    /*
+     * ContactPage sempre por último.
+     */
+    if (
+        contact
+    ) {
+        config.navigation.push(
+            contact
+        );
+    }
+
+    config.navigation =
+        ensureIds(
+            config.navigation,
+            "link"
         );
 }
 
 /*
 |--------------------------------------------------------------------------
-| 4. PROJETOS / SERVIÇOS
+| PROJETOS / MODAIS
 |--------------------------------------------------------------------------
 */
 
@@ -1788,7 +2421,9 @@ async function createModalItem(
 ) {
     const item =
         current
-            ? { ...current }
+            ? {
+                ...current
+            }
             : {
                 id:
                     0,
@@ -1865,14 +2500,14 @@ async function createProjectItem(
                     []
             };
 
+    /*
+     * ID automático.
+     */
     item.id =
-        Number(
-            await askRequired(
-                rl,
-                "ID numérico do projeto/serviço",
-                current?.id
-            )
-        ) || 0;
+        nextId(
+            config.projects,
+            current?.id
+        );
 
     item.title =
         await askRequired(
@@ -1881,6 +2516,10 @@ async function createProjectItem(
             current?.title
         );
 
+    /*
+     * O slug do projeto continua sendo informado,
+     * pois ele é usado para a pasta ./config/projetos.
+     */
     item.key =
         await askRequired(
             rl,
@@ -1913,7 +2552,7 @@ async function createProjectItem(
             config.types.map(
                 (type) => ({
                     label:
-                        `${type.id} — ${type.type}`,
+                        `${type.id} — ${type.name}`,
 
                     value:
                         type.key
@@ -1985,7 +2624,10 @@ async function createProjectItem(
                 item.modal,
                 createModalItem,
 
-                (modal, index) => {
+                (
+                    modal,
+                    index
+                ) => {
                     console.log(
                         `${index + 1}. ${modal.text}`
                     );
@@ -1994,25 +2636,6 @@ async function createProjectItem(
                         `   extensão: ${modal.extension}`
                     );
                 }
-            );
-
-        item.modal =
-            item.modal.map(
-                (
-                    modal,
-                    index
-                ) => ({
-                    ...modal,
-
-                    id:
-                        Number(
-                            modal.id
-                        ) > 0
-                            ? Number(
-                                modal.id
-                            )
-                            : index + 1
-                })
             );
     }
 
@@ -2029,7 +2652,10 @@ async function editProjects(
             "5/7 — PROJETOS / SERVIÇOS",
             config.projects,
 
-            (currentRl, current) =>
+            (
+                currentRl,
+                current
+            ) =>
                 createProjectItem(
                     currentRl,
                     current,
@@ -2048,11 +2674,15 @@ async function editProjects(
             config.projects,
             "projeto"
         );
+
+    ensureGlobalModalIds(
+        config
+    );
 }
 
 /*
 |--------------------------------------------------------------------------
-| 5. HOME CARDS
+| HOME CARDS
 |--------------------------------------------------------------------------
 */
 
@@ -2063,7 +2693,9 @@ async function createHomeCardItem(
 ) {
     const item =
         current
-            ? { ...current }
+            ? {
+                ...current
+            }
             : {
                 id:
                     0,
@@ -2084,18 +2716,24 @@ async function createHomeCardItem(
                     null,
 
                 typeKey:
-                    ""
+                    "",
+
+                typeId:
+                    null
             };
 
+    /*
+     * ID automático.
+     */
     item.id =
-        Number(
-            await askRequired(
-                rl,
-                "ID do card",
-                current?.id
-            )
-        ) || 0;
+        nextId(
+            config.homeCards,
+            current?.id
+        );
 
+    /*
+     * TÍTULO
+     */
     item.title =
         await askRequired(
             rl,
@@ -2103,6 +2741,9 @@ async function createHomeCardItem(
             current?.title
         );
 
+    /*
+     * TEXTO
+     */
     item.text =
         await askRequired(
             rl,
@@ -2110,13 +2751,9 @@ async function createHomeCardItem(
             current?.text
         );
 
-    item.class =
-        await askRequired(
-            rl,
-            "Classe CSS",
-            current?.class
-        );
-
+    /*
+     * ÍCONE
+     */
     item.icon =
         await askRequired(
             rl,
@@ -2125,22 +2762,19 @@ async function createHomeCardItem(
         );
 
     /*
-     * O link_id precisa apontar
-     * diretamente para navbar_links.id.
+     * LINK
      *
-     * Por isso esta etapa só acontece
-     * depois de navigation.
+     * O link agora é a origem de:
+     *
+     * - class
+     * - typeId
+     * - typeKey
+     *
+     * Portanto o card precisa estar associado
+     * a um link.
      */
-    const linkOptions = [
-        {
-            label:
-                "Sem link / link_id = null",
-
-            value:
-                null
-        },
-
-        ...config.navigation.map(
+    const linkOptions =
+        config.navigation.map(
             (link) => ({
                 label:
                     `${link.id} — ${link.label} (${link.function})`,
@@ -2148,45 +2782,75 @@ async function createHomeCardItem(
                 value:
                     link.id
             })
-        )
-    ];
+        );
+
+    if (
+        !linkOptions.length
+    ) {
+        throw new Error(
+            "É necessário cadastrar pelo menos um link antes dos cards da Home."
+        );
+    }
 
     item.linkId =
         await choose(
             rl,
-            "Link do card (referência para navbar_links):",
+            "Link do card:",
             linkOptions
         );
 
     /*
-     * type_id do próprio card.
+     * Localiza o link selecionado.
      */
-    const typeOptions = [
-        {
-            label:
-                "Sem categoria / type_id = null",
+    const linked =
+        config.navigation.find(
+            (link) =>
+                Number(
+                    link.id
+                ) ===
+                Number(
+                    item.linkId
+                )
+        );
 
-            value:
-                ""
-        },
+    if (
+        !linked
+    ) {
+        throw new Error(
+            `Link ${item.linkId} não encontrado para o card "${item.title}".`
+        );
+    }
 
-        ...config.types.map(
-            (type) => ({
-                label:
-                    `${type.id} — ${type.type}`,
+    /*
+     * CLASS
+     *
+     * function:
+     *
+     * DeclaracoesFiscaisPage
+     *
+     * vira:
+     *
+     * declaracoesfiscaIs
+     *
+     * sem Page + lowercase.
+     */
+    item.class =
+        getHomeCardClass(
+            linked.function
+        );
 
-                value:
-                    type.key
-            })
-        )
-    ];
+    /*
+     * TYPE
+     *
+     * Herdado diretamente do link.
+     */
+    item.typeId =
+        linked.typeId ??
+        null;
 
     item.typeKey =
-        await choose(
-            rl,
-            "Categoria do card (type_id):",
-            typeOptions
-        );
+        linked.typeKey ??
+        "";
 
     return item;
 }
@@ -2201,7 +2865,10 @@ async function editHomeCards(
             "6/7 — CARDS DA HOME",
             config.homeCards,
 
-            (currentRl, current) =>
+            (
+                currentRl,
+                current
+            ) =>
                 createHomeCardItem(
                     currentRl,
                     current,
@@ -2214,23 +2881,29 @@ async function editHomeCards(
                 );
 
                 console.log(
-                    `   link_id: ${item.linkId ??
-                    "null"
-                    }`
+                    `   link_id: ${item.linkId ?? "null"}`
                 );
 
                 console.log(
-                    `   type_id: ${item.typeKey ||
-                    "null"
-                    }`
+                    `   classe: ${item.class}`
+                );
+
+                console.log(
+                    `   type_id: ${item.typeId ?? "null"}`
                 );
             }
+        );
+
+    config.homeCards =
+        ensureIds(
+            config.homeCards,
+            "card"
         );
 }
 
 /*
 |--------------------------------------------------------------------------
-| 6. THEME
+| THEME
 |--------------------------------------------------------------------------
 */
 
@@ -2370,21 +3043,28 @@ async function editCollection(
         "════════════════════════════════════════"
     );
 
+    const sourceItems =
+        Array.isArray(items)
+            ? items
+            : [];
+
     const result = [];
 
     /*
-     * Primeiro editamos os itens existentes.
+     * Itens existentes.
      */
     for (
         let index = 0;
-        index < items.length;
+        index < sourceItems.length;
         index++
     ) {
         const item =
-            items[index];
+            sourceItems[
+            index
+            ];
 
         console.log(
-            `\n[${index + 1}/${items.length}]`
+            `\n[${index + 1}/${sourceItems.length}]`
         );
 
         printItem(
@@ -2424,15 +3104,15 @@ async function editCollection(
             );
 
         /*
-         * MANter
+         * MANTER
          */
         if (
             action ===
             "keep"
         ) {
-            result.push(
-                item
-            );
+            result.push({
+                ...item
+            });
 
             const accepted =
                 await confirm(
@@ -2473,9 +3153,9 @@ async function editCollection(
             if (
                 !remove
             ) {
-                result.push(
-                    item
-                );
+                result.push({
+                    ...item
+                });
             }
 
             continue;
@@ -2494,7 +3174,7 @@ async function editCollection(
     }
 
     /*
-     * Novos itens.
+     * NOVOS ITENS
      */
     while (true) {
         const add =
@@ -2579,8 +3259,7 @@ function valueForColumn(
         );
 
     /*
-     * Primeiro tenta correspondência
-     * direta.
+     * Correspondência direta.
      */
     if (
         context[key] !== undefined
@@ -2592,6 +3271,7 @@ function valueForColumn(
         name: [
             "name"
         ],
+
         trade_name: [
             "name"
         ],
@@ -2628,18 +3308,11 @@ function valueForColumn(
             "whatsapp"
         ],
 
-        /*
-         * Banco usa location.
-         */
         location: [
             "location",
             "address"
         ],
 
-        /*
-         * Mantemos address como
-         * compatibilidade.
-         */
         address: [
             "address",
             "location"
@@ -2659,9 +3332,6 @@ function valueForColumn(
             "url"
         ],
 
-        /*
-         * Banco usa "type".
-         */
         type: [
             "type",
             "name",
@@ -2727,11 +3397,11 @@ function valueForColumn(
 
     for (
         const alias of
-        aliases[key] || []
+        aliases[key] ||
+        []
     ) {
         if (
-            context[alias] !==
-            undefined
+            context[alias] !== undefined
         ) {
             return context[
                 alias
@@ -2757,10 +3427,6 @@ function seedRowsForInfos(
             normalizeColumnName
         );
 
-    /*
-     * Algumas versões da tabela
-     * podem utilizar key/value.
-     */
     const isKeyValue =
         columns.includes(
             "key"
@@ -2775,56 +3441,47 @@ function seedRowsForInfos(
         const pairs = [
             [
                 "name",
-                config.company
-                    .name
+                config.company.name
             ],
 
             [
                 "company",
-                config.company
-                    .company
+                config.company.company
             ],
 
             [
                 "occupation",
-                config.company
-                    .occupation
+                config.company.occupation
             ],
 
             [
                 "description",
-                config.company
-                    .description
+                config.company.description
             ],
 
             [
                 "footer",
-                config.company
-                    .footer
+                config.company.footer
             ],
 
             [
                 "email",
-                config.contacts
-                    .email
+                config.contacts.email
             ],
 
             [
                 "phone",
-                config.contacts
-                    .phone
+                config.contacts.phone
             ],
 
             [
                 "whatsapp",
-                config.contacts
-                    .whatsapp
+                config.contacts.whatsapp
             ],
 
             [
                 "location",
-                config.contacts
-                    .address
+                config.contacts.address
             ]
         ].filter(
             ([, value]) =>
@@ -2832,8 +3489,7 @@ function seedRowsForInfos(
                 undefined &&
                 value !==
                 null &&
-                value !==
-                ""
+                value !== ""
         );
 
         return pairs.map(
@@ -2864,9 +3520,6 @@ function seedRowsForInfos(
         );
     }
 
-    /*
-     * Estrutura normal.
-     */
     return [
         buildRow(
             spec.columns,
@@ -2875,44 +3528,34 @@ function seedRowsForInfos(
                     1,
 
                 company:
-                    config.company
-                        .company,
+                    config.company.company,
 
                 name:
-                    config.company
-                        .name,
+                    config.company.name,
 
                 occupation:
-                    config.company
-                        .occupation,
+                    config.company.occupation,
 
                 description:
-                    config.company
-                        .description,
+                    config.company.description,
 
                 footer:
-                    config.company
-                        .footer,
+                    config.company.footer,
 
                 email:
-                    config.contacts
-                        .email,
+                    config.contacts.email,
 
                 phone:
-                    config.contacts
-                        .phone,
+                    config.contacts.phone,
 
                 whatsapp:
-                    config.contacts
-                        .whatsapp,
+                    config.contacts.whatsapp,
 
                 location:
-                    config.contacts
-                        .address,
+                    config.contacts.address,
 
                 address:
-                    config.contacts
-                        .address
+                    config.contacts.address
             }
         )
     ];
@@ -2987,23 +3630,25 @@ function seedRowsForTypes(
                         type.id,
 
                     /*
-                     * COLUNA REAL:
-                     * project_type.type
+                     * A tabela usa "type"
+                     * como controle interno.
                      */
                     type:
-                        type.type.toLowerCase(),
+                        slugify(
+                            type.name
+                        ),
 
                     name:
-                        type.type.toLowerCase(),
+                        type.name,
 
                     typeName:
-                        type.type.toLowerCase(),
+                        type.name,
 
                     key:
                         type.key,
 
                     slug:
-                        type.slug.toLowerCase(),
+                        type.slug,
 
                     status:
                         type.status
@@ -3077,7 +3722,8 @@ function seedRowsForModal(
 ) {
     const rows = [];
 
-    let fallbackId = 1;
+    let fallbackId =
+        1;
 
     for (
         const project of
@@ -3085,14 +3731,24 @@ function seedRowsForModal(
     ) {
         for (
             const modal of
-            project.modal || []
+            project.modal ||
+            []
         ) {
+            const modalId =
+                isPositiveId(
+                    modal.id
+                )
+                    ? Number(
+                        modal.id
+                    )
+                    : fallbackId++;
+
             rows.push(
                 buildRow(
                     spec.columns,
                     {
                         id:
-                            fallbackId++,
+                            modalId,
 
                         projectId:
                             project.id,
@@ -3127,12 +3783,20 @@ function seedRowsForHomeCards(
 ) {
     return config.homeCards.map(
         (card) => {
-            const type =
-                config.types.find(
+            const link =
+                config.navigation.find(
                     (item) =>
-                        item.key ===
-                        card.typeKey
+                        Number(
+                            item.id
+                        ) ===
+                        Number(
+                            card.linkId
+                        )
                 );
+
+            const typeId =
+                link?.typeId ??
+                null;
 
             return buildRow(
                 spec.columns,
@@ -3146,8 +3810,16 @@ function seedRowsForHomeCards(
                     text:
                         card.text,
 
+                    /*
+                     * Herdada da function
+                     * do link.
+                     */
                     class:
-                        card.class,
+                        link
+                            ? getHomeCardClass(
+                                link.function
+                            )
+                            : "",
 
                     icon:
                         card.icon,
@@ -3156,18 +3828,20 @@ function seedRowsForHomeCards(
                      * FK -> navbar_links.id
                      */
                     linkId:
-                        card.linkId ??
+                        link?.id ??
                         null,
 
                     /*
-                     * FK -> project_type.id
+                     * Herdado do link.
                      */
-                    typeId:
-                        type?.id ??
-                        null,
+                    typeId,
 
+                    /*
+                     * Mantemos para
+                     * compatibilidade interna.
+                     */
                     typeKey:
-                        card.typeKey ||
+                        link?.typeKey ??
                         ""
                 }
             );
@@ -3255,8 +3929,9 @@ function writeSeed(
         "pages"
     ) {
         extraCode = [
-            "    // HomePage e ContactPage podem possuir type_id = null.",
-            "    // Links associados a categorias usam o ID de project_type."
+            "    // HomePage é obrigatória.",
+            "    // ContactPage é opcional.",
+            "    // Links com categoria usam o ID de project_type."
         ].join(
             "\n"
         );
@@ -3267,7 +3942,7 @@ function writeSeed(
         "types"
     ) {
         extraCode = [
-            "    // A coluna do banco é project_type.type.",
+            "    // project_type.type recebe o slug gerado a partir de type.name.",
             "    // O status controla se o tipo está ativo."
         ].join(
             "\n"
@@ -3293,10 +3968,6 @@ function writeSeed(
             {
                 ...spec,
 
-                /*
-                 * O configurador precisa atualizar
-                 * os registros existentes.
-                 */
                 modifier:
                     "OR REPLACE"
             },
@@ -3351,7 +4022,229 @@ function writeSeed(
 
 /*
 |--------------------------------------------------------------------------
-| VALIDAÇÃO DA CONFIGURAÇÃO
+| NORMALIZAÇÃO
+|--------------------------------------------------------------------------
+*/
+
+function normalizeConfig(
+    config
+) {
+    const normalized =
+        deepMerge(
+            clone(
+                DEFAULT_CONFIG
+            ),
+            config
+        );
+
+    normalized.version =
+        1;
+
+    normalized.metadata = {
+        ...(normalized.metadata || {}),
+
+        updatedAt:
+            nowIso()
+    };
+
+    normalized.navigation =
+        ensureIds(
+            normalized.navigation,
+            "link"
+        );
+
+    normalized.types =
+        ensureIds(
+            normalized.types,
+            "tipo"
+        );
+
+    normalized.projects =
+        ensureIds(
+            normalized.projects,
+            "projeto"
+        );
+
+    normalized.homeCards =
+        ensureIds(
+            normalized.homeCards,
+            "card"
+        );
+
+    /*
+     * TYPES
+     *
+     * name = nome legível
+     * type = slug automático
+     * key  = slug usado internamente
+     * slug = compatibilidade
+     */
+    normalized.types =
+        normalized.types.map(
+            (type) => {
+                const copy = {
+                    ...type
+                };
+
+                copy.name =
+                    normalizeText(
+                        copy.name ||
+                        copy.type ||
+                        ""
+                    );
+
+                copy.type =
+                    slugify(
+                        copy.name
+                    );
+
+                copy.key =
+                    copy.type;
+
+                copy.slug =
+                    copy.type;
+
+                copy.status =
+                    copy.status ===
+                        undefined
+                        ? 1
+                        : (
+                            Number(
+                                copy.status
+                            )
+                                ? 1
+                                : 0
+                        );
+
+                return copy;
+            }
+        );
+
+    /*
+     * NAVIGATION
+     */
+    normalized.navigation =
+        normalized.navigation.map(
+            (link) => ({
+                ...link,
+
+                typeKey:
+                    link.typeKey ??
+                    "",
+
+                typeId:
+                    link.typeId ??
+                    null
+            })
+        );
+
+    /*
+     * PROJECTS
+     */
+    normalized.projects =
+        normalized.projects.map(
+            (project) => ({
+                ...project,
+
+                key:
+                    project.key ||
+                    slugify(
+                        project.title
+                    ),
+
+                externalUrl:
+                    project.externalUrl ??
+                    "",
+
+                status:
+                    project.status ===
+                        undefined
+                        ? 1
+                        : (
+                            Number(
+                                project.status
+                            )
+                                ? 1
+                                : 0
+                        ),
+
+                modal:
+                    Array.isArray(
+                        project.modal
+                    )
+                        ? project.modal
+                        : []
+            })
+        );
+
+    /*
+     * HOME CARDS
+     */
+    normalized.homeCards =
+        normalized.homeCards.map(
+            (card) => {
+                const linked =
+                    normalized.navigation.find(
+                        (link) =>
+                            Number(
+                                link.id
+                            ) ===
+                            Number(
+                                card.linkId
+                            )
+                    );
+
+                return {
+                    ...card,
+
+                    linkId:
+                        linked?.id ??
+                        null,
+
+                    class:
+                        linked
+                            ? getHomeCardClass(
+                                linked.function
+                            )
+                            : "",
+
+                    typeKey:
+                        linked?.typeKey ??
+                        "",
+
+                    typeId:
+                        linked?.typeId ??
+                        null
+                };
+            }
+        );
+
+    /*
+     * OPTIONALS
+     */
+    normalized.company.occupation =
+        normalized.company
+            .occupation ??
+        "";
+
+    normalized.contacts.address =
+        normalized.contacts
+            .address ??
+        "";
+
+    /*
+     * IDS DOS MODAIS
+     */
+    ensureGlobalModalIds(
+        normalized
+    );
+
+    return normalized;
+}
+
+/*
+|--------------------------------------------------------------------------
+| VALIDAÇÃO
 |--------------------------------------------------------------------------
 */
 
@@ -3414,7 +4307,7 @@ function validateConfig(
     }
 
     /*
-     * CHAVES DOS TYPES
+     * TYPE KEYS
      */
     const typeKeys =
         new Set(
@@ -3425,7 +4318,20 @@ function validateConfig(
         );
 
     /*
-     * IDS DA NAVBAR
+     * TYPE IDS
+     */
+    const typeIds =
+        new Set(
+            config.types.map(
+                (type) =>
+                    Number(
+                        type.id
+                    )
+            )
+        );
+
+    /*
+     * LINK IDS
      */
     const linkIds =
         new Set(
@@ -3438,7 +4344,51 @@ function validateConfig(
         );
 
     /*
-     * VALIDA NAVBAR
+     * HOME
+     */
+    const homeLinks =
+        config.navigation.filter(
+            (link) =>
+                link.function ===
+                "HomePage"
+        );
+
+    if (
+        homeLinks.length !==
+        1
+    ) {
+        errors.push(
+            "navigation precisa conter exatamente uma HomePage"
+        );
+    }
+
+    /*
+     * CONTACT
+     */
+    const contactLinks =
+        config.navigation.filter(
+            (link) =>
+                link.function ===
+                "ContactPage"
+        );
+
+    if (
+        contactLinks.length >
+        1
+    ) {
+        errors.push(
+            "navigation pode conter no máximo uma ContactPage"
+        );
+    }
+
+    /*
+     * FUNCTIONS ÚNICAS
+     */
+    const navigationFunctions =
+        new Set();
+
+    /*
+     * NAVIGATION
      */
     for (
         const link of
@@ -3454,6 +4404,65 @@ function validateConfig(
             );
         }
 
+        const functionKey =
+            normalizeText(
+                link.function
+            ).toLowerCase();
+
+        if (
+            navigationFunctions.has(
+                functionKey
+            )
+        ) {
+            errors.push(
+                `navigation.function duplicada (${link.function})`
+            );
+        }
+
+        navigationFunctions.add(
+            functionKey
+        );
+
+        /*
+         * HomePage
+         */
+        if (
+            link.function ===
+            "HomePage"
+        ) {
+            if (
+                link.url !== "/" ||
+                link.typeId !== null ||
+                link.typeKey !== ""
+            ) {
+                errors.push(
+                    "HomePage precisa usar url='/', type_id=null e typeKey=''"
+                );
+            }
+        }
+
+        /*
+         * ContactPage
+         */
+        if (
+            link.function ===
+            "ContactPage"
+        ) {
+            if (
+                link.url !==
+                "/contato" ||
+                link.typeId !== null ||
+                link.typeKey !== ""
+            ) {
+                errors.push(
+                    "ContactPage precisa usar url='/contato', type_id=null e typeKey=''"
+                );
+            }
+        }
+
+        /*
+         * typeKey
+         */
         if (
             link.typeKey &&
             !typeKeys.has(
@@ -3466,26 +4475,18 @@ function validateConfig(
         }
 
         /*
-         * Se typeId estiver preenchido,
-         * precisa ser válido.
+         * typeId
          */
         if (
             link.typeId !== null &&
             link.typeId !== undefined
         ) {
-            const matchingType =
-                config.types.find(
-                    (type) =>
-                        Number(
-                            type.id
-                        ) ===
-                        Number(
-                            link.typeId
-                        )
-                );
-
             if (
-                !matchingType
+                !typeIds.has(
+                    Number(
+                        link.typeId
+                    )
+                )
             ) {
                 errors.push(
                     `navigation.typeId (${link.label || link.id})`
@@ -3495,12 +4496,23 @@ function validateConfig(
     }
 
     /*
-     * VALIDA TYPES
+     * TYPES
      */
+    const typeSlugs =
+        new Set();
+
     for (
         const type of
         config.types
     ) {
+        if (
+            !type.name
+        ) {
+            errors.push(
+                `type.name (${type.id || "sem id"})`
+            );
+        }
+
         if (
             !type.type
         ) {
@@ -3508,6 +4520,31 @@ function validateConfig(
                 `type.type (${type.id || "sem id"})`
             );
         }
+
+        if (
+            type.type !==
+            slugify(
+                type.name
+            )
+        ) {
+            errors.push(
+                `type.type não corresponde ao slug de type.name (${type.id || type.name})`
+            );
+        }
+
+        if (
+            typeSlugs.has(
+                type.type
+            )
+        ) {
+            errors.push(
+                `type.type duplicado (${type.type})`
+            );
+        }
+
+        typeSlugs.add(
+            type.type
+        );
 
         if (
             type.status !== 0 &&
@@ -3520,7 +4557,7 @@ function validateConfig(
     }
 
     /*
-     * VALIDA PROJETOS
+     * PROJECTS
      */
     for (
         const project of
@@ -3554,40 +4591,104 @@ function validateConfig(
                 `project.modal (${project.title || "sem título"})`
             );
         }
+
+        if (
+            project.status !== 0 &&
+            project.status !== 1
+        ) {
+            errors.push(
+                `project.status (${project.title || project.id})`
+            );
+        }
     }
 
     /*
-     * VALIDA HOME CARDS
+     * HOME CARDS
      */
+    /*
+ * HOME CARDS
+ */
     for (
         const card of
         config.homeCards
     ) {
-        if (
-            card.linkId !== null &&
-            card.linkId !== undefined
-        ) {
-            if (
-                !linkIds.has(
+        const link =
+            config.navigation.find(
+                (item) =>
+                    Number(
+                        item.id
+                    ) ===
                     Number(
                         card.linkId
                     )
-                )
-            ) {
-                errors.push(
-                    `homeCard.linkId (${card.title || "sem título"})`
-                );
-            }
+            );
+
+        /*
+         * link_id obrigatório.
+         */
+        if (
+            !link
+        ) {
+            errors.push(
+                `homeCard.linkId (${card.title || "sem título"})`
+            );
+
+            continue;
         }
 
+        /*
+         * class precisa ser derivada
+         * da function do link.
+         */
+        const expectedClass =
+            getHomeCardClass(
+                link.function
+            );
+
         if (
-            card.typeKey &&
-            !typeKeys.has(
-                card.typeKey
+            card.class !==
+            expectedClass
+        ) {
+            errors.push(
+                `homeCard.class inválida (${card.title || "sem título"}): esperado "${expectedClass}"`
+            );
+        }
+
+        /*
+         * type_id do card precisa
+         * ser exatamente o do link.
+         */
+        if (
+            Number(
+                card.typeId ??
+                -1
+            ) !==
+            Number(
+                link.typeId ??
+                -1
             )
         ) {
             errors.push(
-                `homeCard.typeKey (${card.title || "sem título"})`
+                `homeCard.typeId diferente do link (${card.title || "sem título"})`
+            );
+        }
+
+        /*
+         * typeKey também precisa
+         * acompanhar o link.
+         */
+        if (
+            (
+                card.typeKey ||
+                ""
+            ) !==
+            (
+                link.typeKey ||
+                ""
+            )
+        ) {
+            errors.push(
+                `homeCard.typeKey diferente do link (${card.title || "sem título"})`
             );
         }
     }
@@ -3828,15 +4929,33 @@ async function reviewConfig(
     );
 
     console.log(
-        `Categorias: ${config.types.length}`
+        `\nNavegação: ${config.navigation.length}`
     );
 
-    console.log(
-        `Links: ${config.navigation.length}`
-    );
+    for (
+        const link of
+        config.navigation
+    ) {
+        console.log(
+            `  ${link.id}. ${link.label} → ${link.function} → ${link.url}`
+        );
+    }
 
     console.log(
-        `Projetos: ${config.projects.length}`
+        `\nCategorias: ${config.types.length}`
+    );
+
+    for (
+        const type of
+        config.types
+    ) {
+        console.log(
+            `  ${type.id}. ${type.name} → ${type.type}`
+        );
+    }
+
+    console.log(
+        `\nProjetos: ${config.projects.length}`
     );
 
     console.log(
@@ -3966,9 +5085,6 @@ async function main() {
         /*
          * =========================================================
          * 2 — TYPES
-         *
-         * Nenhuma entidade posterior é processada
-         * antes que os types existam.
          * =========================================================
          */
 
@@ -3979,9 +5095,7 @@ async function main() {
 
         /*
          * =========================================================
-         * 3 — NAVBAR
-         *
-         * Agora já existem type_id disponíveis.
+         * 3 — NAVBAR / PAGES
          * =========================================================
          */
 
@@ -3993,8 +5107,6 @@ async function main() {
         /*
          * =========================================================
          * 4 — PROJETOS
-         *
-         * Agora os projetos podem escolher type_id.
          * =========================================================
          */
 
@@ -4006,16 +5118,6 @@ async function main() {
         /*
          * =========================================================
          * 5 — HOME CARDS
-         *
-         * Agora já existem:
-         *
-         * - types
-         * - navbar_links
-         *
-         * então podemos registrar:
-         *
-         * - type_id
-         * - link_id
          * =========================================================
          */
 
@@ -4027,8 +5129,6 @@ async function main() {
         /*
          * =========================================================
          * 6/7 — THEME
-         *
-         * Theme permanece como último tópico.
          * =========================================================
          */
 
@@ -4046,11 +5146,8 @@ async function main() {
             );
 
         /*
-         * =========================================================
-         * VALIDAÇÃO
-         * =========================================================
+         * VALIDATION
          */
-
         const errors =
             validateConfig(
                 config
@@ -4076,11 +5173,8 @@ async function main() {
         }
 
         /*
-         * =========================================================
-         * REVISÃO
-         * =========================================================
+         * REVIEW
          */
-
         const approved =
             await reviewConfig(
                 rl,
@@ -4098,11 +5192,8 @@ async function main() {
         }
 
         /*
-         * =========================================================
-         * SALVA CONFIG
-         * =========================================================
+         * SAVE
          */
-
         saveJson(
             config
         );
@@ -4114,11 +5205,8 @@ async function main() {
         );
 
         /*
-         * =========================================================
-         * VERIFICA PROJETOS
-         * =========================================================
+         * PROJECT FOLDERS
          */
-
         const validation =
             validateProjectFolders(
                 config
@@ -4136,7 +5224,6 @@ async function main() {
         const continueAfterCheck =
             await confirm(
                 rl,
-
                 validation.skipped ||
                     !hasAnomaly
                     ? "Deseja gerar/regravar as seeds do backend?"
@@ -4201,11 +5288,8 @@ async function main() {
         }
 
         /*
-         * =========================================================
          * FINAL
-         * =========================================================
          */
-
         console.log(
             "\n════════════════════════════════════════"
         );
@@ -4227,11 +5311,11 @@ async function main() {
         );
 
         console.log(
-            "✓ typesSeed atualizado com type/status"
+            "✓ typesSeed atualizado com slug automático em project_type.type"
         );
 
         console.log(
-            "✓ pagesSeed atualizado com type_id"
+            "✓ pagesSeed atualizado com HomePage obrigatória e ContactPage opcional"
         );
 
         console.log(
@@ -4239,11 +5323,15 @@ async function main() {
         );
 
         console.log(
-            "✓ modalSeed atualizado"
+            "✓ modalSeed atualizado com IDs automáticos"
         );
 
         console.log(
             "✓ homeCardsSeed atualizado com link_id/type_id"
+        );
+
+        console.log(
+            "✓ IDs primários gerados automaticamente"
         );
 
         console.log(

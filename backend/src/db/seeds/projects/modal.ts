@@ -6,177 +6,152 @@ function modalSeed(){
     const modals = [
         [
         1,
-        "Vista frontal da sacada após a instalação do sistema de envidraçamento.",
+        "Detalhes da execução do forro de gesso e preparação para iluminação embutida.",
         ".png"
 ],
         [
         1,
-        "Detalhe dos painéis de vidro e do sistema de abertura instalado na sacada.",
+        "Acabamento final do forro, com superfícies uniformes e alinhadas ao projeto.",
         ".png"
 ],
         [
         1,
-        "Acabamento final do envidraçamento integrado à fachada residencial.",
+        "Resultado da instalação do forro de gesso integrado à iluminação do ambiente.",
         ".png"
 ],
         [
         2,
-        "Fechamento completo da sacada com painéis de vidro.",
+        "Instalação da estrutura em drywall para divisão e adequação do ambiente.",
         ".png"
 ],
         [
         2,
-        "Detalhe do sistema de fechamento e alinhamento dos vidros.",
+        "Fechamento das placas de drywall e preparação da superfície para o acabamento.",
         ".png"
 ],
         [
         2,
-        "Resultado final do projeto com a sacada protegida e valorizada.",
+        "Resultado final da parede em drywall pronta para receber pintura.",
         ".png"
 ],
         [
         3,
-        "Área gourmet antes da instalação do sistema de envidraçamento.",
+        "Montagem da estrutura da sanca de gesso conforme o projeto do ambiente.",
         ".png"
 ],
         [
         3,
-        "Instalação dos painéis de vidro na área gourmet.",
+        "Detalhamento do acabamento da sanca e preparação para iluminação indireta.",
         ".png"
 ],
         [
         3,
-        "Área gourmet finalizada com fechamento em vidro e acabamento completo.",
+        "Resultado final da sanca de gesso valorizando o ambiente.",
         ".png"
 ],
         [
         4,
-        "Instalação do guarda-corpo de vidro em área residencial.",
+        "Preparação das paredes e tetos para correção das imperfeições da superfície.",
         ".png"
 ],
         [
         4,
-        "Detalhe dos vidros e dos elementos de fixação do guarda-corpo.",
+        "Aplicação do acabamento para deixar paredes e tetos mais uniformes.",
         ".png"
 ],
         [
         4,
-        "Resultado final do guarda-corpo integrado ao projeto arquitetônico.",
+        "Resultado final das superfícies preparadas para receber pintura.",
         ".png"
 ],
         [
         5,
-        "Preparação das superfícies externas para início dos serviços de pintura.",
+        "Preparação da sala antes da aplicação da pintura com acabamento acetinado.",
         ".png"
 ],
         [
         5,
-        "Aplicação da pintura nas áreas externas da residência.",
+        "Aplicação uniforme da pintura acetinada nas paredes do ambiente.",
         ".png"
 ],
         [
         5,
-        "Fachada residencial após a conclusão da pintura e dos acabamentos.",
+        "Resultado final da sala com acabamento sofisticado e de fácil manutenção.",
         ".png"
 ],
         [
         6,
-        "Preparação das paredes e ambientes para execução da pintura interna.",
+        "Preparação da fachada residencial antes da aplicação da textura.",
         ".png"
 ],
         [
         6,
-        "Execução da pintura e acabamento das paredes internas.",
+        "Aplicação da textura e pintura para renovar a aparência externa do imóvel.",
         ".png"
 ],
         [
         6,
-        "Ambiente finalizado com pintura uniforme e acabamento renovado.",
+        "Resultado final da fachada com acabamento marcante e uniforme.",
         ".png"
 ],
         [
         7,
-        "Preparação do espaço comercial para início da revitalização.",
+        "Preparação da parede para criação da composição geométrica.",
         ".png"
 ],
         [
         7,
-        "Execução dos serviços de pintura nas áreas internas do estabelecimento.",
+        "Aplicação das formas geométricas com diferentes cores e tonalidades.",
         ".png"
 ],
         [
         7,
-        "Espaço comercial após a conclusão da pintura e dos acabamentos.",
+        "Resultado final da pintura geométrica no ambiente residencial.",
         ".png"
 ],
         [
         8,
-        "Ambiente do apartamento durante o início dos serviços de reforma.",
+        "Preparação da fachada predial com correções e tratamento das superfícies.",
         ".png"
 ],
         [
         8,
-        "Execução dos serviços de reforma e adequação dos ambientes.",
+        "Aplicação da pintura durante o processo de revitalização da fachada.",
         ".png"
 ],
         [
         8,
-        "Apartamento após a conclusão da reforma e dos acabamentos.",
+        "Resultado final da fachada predial renovada e com novo acabamento.",
         ".png"
 ],
         [
         9,
-        "Área externa antes do início dos trabalhos de reforma.",
+        "Preparação das áreas comuns antes do início da pintura.",
         ".png"
 ],
         [
         9,
-        "Execução dos serviços de reforma e revitalização da área externa.",
+        "Aplicação da pintura em halls, corredores e espaços de circulação.",
         ".png"
 ],
         [
         9,
-        "Área externa finalizada com novo acabamento e melhor aproveitamento.",
+        "Resultado final das áreas comuns revitalizadas e com acabamento renovado.",
         ".png"
 ],
         [
         10,
-        "Ambiente antes do início do projeto de reforma e modernização.",
+        "Preparação das superfícies durante o início da revitalização predial.",
         ".png"
 ],
         [
         10,
-        "Etapa de execução da reforma e aplicação dos novos acabamentos.",
+        "Execução das etapas de correção e pintura em diferentes áreas do imóvel.",
         ".png"
 ],
         [
         10,
-        "Ambiente modernizado após a conclusão dos serviços.",
-        ".png"
-],
-        [
-        11,
-        "Resultado do envidraçamento de sacada realizado no Residencial Jardim das Palmeiras.",
-        ".png"
-],
-        [
-        12,
-        "Áreas residenciais do Condomínio Vista do Mar após a execução dos serviços de pintura e acabamento.",
-        ".png"
-],
-        [
-        13,
-        "Sacada do Condomínio Vista do Mar após a instalação do sistema de envidraçamento.",
-        ".png"
-],
-        [
-        14,
-        "Área gourmet do Espaço Gourmet Bella Casa após a instalação do envidraçamento.",
-        ".png"
-],
-        [
-        15,
-        "Apartamento do Residencial Parque das Flores após a conclusão da reforma, pintura e dos acabamentos.",
+        "Resultado final da revitalização predial com aparência renovada.",
         ".png"
 ]
     ];

@@ -15,11 +15,15 @@ html {
         position: relative;
 
         width: 100%;
-        min-height: 100vh;
+        min-height: 70vh;
 
-        display: flex;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(360px, 420px);
         align-items: center;
-        justify-content: center;
+
+        gap: clamp(2rem, 5vw, 5rem);
+
+        padding: 5rem clamp(1rem, 7vw, 7rem);
 
         overflow: hidden;
 
@@ -27,6 +31,8 @@ html {
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+
+        box-sizing: border-box;
 
         .banner-overlay {
             position: absolute;
@@ -36,9 +42,9 @@ html {
             background:
                 linear-gradient(
                     90deg,
-                    rgba(0, 0, 0, 0.78) 0%,
-                    rgba(0, 0, 0, 0.58) 45%,
-                    rgba(0, 0, 0, 0.35) 100%
+                    rgba(0, 0, 0, 0.82) 0%,
+                    rgba(0, 0, 0, 0.62) 45%,
+                    rgba(0, 0, 0, 0.42) 100%
                 );
         }
 
@@ -46,10 +52,8 @@ html {
             position: relative;
             z-index: 1;
 
-            width: min(900px, 88%);
+            width: 100%;
             min-width: 0;
-
-            padding: 2rem 1rem;
 
             display: flex;
             align-items: center;
@@ -57,7 +61,7 @@ html {
 
             p {
                 width: 100%;
-                max-width: 850px;
+                max-width: 700px;
 
                 margin: 0;
 
@@ -68,7 +72,7 @@ html {
                 font-weight: 400;
 
                 line-height: 1.7;
-                text-align: center;
+                text-align: left;
 
                 overflow-wrap: break-word;
                 word-break: normal;
@@ -78,7 +82,198 @@ html {
                     0 4px 12px rgba(0, 0, 0, 0.35);
             }
         }
+
+        /* =====================================================
+           FORMULÁRIO DE ORÇAMENTO
+        ===================================================== */
+
+        .budget-card {
+            position: relative;
+            z-index: 1;
+
+            width: 100%;
+            max-width: 420px;
+
+            padding: 2rem;
+
+            margin: 0 auto;
+
+            background: #ffffff;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 20px 60px rgba(4, 18, 55, 0.25);
+
+            box-sizing: border-box;
+
+            color: #1d1d1d;
+        }
+
+        .budget-card-header {
+
+            .budget-card-label {
+                display: inline-block;
+
+                margin-bottom: 0.75rem;
+
+                font-size: 0.72rem;
+                font-weight: 700;
+
+                letter-spacing: 0.16em;
+                text-transform: uppercase;
+
+                color: #2757d5;
+            }
+
+            h2 {
+                margin: 0 0 0.7rem;
+
+                font-size: 1.65rem;
+                line-height: 1.15;
+
+                color: #102044;
+            }
+
+            p {
+                margin: 0;
+
+                font-size: 0.95rem;
+                line-height: 1.55;
+
+                color: #717171;
+            }
+        }
+
+        .budget-form {
+            display: flex;
+            flex-direction: column;
+
+            gap: 1rem;
+
+            margin-top: 1.5rem;
+        }
+
+        .budget-field {
+            display: flex;
+            flex-direction: column;
+
+            gap: 0.4rem;
+
+            label {
+                font-size: 0.8rem;
+                font-weight: 700;
+
+                color: #2c2c2c;
+            }
+
+            input,
+            select,
+            textarea {
+                width: 100%;
+
+                padding: 0.85rem 0.9rem;
+
+                border: 1px solid #d9d9d9;
+                border-radius: 8px;
+
+                background: #ffffff;
+
+                color: #202020;
+
+                font-family: inherit;
+                font-size: 0.95rem;
+
+                outline: none;
+
+                box-sizing: border-box;
+
+                transition:
+                    border-color 0.2s ease,
+                    box-shadow 0.2s ease;
+            }
+
+            input::placeholder,
+            textarea::placeholder {
+                color: #999999;
+            }
+
+            input:focus,
+            select:focus,
+            textarea:focus {
+                border-color: #2757d5;
+
+                box-shadow:
+                    0 0 0 3px rgba(39, 87, 213, 0.1);
+            }
+
+            textarea {
+                min-height: 100px;
+
+                resize: vertical;
+            }
+        }
+
+        .budget-submit {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 0.8rem;
+
+            margin-top: 0.35rem;
+
+            padding: 0.95rem 1rem;
+
+            border: none;
+            border-radius: 9px;
+
+            background: #16a34a;
+
+            color: #ffffff;
+
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                filter 0.2s ease;
+
+            &:hover {
+                filter: brightness(0.95);
+
+                transform: translateY(-1px);
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+        }
+
+        .budget-submit-icon {
+            font-size: 1.15rem;
+        }
+
+        .budget-disclaimer {
+            margin: 0.25rem 0 0;
+
+            font-size: 0.75rem;
+            line-height: 1.4;
+
+            text-align: center;
+
+            color: #8a8a8a;
+        }
     }
+
+    /* =========================================================
+       HOME
+    ========================================================= */
 
     .home {
         width: 100%;
@@ -226,34 +421,47 @@ html {
    TABLET
 ========================================================= */
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .app {
         .home-banner {
             min-height: 75vh;
 
-            background-position: 60% center;
+            grid-template-columns: 1fr;
+
+            gap: 3rem;
+
+            padding: 4rem 1.5rem;
+
+            background-position: center;
 
             .banner-overlay {
                 background:
                     linear-gradient(
-                        90deg,
-                        rgba(0, 0, 0, 0.82) 0%,
-                        rgba(0, 0, 0, 0.60) 100%
+                        180deg,
+                        rgba(0, 0, 0, 0.76) 0%,
+                        rgba(0, 0, 0, 0.68) 100%
                     );
             }
 
             .banner-content {
                 width: 90%;
-                padding: 2rem 0;
+
+                margin: 0 auto;
 
                 p {
                     max-width: 700px;
+
+                    margin: 0 auto;
 
                     font-size: clamp(1rem, 2.4vw, 1.3rem);
                     line-height: 1.65;
 
                     text-align: center;
                 }
+            }
+
+            .budget-card {
+                max-width: 520px;
             }
         }
 
@@ -284,13 +492,18 @@ html {
 @media (max-width: 511px) {
     .app {
         .home-banner {
-            min-height: 70vh;
+            min-height: auto;
 
-            background-position: 62% center;
+            gap: 2rem;
+
+            padding: 3rem 1rem;
+
+            background-position: center;
 
             .banner-content {
                 width: 90%;
-                padding: 1.5rem 0;
+
+                padding: 0;
 
                 p {
                     max-width: 100%;
@@ -299,6 +512,35 @@ html {
                     line-height: 1.6;
 
                     text-align: center;
+                }
+            }
+
+            .budget-card {
+                width: 100%;
+                max-width: 100%;
+
+                padding: 1.4rem;
+
+                border-radius: 15px;
+            }
+
+            .budget-card-header {
+
+                h2 {
+                    font-size: 1.4rem;
+                }
+
+                p {
+                    font-size: 0.9rem;
+                }
+            }
+
+            .budget-field {
+
+                input,
+                select,
+                textarea {
+                    padding: 0.8rem;
                 }
             }
         }
@@ -364,7 +606,7 @@ html {
 @media (max-width: 360px) {
     .app {
         .home-banner {
-            min-height: 65vh;
+            padding: 2.5rem 0.75rem;
 
             .banner-content {
                 width: 88%;
@@ -373,6 +615,21 @@ html {
                     font-size: 0.95rem;
                     line-height: 1.55;
                 }
+            }
+
+            .budget-card {
+                padding: 1.2rem;
+            }
+
+            .budget-card-header {
+
+                h2 {
+                    font-size: 1.3rem;
+                }
+            }
+
+            .budget-form {
+                gap: 0.8rem;
             }
         }
 

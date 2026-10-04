@@ -1,80 +1,233 @@
-import "./style.scss"
-import ReactIcon from "@/assets/icons/frameworks/react-svgrepo-com.svg?react"
-import NextIcon from "@/assets/icons/frameworks/next-js-svgrepo-com.svg?react"
-import TSIcon from "@/assets/icons/frameworks/typescript-logo-svgrepo-com.svg?react"
-import NodeIcon from "@/assets/icons/frameworks/nodejs-icon-svgrepo-com.svg?react"
-import FlutterIcon from "@/assets/icons/frameworks/flutter-svgrepo-com.svg?react"
-import VueIcon from "@/assets/icons/frameworks/vue-svgrepo-com.svg?react"
-import PhpIcon from "@/assets/icons/frameworks/php-svgrepo-com.svg?react"
+import "./style.scss";
 
-import EmailIcon from "@/assets/icons/email-1-svgrepo-com.svg?react"
-import PhoneIcon from "@/assets/icons/phone-call-svgrepo-com.svg?react"
-import PinIcon from "@/assets/icons/location-pin-svgrepo-com.svg?react"
+import EmailIcon from "@/assets/icons/email-1-svgrepo-com.svg?react";
+import PhoneIcon from "@/assets/icons/phone-call-svgrepo-com.svg?react";
+import PinIcon from "@/assets/icons/location-pin-svgrepo-com.svg?react";
 
-import contacts from '@/data/contacts/index.json';
-import { contactIcons } from '@/data/contacts/functions.jsx';
+import contacts from "@/data/contacts/index.json";
+import { contactIcons } from "@/data/contacts/functions.jsx";
 
 import { useInfos } from "@/data/hooks/useInfos";
-export default function ContactPage(){
-    const { data: infos, isLoading, error } = useInfos();
-    if (isLoading) return console.log("Loading...")
-    if (error) return console.log(error.message)
-    if (!infos) return console.log("Nenhuma informação de cliente encontrada!")
-    const title = infos['company'] && infos['company'] != '' ? infos['company'].split(' ') : infos['name'].split(' ')
-    return(
-        <div className="app contact">
+
+export default function ContactPage() {
+    const {
+        data: infos,
+        isLoading,
+        error
+    } = useInfos();
+
+    if (isLoading) {
+        return console.log("Loading...");
+    }
+
+    if (error) {
+        return console.log(error.message);
+    }
+
+    if (!infos) {
+        return console.log(
+            "Nenhuma informação de cliente encontrada!"
+        );
+    }
+
+    const title = infos.company && infos.company !== ""
+        ? infos.company.split(" ")
+        : infos.name.split(" ");
+
+    const phone = infos.phone?.replace(/\D/g, "") || "";
+    const whatsapp = infos.whatsapp?.replace(/\D/g, "") || "";
+
+    const whatsappNumber =
+        phone.length === 11
+            ? phone
+            : whatsapp;
+
+    return (
+        <section className="app contact">
+
             <div className="contacts">
-                <div className="info">
-                    <div className="title">
-                        <h2>{title[0]}</h2>
-                        <h3>{title[1]}</h3>
+
+                {/* =====================================================
+                    CABEÇALHO
+                ===================================================== */}
+
+                <div className="contact-header">
+
+                    <span className="contact-label">
+                        ENTRE EM CONTATO
+                    </span>
+
+                    <div className="contact-title">
+                        <h2>
+                            {title[0]}
+                        </h2>
+
+                        {title[1] && (
+                            <h3>
+                                {title.slice(1).join(" ")}
+                            </h3>
+                        )}
                     </div>
-                    <div className="text">
-                        <p>{infos['footer']}</p>
-                    </div>
+
+                    <p className="contact-description">
+                        {infos.footer}
+                    </p>
+
                 </div>
-                <div className="frameworks">
-                    <ul className='icons'>
-                    {contacts.map(({ id, icon, url }) => {
-                        const Component = contactIcons[icon];
-                        return (
-                            <li key={id}>
-                                <a href={url} target="_blank" rel="noopener noreferrer">
-                                    <Component
-                                        style={{
-                                            width: '2.5pc',
-                                            height: '2.5pc'
-                                        }}
-                                    />
-                                </a>
-                            </li>
-                        );
-                    })}
-                </ul>
-                </div>
-                <div className="addr">
-                    <div className="title">
-                        <p>Contatos</p>
+
+                {/* =====================================================
+                    CONTEÚDO
+                ===================================================== */}
+
+                <div className="contact-content">
+
+                    {/* =================================================
+                        CONTATOS
+                    ================================================= */}
+
+                    <div className="contact-details">
+
+                        <div className="section-heading">
+                            <span>
+                                CONTATOS
+                            </span>
+
+                            <h4>
+                                Fale comigo
+                            </h4>
+                        </div>
+
+                        <div className="contact-list">
+
+                            <div className="contact-item">
+
+                                <div className="contact-icon">
+                                    <EmailIcon />
+                                </div>
+
+                                <div className="contact-item-info">
+                                    <span>
+                                        E-mail
+                                    </span>
+
+                                    <p>
+                                        {infos.email}
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <div className="contact-item">
+
+                                <div className="contact-icon">
+                                    <PhoneIcon />
+                                </div>
+
+                                <div className="contact-item-info">
+                                    <span>
+                                        Telefone
+                                    </span>
+
+                                    {whatsappNumber ? (
+                                        <a
+                                            href={`https://wa.me/55${whatsappNumber}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {infos.phone}
+                                        </a>
+                                    ) : (
+                                        <p>
+                                            {infos.phone}
+                                        </p>
+                                    )}
+                                </div>
+
+                            </div>
+
+                            <div className="contact-item">
+
+                                <div className="contact-icon">
+                                    <PinIcon />
+                                </div>
+
+                                <div className="contact-item-info">
+                                    <span>
+                                        Localização
+                                    </span>
+
+                                    <p>
+                                        {infos.location}
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
-                    <div className="info">
-                        <div className="text">
-                            <EmailIcon className="icon"/>
-                            <p>{infos['email']}</p>
+
+                    {/* =================================================
+                        REDES / ÍCONES
+                    ================================================= */}
+
+                    <div className="contact-social">
+
+                        <div className="section-heading">
+                            <span>
+                                CONECTE-SE
+                            </span>
+
+                            <h4>
+                                Encontre-me também
+                            </h4>
                         </div>
-                        <div className="text">
-                            <PhoneIcon className="icon"/>
-                            <a href={`https://wa.me/55${infos['phone'].replace(/\D/g, '').length===11?infos['phone'].replace(/\D/g, ''):infos['whatsapp'].replace(/\D/g, '')}`}
-                                target="_blank">
-                                {infos['phone']}
-                            </a>
+
+                        <div className="social-grid">
+
+                            {contacts.map(
+                                ({ id, icon, url }) => {
+
+                                    const Component =
+                                        contactIcons[icon];
+
+                                    if (!Component) {
+                                        return null;
+                                    }
+
+                                    return (
+                                        <a
+                                            key={id}
+                                            href={url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="social-item"
+                                        >
+                                            <Component />
+                                        </a>
+                                    );
+                                }
+                            )}
+
                         </div>
-                        <div className="text">
-                            <PinIcon className="icon"/>
-                            <p>{infos['location']}</p>
-                        </div>
+
                     </div>
+
                 </div>
+
+                {/* =====================================================
+                    RODAPÉ
+                ===================================================== */}
+
+                <div className="contact-bottom">
+                    <span>
+                        Estou à disposição para conversar sobre
+                        seu projeto.
+                    </span>
+                </div>
+
             </div>
-        </div>
-    )
+
+        </section>
+    );
 }

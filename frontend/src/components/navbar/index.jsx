@@ -43,7 +43,7 @@ function main() {
                     </div>
                 </div>
                 <div className="logo">
-                    <img src="./logo.png" width={"130px"} height={"100vh"} alt="" />
+                    <img src="./logo.png" width={"100px"} height={"100vh"} alt="" style={{paddingBottom:"10px"}}/>
                 </div>
                 <ul className='nav' >
                     <li>

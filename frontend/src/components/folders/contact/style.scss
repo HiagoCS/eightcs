@@ -1,154 +1,504 @@
-.contact {
+@use "@/styles/root.scss" as *;
+
+.app.contact {
+    width: 100%;
+
     display: flex;
     align-items: center;
-    width: 100vw;
+    justify-content: center;
+
+    padding: 6rem 0;
+
+    box-sizing: border-box;
+
+    //background: #f5f5f5;
+}
+
+.contacts {
+    width: min(1200px, 88%);
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 4rem;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border: 1px solid #e1e1e1;
+}
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.contact-header {
+    display: flex;
+    flex-direction: column;
+
+    max-width: 800px;
+
+    padding-bottom: 3rem;
+
+    border-bottom: 1px solid #dedede;
+}
+
+.contact-label {
+    margin-bottom: 1rem;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    letter-spacing: 0.2em;
+
+    color: #777777;
+}
+
+.contact-title {
+    display: flex;
+    align-items: baseline;
+
+    gap: 0.8rem;
+
+    color: #97241D;
+
+    h2,
+    h3 {
+        margin: 0;
+    }
+
+    h2 {
+        font-family: "Quicksand-Bold";
+
+        font-size: clamp(2.5rem, 5vw, 4.5rem);
+
+        line-height: 1;
+    }
+
+    h3 {
+        font-size: clamp(1.5rem, 3vw, 2.6rem);
+
+        font-weight: 400;
+
+        line-height: 1;
+
+        color: #1d1d1d;
+    }
+}
+
+.contact-description {
+    max-width: 700px;
+
+    margin: 1.5rem 0 0;
+
+    font-family: "Quicksand-Book";
+
+    font-size: 1rem;
+
+    line-height: 1.8;
+
+    color: #666666;
+}
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+.contact-content {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 4rem;
+
+    padding: 4rem 0;
+}
+
+/* =========================================================
+   TÍTULOS INTERNOS
+========================================================= */
+
+.section-heading {
+    margin-bottom: 2rem;
+
+    span {
+        display: block;
+
+        margin-bottom: 0.45rem;
+
+        font-size: 0.7rem;
+        font-weight: 700;
+
+        letter-spacing: 0.18em;
+
+        color: #888888;
+    }
+
+    h4 {
+        margin: 0;
+
+        font-family: "Quicksand-Bold";
+
+        font-size: 2rem;
+
+        line-height: 1.1;
+
+        color: #1d1d1d;
+    }
+}
+
+/* =========================================================
+   CONTATOS
+========================================================= */
+
+.contact-details {
+    padding-right: 2rem;
+
+    border-right: 1px solid #dedede;
+}
+
+.contact-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 1.25rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+
+    gap: 1rem;
+
+    padding: 1rem;
+
+    border: 1px solid #e3e3e3;
+
+    background: #fafafa;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+
+    &:hover {
+        transform: translateX(4px);
+
+        border-color: #cfcfcf;
+
+        box-shadow:
+            0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+}
+
+.contact-icon {
+    flex-shrink: 0;
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #97241D;
+
+    border-radius: 8px;
+
+    color: #ffffff;
+
+    svg {
+        width: 22px;
+        height: 22px;
+
+        fill: currentColor;
+    }
+}
+
+.contact-item-info {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.25rem;
+
+    span {
+        font-size: 0.7rem;
+        font-weight: 700;
+
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+
+        color: #888888;
+    }
+
+    p,
+    a {
+        margin: 0;
+
+        font-family: "Quicksand-Bold";
+
+        font-size: 0.95rem;
+
+        line-height: 1.4;
+
+        color: #222222;
+
+        overflow-wrap: anywhere;
+    }
+
+    a {
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+/* =========================================================
+   REDES SOCIAIS
+========================================================= */
+
+.contact-social {
+    display: flex;
+    flex-direction: column;
+}
+
+.social-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 1rem;
+}
+
+.social-item {
+    min-height: 110px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 0.65rem;
+
+    padding: 1rem;
+
+    box-sizing: border-box;
+
+    border: 1px solid #dedede;
+
+    color: #97241D;
+
+    text-decoration: none;
+
+    background: #ffffff;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease;
+
+    svg {
+        width: 2.2rem;
+        height: 2.2rem;
+    }
+
+    span {
+        max-width: 100%;
+
+        overflow: hidden;
+
+        font-size: 0.65rem;
+
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &:hover {
+        transform: translateY(-5px);
+
+        background: #97241D;
+
+        color: #ffffff;
+
+        box-shadow:
+            0 12px 25px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* =========================================================
+   RODAPÉ
+========================================================= */
+
+.contact-bottom {
+    display: flex;
+    justify-content: center;
+
+    padding-top: 2rem;
+
+    border-top: 1px solid #dedede;
+
+    span {
+        font-family: "Quicksand-Bold";
+
+        font-size: 0.85rem;
+
+        text-align: center;
+
+        color: #777777;
+    }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .contact {
+        padding: 5rem 0;
+    }
 
     .contacts {
-        display: flex;
         width: 90%;
-        border-radius: 10px;
-        color: #000;
-        padding: 2.5vh 5vw;
-        font-family: "Quicksand-Book";
-        justify-content: space-between;
 
-        .info {
-            display: flex;
-            flex-direction: column;
-            width: 25%;
+        padding: 3rem;
+    }
 
-            .title {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: flex-start;
-                color: #2D3878;
+    .contact-content {
+        grid-template-columns: 1fr;
 
-                h2 {
-                    margin: 0;
-                    font-family: "Quicksand-Bold";
-                }
+        gap: 3rem;
+    }
 
-                h3 {
-                    margin: 0;
-                }
-            }
+    .contact-details {
+        padding-right: 0;
 
-            .text {
-                overflow-wrap: anywhere;
+        padding-bottom: 3rem;
 
-                a {
-                    text-decoration: none;
-                    color: #fff;
-                }
-            }
+        border-right: none;
+
+        border-bottom: 1px solid #dedede;
+    }
+
+    .social-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .contact {
+        padding: 3rem 0;
+    }
+
+    .contacts {
+        width: 92%;
+
+        padding: 2rem 1.25rem;
+    }
+
+    .contact-title {
+        align-items: flex-start;
+        flex-direction: column;
+
+        gap: 0.2rem;
+
+        h2 {
+            font-size: 2.5rem;
         }
 
-        .frameworks {
-            display: flex;
-            flex-direction: column;
-            width: 55%;
-            justify-content: center;
-            background: #373e49;
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-            .title {
-                p {
-                    margin: 0;
-                }
-            }
-
-            .icons {
-
-                width: 0 5%;
-                padding: 0 4pc;
-                display: flex;
-                align-items: center;
-                justify-content: space-around;
-                li {
-                    padding: 0 0.5pc;
-                    list-style: none;
-                    transition: all ease 0.3s;
-
-                    &:hover {
-                        box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.2);
-                    }
-                }
-            }
-        }
-
-        .addr {
-            display: flex;
-            flex-direction: column;
-            width: 20%;
-            background: #373e49;
-            color:#fff;
-            border-top-right-radius: 10px;
-            border-bottom-right-radius: 10px;
-            .title {
-                display: flex;
-
-                margin: 0;
-                margin-top: 1vh;
-                padding: 0;
-
-                p {
-                    margin: 0;
-                    padding: 0;
-                }
-            }
-
-            .info {
-                display: flex;
-                flex-direction: column;
-                padding-top: 5vh;
-                width: 100%;
-
-                .text {
-                    display: flex;
-                    align-content: center;
-                    padding: 1vh 0;
-
-                    .icon {
-
-                        width: 20px;
-                        height: 20px;
-                    }
-
-                    p {
-                        margin: 0;
-                        overflow-wrap: anywhere;
-                    }
-                }
-            }
+        h3 {
+            font-size: 1.5rem;
         }
     }
 
-    @media (max-width:655px) {
-        .contacts {
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+    .contact-description {
+        font-size: 0.95rem;
+    }
 
-            .info {
-                width: 100%;
-            }
+    .contact-content {
+        padding: 3rem 0;
 
-            .frameworks {
-                width: 100%;
-            }
+        gap: 3rem;
+    }
 
-            .addr {
-                width: 100%;
+    .section-heading {
 
-                .info {
-                    padding: 0;
+        h4 {
+            font-size: 1.7rem;
+        }
+    }
 
-                    .text {
-                        padding: 0;
-                    }
-                }
-            }
+    .contact-item {
+        padding: 0.85rem;
+    }
+
+    .contact-icon {
+        width: 42px;
+        height: 42px;
+
+        svg {
+            width: 19px;
+            height: 19px;
+        }
+    }
+
+    .social-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .social-item {
+        min-height: 95px;
+    }
+}
+
+/* =========================================================
+   CELULARES PEQUENOS
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .contacts {
+        width: 94%;
+
+        padding: 1.5rem 1rem;
+    }
+
+    .contact-title {
+
+        h2 {
+            font-size: 2.1rem;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+        }
+    }
+
+    .contact-item-info {
+
+        p,
+        a {
+            font-size: 0.85rem;
+        }
+    }
+
+    .social-item {
+
+        svg {
+            width: 1.9rem;
+            height: 1.9rem;
         }
     }
 }

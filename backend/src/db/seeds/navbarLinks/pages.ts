@@ -12,29 +12,36 @@ function pagesSeed(){
         null
 ],
         [
-        2,
-        "Empresa",
-        "CompanyPage",
-        "/sobre",
-        null
-],
-        [
-        4,
-        "Portfólio",
-        "PortfolioPage",
-        "/projetos",
+        3,
+        "Serviços",
+        "ServicosPage",
+        "/services/acabamentos",
         1
 ],
         [
-        5,
-        "Clientes",
-        "ClientesPage",
-        "/sobre/clientes",
+        4,
+        "Residencial",
+        "ResidencialPage",
+        "/services/residencial",
         2
 ],
         [
-        3,
-        "Contato",
+        5,
+        "Predial",
+        "PredialPage",
+        "/services/predial",
+        3
+],
+        [
+        6,
+        "Orçamento",
+        "OrcamentoPage",
+        "/orcamento",
+        null
+],
+        [
+        2,
+        "Contatos",
         "ContactPage",
         "/contato",
         null

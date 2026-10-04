@@ -6,38 +6,47 @@ function homeCardsSeed(){
     const cards = [
         [
         1,
-        "Empresa",
-        "Conheça a Empreiteira Glass e descubra nossa experiência e compromisso com a qualidade na construção civil.",
-        "about-page",
+        "Serviços",
+        "Conheça nossos serviços de gesso, drywall e acabamentos em geral para valorizar e transformar diferentes ambientes.",
+        "servicos",
+        "services",
+        3,
+        1
+],
+        [
+        2,
+        "Residencial",
+        "Veja projetos de pintura realizados em ambientes residenciais, com diferentes estilos, cores e acabamentos.",
+        "residencial",
+        "residencial",
+        4,
+        2
+],
+        [
+        3,
+        "Predial",
+        "Confira trabalhos de pintura e revitalização realizados em fachadas, áreas comuns e espaços prediais.",
+        "predial",
+        "predial",
+        5,
+        3
+],
+        [
+        4,
+        "Contato",
+        "Entre em contato com a J.M Pinturas e Acabamentos para tirar dúvidas e conhecer nossos serviços.",
+        "contact",
         "about",
         2,
         null
 ],
         [
-        2,
-        "Portfólio",
-        "Confira alguns dos projetos realizados pela Empreiteira Glass em sacadas, envidraçamento, pintura e reformas.",
-        "portfolio",
-        "portfolio",
-        4,
-        1
-],
-        [
-        3,
-        "Clientes",
-        "Veja alguns dos clientes atendidos e projetos realizados pela Empreiteira Glass.",
-        "clientes",
-        "clients",
         5,
-        2
-],
-        [
-        4,
-        "Contato",
-        "Entre em contato com a Empreiteira Glass e solicite um orçamento para o seu projeto.",
-        "contact",
-        "contact",
-        3,
+        "Orçamento",
+        "Solicite um orçamento para seu projeto e conte com a J.M Pinturas e Acabamentos.",
+        "orcamento",
+        "form",
+        6,
         null
 ]
     ];

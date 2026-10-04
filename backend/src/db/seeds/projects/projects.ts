@@ -5,123 +5,74 @@ function projectsSeed(){
 
     const projects = [
         [
-        "Envidraçamento de Sacada Residencial",
-        "Instalação de sistema de envidraçamento para fechamento de sacada, proporcionando maior proteção contra vento, chuva e poeira, sem comprometer a iluminação e a vista do ambiente.",
+        "Forro de Gesso e Iluminação",
+        "Execução de forro de gesso com preparação para iluminação embutida, proporcionando um acabamento moderno, uniforme e integrado ao ambiente.",
         null,
         1,
         1
 ],
         [
-        "Fechamento de Sacada com Vidro",
-        "Projeto de fechamento de sacada com vidros, unindo segurança, praticidade e valorização do espaço residencial.",
+        "Parede em Drywall",
+        "Instalação de parede em drywall para divisão e adequação de ambientes, com acabamento preparado para pintura e integração ao projeto.",
         null,
         1,
         1
 ],
         [
-        "Envidraçamento de Área Gourmet",
-        "Envidraçamento de área gourmet para criar um ambiente mais protegido e confortável, permitindo melhor aproveitamento do espaço em diferentes condições climáticas.",
+        "Sanca de Gesso",
+        "Confecção e instalação de sanca de gesso para valorizar o ambiente e criar um acabamento diferenciado com possibilidade de iluminação indireta.",
         null,
         1,
         1
 ],
         [
-        "Instalação de Guarda-Corpo em Vidro",
-        "Instalação de guarda-corpo em vidro, oferecendo segurança e um acabamento moderno que valoriza a arquitetura do imóvel.",
+        "Acabamento de Paredes e Tetos",
+        "Preparação, correção e acabamento de paredes e tetos para receber pintura, garantindo superfícies mais uniformes e um resultado final de qualidade.",
         null,
         1,
         1
 ],
         [
-        "Pintura Externa Residencial",
-        "Revitalização da área externa de residência com preparação das superfícies, correções e aplicação de pintura para renovar a aparência e proteger o imóvel.",
-        null,
-        1,
-        1
-],
-        [
-        "Pintura Interna e Acabamento",
-        "Pintura completa de ambientes internos, com preparação das paredes e atenção aos detalhes para proporcionar um acabamento uniforme e renovado.",
-        null,
-        1,
-        1
-],
-        [
-        "Pintura Comercial Completa",
-        "Renovação da pintura de espaço comercial, contribuindo para um ambiente mais agradável, organizado e visualmente atrativo para clientes e colaboradores.",
-        null,
-        1,
-        1
-],
-        [
-        "Reforma de Apartamento",
-        "Reforma de apartamento envolvendo melhorias e adequações em diferentes ambientes, buscando mais funcionalidade, conforto e qualidade no acabamento.",
-        null,
-        1,
-        1
-],
-        [
-        "Reforma de Área Externa",
-        "Revitalização de área externa com serviços de reforma e acabamento para melhorar a estrutura, a estética e o aproveitamento do espaço.",
-        null,
-        1,
-        1
-],
-        [
-        "Reforma e Modernização de Ambiente",
-        "Transformação de ambiente por meio de serviços de reforma e acabamento, adequando o espaço às necessidades do cliente e proporcionando um resultado mais moderno e funcional.",
-        null,
-        1,
-        1
-],
-        [
-        "Residencial Jardim das Palmeiras",
-        "Envidraçamento de sacada residencial com instalação dos vidros e acabamento completo, proporcionando maior proteção e melhor aproveitamento do espaço.",
+        "Pintura Acetinada em Sala",
+        "Aplicação de pintura com acabamento acetinado em ambiente residencial, proporcionando uma superfície sofisticada, uniforme e de fácil manutenção.",
         null,
         2,
         1
 ],
         [
-        "Condomínio Vista do Mar",
-        "Execução de pintura interna e externa em áreas residenciais, com preparação das superfícies e acabamento para revitalização dos ambientes.",
+        "Pintura Texturizada em Fachada",
+        "Aplicação de textura e pintura na fachada residencial, criando um acabamento marcante e contribuindo para a valorização visual do imóvel.",
         null,
         2,
         1
 ],
         [
-        "Condomínio Vista do Mar",
-        "Envidraçamento de sacada residencial com instalação dos vidros e acabamento completo, proporcionando maior proteção e melhor aproveitamento do espaço.",
+        "Pintura Geométrica em Ambiente",
+        "Criação de pintura geométrica em parede residencial, combinando diferentes formas e tonalidades para personalizar e modernizar o ambiente.",
         null,
         2,
         1
 ],
         [
-        "Espaço Gourmet Bella Casa",
-        "Envidraçamento de área gourmet, criando um ambiente mais protegido e confortável para utilização em diferentes condições climáticas.",
+        "Pintura de Fachada Predial",
+        "Revitalização da fachada de edifício com preparação das superfícies, correções e aplicação de pintura para renovar o aspecto externo do prédio.",
         null,
-        2,
+        3,
         1
 ],
         [
-        "Residencial Parque das Flores",
-        "Reforma e modernização de apartamento, incluindo serviços de acabamento, pintura e adequações gerais nos ambientes.",
+        "Pintura de Áreas Comuns",
+        "Pintura e revitalização de áreas comuns de condomínio, incluindo halls, corredores e demais espaços de circulação.",
         null,
-        2,
+        3,
         1
 ],
         [
-        "Comercial Center Glass",
-        "Reforma e pintura de espaço comercial, com revitalização dos ambientes e melhorias no acabamento para proporcionar uma apresentação mais moderna e agradável.",
+        "Revitalização Predial Completa",
+        "Serviço de revitalização de áreas prediais com preparação, correção e pintura de diferentes superfícies, renovando a aparência e o acabamento do imóvel.",
         null,
-        2,
+        3,
         1
-],
-        [
-        "s",
-        "s",
-        null,
-        1,
-        0
 ]
     ];
 

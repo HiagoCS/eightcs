@@ -6,12 +6,17 @@ function typesSeed(){
     const types = [
         [
         1,
-        "portfolio",
+        "servicos",
         1
 ],
         [
         2,
-        "clientes",
+        "residencial",
+        1
+],
+        [
+        3,
+        "predial",
         1
 ]
     ];

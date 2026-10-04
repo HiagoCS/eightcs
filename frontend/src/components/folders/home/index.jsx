@@ -1,9 +1,7 @@
 import './style.scss';
 import { useDynamicLinks } from '@/data/links/functions.jsx';
-import Download from '@/assets/icons/download.svg?react';
-import Project from '@/assets/icons/project.svg?react';
 
-import BannerIllustration from './BannerComponent';
+import FormComponent from "../budget/form/index";
 import cards from '@/data/cards/index.json';
 import { cardsIcons } from '@/data/cards/functions.jsx';
 
@@ -22,6 +20,7 @@ export default function HomePage() {
                 <div className="banner-content">
                     <p>{infos['description']}</p>
                 </div>
+                <FormComponent></FormComponent>
             </div>
             <div className="home">
                 <span className="home-title">O Que Eu Desenvolvo</span>

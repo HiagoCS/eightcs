@@ -2,16 +2,16 @@
     {
         "id":"1",
         "icon":"whatsapp",
-        "url":""
+        "url":"https://wa.me/5513996225800"
     },
     {
         "id":"2",
-        "icon":"linkedin",
-        "url":""
+        "icon":"instagram",
+        "url":"https://www.instagram.com/reh.soares78/"
     },
     {
         "id":"3",
-        "icon":"github",
-        "url":""
+        "icon":"gmail",
+        "url":"mailto:regiane.c.soares@hotmail.com"
     }
 ]

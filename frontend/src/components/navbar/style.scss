@@ -7,7 +7,7 @@
     height: 5pc;
     box-sizing: border-box;
     width: 100%;
-
+    background-color: #FDFDFB;
     .menu {
         display: none;
     }
@@ -19,16 +19,22 @@
         justify-content: space-around;
         align-items: center;
         font-size: 1pc;
-
+        color: #85A790;
+        li.active{
+            border-bottom: #85A790 solid 3px;
+            border-bottom-left-radius: 3px; 
+            border-bottom-right-radius: 3px;
+            padding: 5px;
+        }
         a.active {
-            color: #77BDF1;
+            color: #85A790;
         }
 
         a {
             display: flex;
             text-decoration: none;
             align-items: center;
-            color: black;
+            color: #11293E;
         }
     }
 
@@ -51,7 +57,7 @@
     }
 }
 
-@media(max-width:777px) {
+@media(max-width:1270px) {
     .main {
         &.active {
             position: fixed;
@@ -68,12 +74,14 @@
             display: flex;
             align-items: center;
             transition: all 0.25s ease;
+
             .menu-icon {
                 width: 2.5pc;
                 height: 2.5pc;
 
                 position: relative;
                 z-index: 1002;
+
                 &.active {
                     margin-left: 5pc;
                 }

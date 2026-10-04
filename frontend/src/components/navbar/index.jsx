@@ -39,7 +39,7 @@ function main() {
                     </div>
                 </div>
                 <ul className='nav' >
-                    <li>
+                    <li className={activeLink === '/' ? 'active' : ''}>
                         <Link to="/" className={activeLink === '/' ? 'active' : ''} onClick={() => setActiveLink('/')}>
                             {activeLink === '/' ?
                                 <HomeActive style={{ width: '1.3pc', height: '2pc' }} />
@@ -54,7 +54,7 @@ function main() {
                             return 0;
                         })
                         .map((link) => (
-                            <li key={link.url} style={link.url !== '/' ? {} : { display: 'none' }}>
+                            <li key={link.url} style={link.url !== '/' ? {} : { display: 'none' }}  className={activeLink === link.url ? 'active' : ''}>
                                 {
                                     link.url !== '/' ? (
                                         <Link to={`${link.url}`} className={activeLink === link.url ? 'active' : ''} onClick={() => setActiveLink(link.url)}>

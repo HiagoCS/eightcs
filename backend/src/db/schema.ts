@@ -10,7 +10,9 @@ const personalInfos = sqliteTable("infos",{
     whatsapp:text("whatsapp").unique(),
     location:text("location").unique(),
     description:text("description").unique(),
-    footer:text("footer").unique()
+    footer:text("footer").unique(),
+    bannerTop:text("banner_top").unique(),
+    banner:text("banner").unique()
 });
 //PROJETOS
 const projectType = sqliteTable("project_type",{

@@ -1,9 +1,6 @@
 import './style.scss';
 import { useDynamicLinks } from '@/data/links/functions.jsx';
-import Download from '@/assets/icons/download.svg?react';
-import Project from '@/assets/icons/project.svg?react';
 
-import BannerIllustration from './BannerComponent';
 import cards from '@/data/cards/index.json';
 import { cardsIcons } from '@/data/cards/functions.jsx';
 
@@ -20,31 +17,17 @@ export default function HomePage() {
             <div className="home-banner">
 
                 <div className="banner-content">
-                    <span>Olá, meu nome é</span>
 
-                    <h1>{infos['name']}</h1>
-
-                    <h2>{infos['occupation']}</h2>
+                    <h1>{infos['banner']}</h1>
 
                     <p>{infos['description']}</p>
-
-                    <div className="banner-buttons">
-                        <button>
-                            <Project className="icon" style={{ width: '1.2pc', height: '1.5pc' }} />
-                            <span>O que é 8CS?</span>
-                        </button>
-                        <button>
-                            <Download className="icon" style={{ width: '1.2pc', height: '1.5pc' }} />
-                            <span>Baixar Currículo</span>
-                        </button>
-                    </div>
                 </div>
                 <div className="banner-illustration">
-                    <BannerIllustration />
+                    <img src="./banner.png" alt="" width="500px"/>
                 </div>
             </div>
             <div className="home">
-                <span className="home-title">O Que Eu Desenvolvo</span>
+                <span className="home-title">Como posso ajudar?</span>
                 <div className="cards-display">
                     {
                         data.filter((link) => link.card.id)

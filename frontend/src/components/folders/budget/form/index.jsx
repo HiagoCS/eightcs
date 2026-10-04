@@ -1,5 +1,5 @@
 import "./style.scss"
-const WHATSAPP_NUMBER = 'SEU_NUMERO_AQUI';
+const WHATSAPP_NUMBER = '11997448269';
 const WHATSAPP_MESSAGE = `Olá! Gostaria de solicitar um orçamento.
 
 Nome: {nome}

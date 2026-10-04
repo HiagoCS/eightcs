@@ -1,7 +1,7 @@
 .main {
     font-family: "Quicksand-Bold";
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 0 4pc;
     margin: 0;
     height: 5pc;
@@ -11,7 +11,9 @@
     .menu {
         display: none;
     }
-
+    .logo{
+        gap: 2rem;
+    }
     .nav {
         width: 55%;
         display: flex;
@@ -21,7 +23,7 @@
         font-size: 1pc;
 
         a.active {
-            color: #77BDF1;
+            color: #2D3878;
         }
 
         a {
@@ -51,7 +53,7 @@
     }
 }
 
-@media(max-width:777px) {
+@media(max-width:854px) {
     .main {
         &.active {
             position: fixed;
@@ -87,7 +89,7 @@
                 display: none;
                 transition: all 0.3s ease;
                 box-sizing: border-box;
-
+                z-index: 10000;
                 &.active {
                     display: flex;
                     flex-direction: column;
@@ -131,14 +133,16 @@
                 }
             }
         }
-
+        .logo{
+            display: none;
+        }
         .nav {
             display: none;
         }
     }
 }
 
-@media(max-width:604px) {
+@media(max-width:854px) {
     .main {
         padding: 0;
 

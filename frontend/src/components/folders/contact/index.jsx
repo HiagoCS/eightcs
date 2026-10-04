@@ -11,6 +11,9 @@ import EmailIcon from "@/assets/icons/email-1-svgrepo-com.svg?react"
 import PhoneIcon from "@/assets/icons/phone-call-svgrepo-com.svg?react"
 import PinIcon from "@/assets/icons/location-pin-svgrepo-com.svg?react"
 
+import contacts from '@/data/contacts/index.json';
+import { contactIcons } from '@/data/contacts/functions.jsx';
+
 import { useInfos } from "@/data/hooks/useInfos";
 export default function ContactPage(){
     const { data: infos, isLoading, error } = useInfos();
@@ -31,18 +34,23 @@ export default function ContactPage(){
                     </div>
                 </div>
                 <div className="frameworks">
-                    <div className="title">
-                        <p>Tecnologias</p>
-                    </div>
-                    <div className="icons">
-                        <ReactIcon className="icon"/>
-                        <NextIcon className="icon"/>
-                        <TSIcon className="icon"/>
-                        <NodeIcon className="icon"/>
-                        <FlutterIcon className="icon"/>
-                        <VueIcon className="icon"/>
-                        <PhpIcon className="icon"/>
-                    </div>
+                    <ul className='icons'>
+                    {contacts.map(({ id, icon, url }) => {
+                        const Component = contactIcons[icon];
+                        return (
+                            <li key={id}>
+                                <a href={url} target="_blank" rel="noopener noreferrer">
+                                    <Component
+                                        style={{
+                                            width: '2.5pc',
+                                            height: '2.5pc'
+                                        }}
+                                    />
+                                </a>
+                            </li>
+                        );
+                    })}
+                </ul>
                 </div>
                 <div className="addr">
                     <div className="title">

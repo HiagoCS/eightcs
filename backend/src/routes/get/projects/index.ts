@@ -12,34 +12,71 @@ async function projects(fastify: FastifyInstance) {
             "storage/img/projects",
             id
         );
+
         const modalFolder = path.join(
-            process.cwd(),
-            `storage/img/projects`,
-            id,
+            folder,
             "modal"
         );
-        const files = await fs.readdir(folder);
-            const modalFiles = await fs.readdir(modalFolder);
+
+        try {
+            const files = await fs.readdir(folder);
+
             const images = files
                 .filter(file =>
                     /\.(png|jpe?g|webp)$/i.test(file)
                 )
                 .sort((a, b) => a.localeCompare(b))
-                .map(file => `/storage/img/projects/${id}/${file}`);
-            const modal = modalFiles.filter(file =>
-                    /\.(png|jpe?g|webp)$/i.test(file)
-                )
-                .sort((a, b) => a.localeCompare(b))
-                .map(file => `/storage/img/projects/${id}/modal/${file}`);
+                .map(file =>
+                    `/storage/img/projects/${id}/${file}`
+                );
 
-        if(images){
+            if (images.length === 0) {
+                return reply.code(404).send({
+                    message: "Imagens do projeto não encontradas",
+                    data: []
+                });
+            }
+
+            let modal: string[] = [];
+
+            try {
+                const modalFiles = await fs.readdir(modalFolder);
+
+                modal = modalFiles
+                    .filter(file =>
+                        /\.(png|jpe?g|webp)$/i.test(file)
+                    )
+                    .sort((a, b) => a.localeCompare(b))
+                    .map(file =>
+                        `/storage/img/projects/${id}/modal/${file}`
+                    );
+
+            } catch (error: any) {
+                if (error.code !== "ENOENT") {
+                    throw error;
+                }
+            }
+
             return {
                 message: "Successful Request",
-                data: {'images' : images, 'modal': modal}
+                data: {
+                    images,
+                    modal
+                }
             };
-        }else{
-            return reply.code(404).send({
-                message: "Pasta de imagens não encontrada",
+
+        } catch (error: any) {
+            if (error.code === "ENOENT") {
+                return reply.code(404).send({
+                    message: "Pasta de imagens não encontrada",
+                    data: []
+                });
+            }
+
+            request.log.error(error);
+
+            return reply.code(500).send({
+                message: "Erro ao buscar imagens do projeto",
                 data: []
             });
         }

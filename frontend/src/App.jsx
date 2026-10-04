@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Banner></Banner>
+        {/* <Banner></Banner> */}
         <NavBar></NavBar>
         <Routes>
           {data.map((link) => {

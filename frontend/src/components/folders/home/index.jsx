@@ -18,29 +18,9 @@ export default function HomePage() {
     return (
         <div className="app">
             <div className="home-banner">
-
+                <div className="banner-overlay"></div>
                 <div className="banner-content">
-                    <span>Olá, meu nome é</span>
-
-                    <h1>{infos['name']}</h1>
-
-                    <h2>{infos['occupation']}</h2>
-
                     <p>{infos['description']}</p>
-
-                    <div className="banner-buttons">
-                        <button>
-                            <Project className="icon" style={{ width: '1.2pc', height: '1.5pc' }} />
-                            <span>O que é 8CS?</span>
-                        </button>
-                        <button>
-                            <Download className="icon" style={{ width: '1.2pc', height: '1.5pc' }} />
-                            <span>Baixar Currículo</span>
-                        </button>
-                    </div>
-                </div>
-                <div className="banner-illustration">
-                    <BannerIllustration />
                 </div>
             </div>
             <div className="home">

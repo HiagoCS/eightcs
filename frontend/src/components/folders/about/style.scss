@@ -1,0 +1,524 @@
+.about-page {
+    width: 100%;
+    overflow: hidden;
+    color: #1d1d1d;
+    background: #ffffff;
+}
+
+.about-container {
+    width: min(1200px, 88%);
+    margin: 0 auto;
+}
+
+.about-label {
+    display: inline-block;
+
+    margin-bottom: 1rem;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: #666666;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.about-hero {
+    position: relative;
+
+    min-height: 70vh;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    background: #1d1d1d;
+}
+
+.about-hero-image {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.about-hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.82) 0%,
+            rgba(0, 0, 0, 0.58) 45%,
+            rgba(0, 0, 0, 0.2) 100%
+        );
+}
+
+.about-hero-content {
+    position: relative;
+    z-index: 1;
+
+    width: min(850px, 88%);
+    margin: 0 auto;
+
+    color: #ffffff;
+
+    .about-label {
+        color: #ffffff;
+    }
+
+    h1 {
+        margin: 0 0 1.5rem;
+
+        font-size: clamp(2.5rem, 5vw, 5rem);
+        line-height: 1.05;
+        font-weight: 700;
+    }
+
+    p {
+        max-width: 650px;
+
+        margin: 0;
+
+        font-size: clamp(1rem, 1.5vw, 1.3rem);
+        line-height: 1.7;
+
+        color: rgba(255, 255, 255, 0.9);
+    }
+}
+
+/* =========================================================
+   SEÇÕES
+========================================================= */
+
+.about-section {
+    padding: 7rem 0;
+}
+
+.about-introduction {
+    background: #ffffff;
+}
+
+.about-introduction-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+
+    align-items: center;
+}
+
+.about-text {
+
+    h2 {
+        margin: 0 0 1.5rem;
+
+        max-width: 650px;
+
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        line-height: 1.1;
+    }
+
+    p {
+        max-width: 650px;
+
+        margin: 0 0 1rem;
+
+        font-size: 1.05rem;
+        line-height: 1.8;
+
+        color: #555555;
+    }
+}
+
+.about-image {
+    width: 100%;
+
+    overflow: hidden;
+
+    background: #eeeeee;
+
+    img {
+        display: block;
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+    }
+}
+
+.about-introduction-image {
+    min-height: 500px;
+}
+
+/* =========================================================
+   SERVIÇOS
+========================================================= */
+
+.about-services {
+    background: #eeeeee;
+}
+
+.about-heading {
+    max-width: 750px;
+
+    margin-bottom: 4rem;
+
+    h2 {
+        margin: 0 0 1.25rem;
+
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        line-height: 1.1;
+    }
+
+    p {
+        margin: 0;
+
+        font-size: 1.05rem;
+        line-height: 1.7;
+
+        color: #555555;
+    }
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.service-card {
+    position: relative;
+
+    min-height: 270px;
+
+    padding: 2.5rem;
+
+    background: #ffffff;
+
+    border: 1px solid #d1d1d1;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    &:hover {
+        transform: translateY(-6px);
+
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+    }
+
+    .service-number {
+        display: block;
+
+        margin-bottom: 2rem;
+
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+
+        color: #777777;
+    }
+
+    h3 {
+        margin: 0 0 1rem;
+
+        font-size: 1.5rem;
+        line-height: 1.2;
+    }
+
+    p {
+        margin: 0;
+
+        font-size: 1rem;
+        line-height: 1.7;
+
+        color: #666666;
+    }
+}
+
+/* =========================================================
+   IMAGEM DE DESTAQUE
+========================================================= */
+
+.about-feature-image {
+    position: relative;
+
+    width: 100%;
+    height: 550px;
+
+    overflow: hidden;
+
+    background: #1d1d1d;
+
+    img {
+        display: block;
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+    }
+}
+
+.about-feature-overlay {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: flex-end;
+
+    padding: 5rem;
+
+    background:
+        linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.75) 0%,
+            rgba(0, 0, 0, 0.05) 70%
+        );
+
+    color: #ffffff;
+
+    .about-label {
+        color: #ffffff;
+    }
+
+    h2 {
+        margin: 0;
+
+        font-size: clamp(2rem, 4vw, 4rem);
+        line-height: 1;
+    }
+}
+
+/* =========================================================
+   VALORES
+========================================================= */
+
+.about-values {
+    background: #ffffff;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+}
+
+.value-card {
+    padding-top: 2rem;
+
+    border-top: 2px solid #1d1d1d;
+
+    .value-number {
+        display: block;
+
+        margin-bottom: 2rem;
+
+        font-size: 2rem;
+        font-weight: 700;
+
+        color: #cccccc;
+    }
+
+    h3 {
+        margin: 0 0 1rem;
+
+        font-size: 1.5rem;
+    }
+
+    p {
+        margin: 0;
+
+        font-size: 1rem;
+        line-height: 1.7;
+
+        color: #666666;
+    }
+}
+
+/* =========================================================
+   GALERIA
+========================================================= */
+
+.about-gallery {
+    background: #eeeeee;
+}
+
+.gallery-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 1rem;
+}
+
+.gallery-item {
+    aspect-ratio: 4 / 3;
+
+    overflow: hidden;
+
+    background: #d1d1d1;
+
+    img {
+        display: block;
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+
+        transition: transform 0.35s ease;
+    }
+
+    &:hover {
+        img {
+            transform: scale(1.04);
+        }
+    }
+}
+
+/* =========================================================
+   FOOTER DA PÁGINA
+========================================================= */
+
+.about-footer {
+    padding: 6rem 0;
+
+    background: #1d1d1d;
+
+    color: #ffffff;
+}
+
+.about-footer-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+
+    align-items: center;
+
+    .about-label {
+        color: #999999;
+    }
+
+    h2 {
+        margin: 0;
+
+        max-width: 600px;
+
+        font-size: clamp(2.5rem, 5vw, 4.5rem);
+        line-height: 1;
+    }
+
+    p {
+        margin: 0;
+
+        font-size: 1.05rem;
+        line-height: 1.8;
+
+        color: #cccccc;
+    }
+}
+
+/* =========================================================
+   RESPONSIVIDADE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .about-section {
+        padding: 5rem 0;
+    }
+
+    .about-introduction-grid {
+        grid-template-columns: 1fr;
+
+        gap: 3rem;
+    }
+
+    .about-introduction-image {
+        min-height: 400px;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .values-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .about-footer-content {
+        grid-template-columns: 1fr;
+
+        gap: 3rem;
+    }
+
+    .about-feature-image {
+        height: 450px;
+    }
+
+    .about-feature-overlay {
+        padding: 3rem;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+
+    .about-container {
+        width: 90%;
+    }
+
+    .about-hero {
+        min-height: 600px;
+    }
+
+    .about-hero-content {
+
+        h1 {
+            font-size: 2.5rem;
+        }
+    }
+
+    .about-section {
+        padding: 4rem 0;
+    }
+
+    .about-introduction-image {
+        min-height: 300px;
+    }
+
+    .service-card {
+        min-height: auto;
+
+        padding: 2rem;
+    }
+
+    .about-feature-image {
+        height: 400px;
+    }
+
+    .about-feature-overlay {
+        padding: 2rem;
+
+        h2 {
+            font-size: 2.5rem;
+        }
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}

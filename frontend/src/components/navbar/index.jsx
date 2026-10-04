@@ -7,8 +7,6 @@ import HomeActive from '@/assets/icons/home-page-svgrepo-com.svg?react';
 import Menu from '@/assets/icons/menu-rounded.svg?react';
 
 import { useDynamicLinks } from '@/data/links/functions.jsx';
-import contacts from '@/data/contacts/index.json';
-import { contactIcons } from '@/data/contacts/functions.jsx';
 
 function main() {
     const [activeLink, setActiveLink] = useState(useLocation().pathname);
@@ -23,20 +21,29 @@ function main() {
                     <Menu className={`menu-icon ${toggleMenu}`} onClick={() => toggleMenu === '' ? setToggleMenu('active') : setToggleMenu('')} />
                     <div className={`nav-toggle ${toggleMenu}`}>
                         <ul className='nav' >
-                            {data.map((link) => (
-                                <li key={link.url}>
-                                    <Link to={`${link.url}`} className={activeLink === link.url ? 'active' : ''} onClick={() => { setActiveLink(link.url); setToggleMenu('') }}>
-                                        {link.url === '/' ?
-                                            (activeLink === link.url ?
-                                                <HomeActive style={{ width: '1.3pc', height: '2pc' }} />
-                                                : <Home style={{ width: '1.3pc', height: '1pc' }} />
-                                            ) : <></>
-                                        }{link['label']}
-                                    </Link>
-                                </li>
-                            ))}
+                            {data.filter((link) => link.id)
+                                .sort((a, b) => {
+                                    if (a.typeId && !b.typeId) return -1;
+                                    if (!a.typeId && b.typeId) return 1;
+                                    return 0;
+                                })
+                                .map((link) => (
+                                    <li key={link.url}>
+                                        <Link to={`${link.url}`} className={activeLink === link.url ? 'active' : ''} onClick={() => { setActiveLink(link.url); setToggleMenu('') }}>
+                                            {link.url === '/' ?
+                                                (activeLink === link.url ?
+                                                    <HomeActive style={{ width: '1.3pc', height: '2pc' }} />
+                                                    : <Home style={{ width: '1.3pc', height: '1pc' }} />
+                                                ) : <></>
+                                            }{link['label']}
+                                        </Link>
+                                    </li>
+                                ))}
                         </ul>
                     </div>
+                </div>
+                <div className="logo">
+                    <img src="./logo.png" width={"130px"} height={"100vh"} alt="" />
                 </div>
                 <ul className='nav' >
                     <li>
@@ -64,23 +71,6 @@ function main() {
                                 }
                             </li>
                         ))}
-                </ul>
-                <ul className='icons'>
-                    {contacts.map(({ id, icon, url }) => {
-                        const Component = contactIcons[icon];
-                        return (
-                            <li key={id}>
-                                <a href={url} target="_blank" rel="noopener noreferrer">
-                                    <Component
-                                        style={{
-                                            width: '2.5pc',
-                                            height: '2.5pc'
-                                        }}
-                                    />
-                                </a>
-                            </li>
-                        );
-                    })}
                 </ul>
             </div>
         </>

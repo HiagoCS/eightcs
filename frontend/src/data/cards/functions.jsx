@@ -1,14 +1,14 @@
-import Web from '@/assets/icons/web.svg?react';
-import Mobile from '@/assets/icons/android-solid.svg?react';
-import Desktop from '@/assets/icons/desktop.svg?react';
+import Portfólio from '@/assets/icons/briefcase-svgrepo-com.svg?react';
+import About from '@/assets/icons/company-svgrepo-com.svg?react'
+import Clients from '@/assets/icons/businessman-clients-portfolio-svgrepo-com.svg?react';
 import Contact from '@/assets/icons/contact.svg?react';
 
 export function cardsIcons() {
     return {
         icons: {
-            web: Web,
-            mobile: Mobile,
-            desktop: Desktop,
+            portfolio: Portfólio,
+            about: About,
+            clients: Clients,
             contact: Contact
         }
     }

@@ -1,18 +1,18 @@
 [
     {
         "id":"1",
-        "icon":"web"
+        "icon":"portfolio"
     },
     {
         "id":"2",
-        "icon":"mobile"
+        "icon":"clients"
     },
     {
         "id":"3",
-        "icon":"desktop"
+        "icon":"contact"
     },
     {
         "id":"4",
-        "icon":"contact"
+        "icon":"about"
     }
 ]

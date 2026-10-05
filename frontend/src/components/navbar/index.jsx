@@ -14,9 +14,10 @@ function main() {
 
     const { links, isLoading, data } = useDynamicLinks();
     if (isLoading) return console.log("<p>Loading...</p>")
+        //position: absolute;
     return (
         <>
-            <div className={`main ${toggleMenu}`}>
+            <div className={`main ${toggleMenu}`} style={useLocation().pathname==="/"?{position:"absolute"}:{}}>
                 <div className="menu">
                     <Menu className={`menu-icon ${toggleMenu}`} onClick={() => toggleMenu === '' ? setToggleMenu('active') : setToggleMenu('')} />
                     <div className={`nav-toggle ${toggleMenu}`}>
@@ -43,11 +44,11 @@ function main() {
                     </div>
                 </div>
                 <div className="logo">
-                    <img src="./logo.png" width={"100px"} height={"100vh"} alt="" style={{paddingBottom:"10px"}}/>
+                    <img src={`${useLocation().pathname==="/"?'/logo-wt.png':'/logo-bk.png'}`} width={"130px"} height={"80px"} alt="" style={{paddingBottom:"10px"}}/>
                 </div>
                 <ul className='nav' >
                     <li>
-                        <Link to="/" className={activeLink === '/' ? 'active' : ''} onClick={() => setActiveLink('/')}>
+                        <Link to="/" className={activeLink === '/' ? 'active' : ''} onClick={() => setActiveLink('/')} style={useLocation().pathname==="/"?{color:"#fff"}:{color:"#000"}}>
                             {activeLink === '/' ?
                                 <HomeActive style={{ width: '1.3pc', height: '2pc' }} />
                                 : <Home style={{ width: '1.3pc', height: '1pc' }} />
@@ -64,7 +65,7 @@ function main() {
                             <li key={link.url} style={link.url !== '/' ? {} : { display: 'none' }}>
                                 {
                                     link.url !== '/' ? (
-                                        <Link to={`${link.url}`} className={activeLink === link.url ? 'active' : ''} onClick={() => setActiveLink(link.url)}>
+                                        <Link to={`${link.url}`} className={activeLink === link.url ? 'active' : ''} onClick={() => setActiveLink(link.url)} style={useLocation().pathname==="/"?{color:"#fff"}:{color:"#000"}}>
                                             {link['label']}
                                         </Link>
                                     ) : <></>

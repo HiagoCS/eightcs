@@ -7,11 +7,26 @@
 
     overflow: hidden;
 
-    background: linear-gradient(120deg,
-            #D98A00 0%,
-            #F5B800 45%,
-            #FFC928 75%,
-            #FFD84A 100%);
+    background:
+    linear-gradient(
+        125deg,
+        rgba(255, 255, 255, 0.07) 0%,
+        rgba(255, 255, 255, 0.01) 18%,
+        rgba(0, 0, 0, 0.12) 35%,
+        rgba(255, 255, 255, 0.04) 52%,
+        rgba(0, 0, 0, 0.18) 68%,
+        rgba(255, 255, 255, 0.03) 82%,
+        rgba(0, 0, 0, 0.2) 100%
+    ),
+    linear-gradient(
+        120deg,
+        #080808 0%,
+        #181818 25%,
+        #2A2A2A 45%,
+        #111111 60%,
+        #252525 78%,
+        #070707 100%
+    );
 
     color: #1d1d1d;
 }

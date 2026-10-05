@@ -1,15 +1,13 @@
-import Services from '@/assets/icons/wall-2-svgrepo-com.svg?react';
-import Residencial from '@/assets/icons/paintbrush-svgrepo-com.svg?react'
-import Predial from '@/assets/icons/paintroller-svgrepo-com.svg?react';
+import Projects from '@/assets/icons/construction-worker-svgrepo-com.svg?react';
+import Materials from '@/assets/icons/wall-2-svgrepo-com.svg?react'
 import Form from '@/assets/icons/form-svgrepo-com.svg?react';
 import Contact from '@/assets/icons/contact.svg?react';
 
 export function cardsIcons() {
     return {
         icons: {
-            services: Services,
-            residencial: Residencial,
-            predial: Predial,
+            projects: Projects,
+            materials: Materials,
             form: Form,
             contact: Contact
         }

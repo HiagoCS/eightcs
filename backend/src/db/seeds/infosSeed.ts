@@ -7,14 +7,14 @@ function infosSeed(){
         [
         1,
         "",
-        "Pinturas e Acabamentos",
-        "J.M Pinturas e Acabamentos",
-        "contatojmpinturas@gmail.com",
-        "11 9 9744-8269",
-        "11997448269",
-        "São Paulo e Grande SP",
-        "Pintura sem dor de cabeça. Equipe própria, prazo cumprido, imóvel limpo.",
-        "Equipe própria, uniformizada e sob supervisão. Se não ficar bom na vistoria, voltamos sem custo."
+        "Marmoraria",
+        "Star Leme Marmoraria",
+        "starleme.marmoraria@example.com",
+        "(11) 99999-0000",
+        "13999990000",
+        "São Paulo, SP e Grande São Paulo",
+        "Soluções em pedras naturais e superfícies para projetos residenciais, com fabricação sob medida, acabamento preciso e instalação pensada para valorizar cada ambiente.",
+        "Elegância, precisão e qualidade em cada detalhe do seu projeto."
 ]
     ];
 

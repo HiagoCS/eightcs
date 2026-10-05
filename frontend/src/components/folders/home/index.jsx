@@ -20,10 +20,6 @@ export default function HomePage() {
                 <div className="banner-content">
                     <p>{infos['description']}</p>
                 </div>
-                <FormComponent></FormComponent>
-            </div>
-            <div className="home">
-                <span className="home-title">O Que Eu Desenvolvo</span>
                 <div className="cards-display">
                     {
                         data.filter((link) => link.card.id)
@@ -73,6 +69,10 @@ export default function HomePage() {
                             })
                     }
                 </div>
+            </div>
+            <div className="home">
+                <span className="home-title">O Que Eu Desenvolvo</span>
+                
             </div>
             {data.filter((link) => link.card.id)
                 .sort((a, b) => {

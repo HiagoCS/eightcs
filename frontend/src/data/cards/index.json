@@ -1,11 +1,11 @@
 [
     {
         "id":"1",
-        "icon":"services"
+        "icon":"projects"
     },
     {
         "id":"2",
-        "icon":"residencial"
+        "icon":"materials"
     },
     {
         "id":"3",
@@ -13,10 +13,6 @@
     },
     {
         "id":"4",
-        "icon":"predial"
-    },
-    {
-        "id":"5",
         "icon":"form"
     }
 ]

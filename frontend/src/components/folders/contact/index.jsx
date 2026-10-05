@@ -17,25 +17,32 @@ export default function ContactPage() {
     } = useInfos();
 
     if (isLoading) {
-        return console.log("Loading...");
+        return null;
     }
 
     if (error) {
-        return console.log(error.message);
+        console.error(error.message);
+        return null;
     }
 
     if (!infos) {
-        return console.log(
+        console.warn(
             "Nenhuma informação de cliente encontrada!"
         );
+
+        return null;
     }
 
-    const title = infos.company && infos.company !== ""
-        ? infos.company.split(" ")
-        : infos.name.split(" ");
+    const companyName =
+        infos.company && infos.company !== ""
+            ? infos.company
+            : infos.name;
 
-    const phone = infos.phone?.replace(/\D/g, "") || "";
-    const whatsapp = infos.whatsapp?.replace(/\D/g, "") || "";
+    const phone =
+        infos.phone?.replace(/\D/g, "") || "";
+
+    const whatsapp =
+        infos.whatsapp?.replace(/\D/g, "") || "";
 
     const whatsappNumber =
         phone.length === 11
@@ -45,186 +52,200 @@ export default function ContactPage() {
     return (
         <section className="app contact">
 
-            <div className="contacts">
+            <div className="contact-layout">
 
                 {/* =====================================================
-                    CABEÇALHO
+                    PAINEL ESQUERDO
                 ===================================================== */}
 
-                <div className="contact-header">
+                <aside className="contact-sidebar">
 
-                    <span className="contact-label">
-                        ENTRE EM CONTATO
-                    </span>
+                    <div className="contact-sidebar-content">
 
-                    <div className="contact-title">
+                        <span className="contact-label">
+                            ENTRE EM CONTATO
+                        </span>
+
+                        <h1>
+                            {companyName}
+                        </h1>
+
+                        <p className="contact-description">
+                            {infos.footer}
+                        </p>
+
+                        <div className="contact-divider"></div>
+
+                        <div className="contact-social">
+
+                            <span className="contact-social-label">
+                                ENCONTRE-ME
+                            </span>
+
+                            <div className="social-links">
+
+                                {contacts.map(
+                                    ({ id, icon, url }) => {
+
+                                        const Icon =
+                                            contactIcons[icon];
+
+                                        if (!Icon) {
+                                            return null;
+                                        }
+
+                                        return (
+                                            <a
+                                                key={id}
+                                                href={url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                aria-label={icon}
+                                            >
+                                                <Icon />
+                                            </a>
+                                        );
+                                    }
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div className="contact-sidebar-footer">
+                        <span>
+                            Vamos conversar sobre o seu projeto?
+                        </span>
+                    </div>
+
+                </aside>
+
+                {/* =====================================================
+                    ÁREA DE CONTATOS
+                ===================================================== */}
+
+                <main className="contact-main">
+
+                    <div className="contact-main-header">
+
+                        <span className="contact-label">
+                            FALE COMIGO
+                        </span>
+
                         <h2>
-                            {title[0]}
+                            Estou à disposição
+                            <br />
+                            para atender você.
                         </h2>
 
-                        {title[1] && (
-                            <h3>
-                                {title.slice(1).join(" ")}
-                            </h3>
-                        )}
                     </div>
 
-                    <p className="contact-description">
-                        {infos.footer}
-                    </p>
+                    <div className="contact-list">
 
-                </div>
+                        {/* E-MAIL */}
 
-                {/* =====================================================
-                    CONTEÚDO
-                ===================================================== */}
+                        <a
+                            className="contact-card"
+                            href={`mailto:${infos.email}`}
+                        >
 
-                <div className="contact-content">
+                            <div className="contact-card-icon">
+                                <EmailIcon />
+                            </div>
 
-                    {/* =================================================
-                        CONTATOS
-                    ================================================= */}
+                            <div className="contact-card-content">
 
-                    <div className="contact-details">
+                                <span>
+                                    E-mail
+                                </span>
 
-                        <div className="section-heading">
-                            <span>
-                                CONTATOS
+                                <p>
+                                    {infos.email}
+                                </p>
+
+                            </div>
+
+                            <span className="contact-card-arrow">
+                                →
                             </span>
 
-                            <h4>
-                                Fale comigo
-                            </h4>
-                        </div>
+                        </a>
 
-                        <div className="contact-list">
+                        {/* TELEFONE */}
 
-                            <div className="contact-item">
+                        <a
+                            className="contact-card"
+                            href={
+                                whatsappNumber
+                                    ? `https://wa.me/55${whatsappNumber}`
+                                    : "#"
+                            }
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
 
-                                <div className="contact-icon">
-                                    <EmailIcon />
-                                </div>
+                            <div className="contact-card-icon">
+                                <PhoneIcon />
+                            </div>
 
-                                <div className="contact-item-info">
-                                    <span>
-                                        E-mail
-                                    </span>
+                            <div className="contact-card-content">
 
-                                    <p>
-                                        {infos.email}
-                                    </p>
-                                </div>
+                                <span>
+                                    Telefone
+                                </span>
+
+                                <p>
+                                    {infos.phone}
+                                </p>
 
                             </div>
 
-                            <div className="contact-item">
-
-                                <div className="contact-icon">
-                                    <PhoneIcon />
-                                </div>
-
-                                <div className="contact-item-info">
-                                    <span>
-                                        Telefone
-                                    </span>
-
-                                    {whatsappNumber ? (
-                                        <a
-                                            href={`https://wa.me/55${whatsappNumber}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            {infos.phone}
-                                        </a>
-                                    ) : (
-                                        <p>
-                                            {infos.phone}
-                                        </p>
-                                    )}
-                                </div>
-
-                            </div>
-
-                            <div className="contact-item">
-
-                                <div className="contact-icon">
-                                    <PinIcon />
-                                </div>
-
-                                <div className="contact-item-info">
-                                    <span>
-                                        Localização
-                                    </span>
-
-                                    <p>
-                                        {infos.location}
-                                    </p>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    {/* =================================================
-                        REDES / ÍCONES
-                    ================================================= */}
-
-                    <div className="contact-social">
-
-                        <div className="section-heading">
-                            <span>
-                                CONECTE-SE
+                            <span className="contact-card-arrow">
+                                →
                             </span>
 
-                            <h4>
-                                Encontre-me também
-                            </h4>
-                        </div>
+                        </a>
 
-                        <div className="social-grid">
+                        {/* LOCALIZAÇÃO */}
 
-                            {contacts.map(
-                                ({ id, icon, url }) => {
+                        <div className="contact-card">
 
-                                    const Component =
-                                        contactIcons[icon];
+                            <div className="contact-card-icon">
+                                <PinIcon />
+                            </div>
 
-                                    if (!Component) {
-                                        return null;
-                                    }
+                            <div className="contact-card-content">
 
-                                    return (
-                                        <a
-                                            key={id}
-                                            href={url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="social-item"
-                                        >
-                                            <Component />
-                                        </a>
-                                    );
-                                }
-                            )}
+                                <span>
+                                    Localização
+                                </span>
+
+                                <p>
+                                    {infos.location}
+                                </p>
+
+                            </div>
 
                         </div>
 
                     </div>
 
-                </div>
+                    <div className="contact-main-footer">
 
-                {/* =====================================================
-                    RODAPÉ
-                ===================================================== */}
+                        <span>
+                            Atendimento
+                        </span>
 
-                <div className="contact-bottom">
-                    <span>
-                        Estou à disposição para conversar sobre
-                        seu projeto.
-                    </span>
-                </div>
+                        <p>
+                            Entre em contato para conhecer melhor
+                            nossos serviços e soluções.
+                        </p>
+
+                    </div>
+
+                </main>
 
             </div>
 

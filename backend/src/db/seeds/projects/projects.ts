@@ -5,73 +5,143 @@ function projectsSeed(){
 
     const projects = [
         [
-        "Forro de Gesso e Iluminação",
-        "Execução de forro de gesso com preparação para iluminação embutida, proporcionando um acabamento moderno, uniforme e integrado ao ambiente.",
+        "Bancada de Cozinha",
+        "Bancadas de cozinha sob medida, projetadas para unir praticidade, resistência e acabamento sofisticado ao ambiente.",
         null,
         1,
         1
 ],
         [
-        "Parede em Drywall",
-        "Instalação de parede em drywall para divisão e adequação de ambientes, com acabamento preparado para pintura e integração ao projeto.",
+        "Ilha Gourmet",
+        "Ilhas centrais para cozinhas e espaços gourmet, produzidas sob medida para criar um ponto de destaque funcional e sofisticado.",
         null,
         1,
         1
 ],
         [
-        "Sanca de Gesso",
-        "Confecção e instalação de sanca de gesso para valorizar o ambiente e criar um acabamento diferenciado com possibilidade de iluminação indireta.",
+        "Pia de Banheiro",
+        "Pias e bancadas para banheiros residenciais fabricadas sob medida, com diferentes formatos, acabamentos e opções de cuba.",
         null,
         1,
         1
 ],
         [
-        "Acabamento de Paredes e Tetos",
-        "Preparação, correção e acabamento de paredes e tetos para receber pintura, garantindo superfícies mais uniformes e um resultado final de qualidade.",
+        "Nicho de Banheiro",
+        "Nichos em pedra para banheiros, desenvolvidos para organizar produtos e criar um acabamento integrado ao revestimento.",
         null,
         1,
         1
 ],
         [
-        "Pintura Acetinada em Sala",
-        "Aplicação de pintura com acabamento acetinado em ambiente residencial, proporcionando uma superfície sofisticada, uniforme e de fácil manutenção.",
+        "Bancada de Lavabo",
+        "Bancadas personalizadas para lavabos, pensadas para criar ambientes elegantes e marcantes mesmo em espaços compactos.",
+        null,
+        1,
+        1
+],
+        [
+        "Escada em Pedra",
+        "Degraus e revestimentos para escadas residenciais, produzidos sob medida para proporcionar continuidade visual e acabamento sofisticado.",
+        null,
+        1,
+        1
+],
+        [
+        "Soleiras e Peitoris",
+        "Soleiras e peitoris sob medida para portas, janelas e transições entre ambientes, proporcionando acabamento uniforme e elegante.",
+        null,
+        1,
+        1
+],
+        [
+        "Churrasqueira Gourmet",
+        "Revestimentos e bancadas para áreas de churrasqueira e espaços gourmet, combinando resistência, funcionalidade e estética.",
+        null,
+        1,
+        1
+],
+        [
+        "Bancada de Lavanderia",
+        "Bancadas para lavanderias residenciais, produzidas sob medida para organizar a área de trabalho e facilitar a rotina.",
+        null,
+        1,
+        1
+],
+        [
+        "Painel e Aparador",
+        "Painéis, aparadores e elementos decorativos em pedra para salas e ambientes sociais, criando composições sofisticadas e personalizadas.",
+        null,
+        1,
+        1
+],
+        [
+        "Granito",
+        "Rochas de ampla utilização em projetos residenciais, disponíveis em diversas cores e padrões para bancadas, pisos, escadas e outros elementos.",
         null,
         2,
         1
 ],
         [
-        "Pintura Texturizada em Fachada",
-        "Aplicação de textura e pintura na fachada residencial, criando um acabamento marcante e contribuindo para a valorização visual do imóvel.",
+        "Mármore",
+        "Material de aparência sofisticada e grande variedade estética, utilizado principalmente em ambientes internos e elementos decorativos.",
         null,
         2,
         1
 ],
         [
-        "Pintura Geométrica em Ambiente",
-        "Criação de pintura geométrica em parede residencial, combinando diferentes formas e tonalidades para personalizar e modernizar o ambiente.",
+        "Quartzito",
+        "Rocha natural valorizada pelos padrões marcantes, cores variadas e possibilidades de aplicação em projetos residenciais.",
         null,
         2,
         1
 ],
         [
-        "Pintura de Fachada Predial",
-        "Revitalização da fachada de edifício com preparação das superfícies, correções e aplicação de pintura para renovar o aspecto externo do prédio.",
+        "Travertino",
+        "Rocha de aparência característica, muito utilizada para criar ambientes sofisticados e com estética natural.",
         null,
-        3,
+        2,
         1
 ],
         [
-        "Pintura de Áreas Comuns",
-        "Pintura e revitalização de áreas comuns de condomínio, incluindo halls, corredores e demais espaços de circulação.",
+        "Limestone",
+        "Pedra de aparência natural e elegante, utilizada em revestimentos, pisos, bancadas e elementos arquitetônicos.",
         null,
-        3,
+        2,
         1
 ],
         [
-        "Revitalização Predial Completa",
-        "Serviço de revitalização de áreas prediais com preparação, correção e pintura de diferentes superfícies, renovando a aparência e o acabamento do imóvel.",
+        "Ardósia",
+        "Rocha natural conhecida por sua textura e aparência característica, disponível em diferentes tonalidades e aplicações.",
         null,
-        3,
+        2,
+        1
+],
+        [
+        "Basalto",
+        "Rocha de coloração geralmente escura utilizada em revestimentos, pisos e aplicações arquitetônicas.",
+        null,
+        2,
+        1
+],
+        [
+        "Ônix",
+        "Material de forte apelo decorativo, conhecido pela variedade de cores e pelo efeito translúcido presente em determinadas variedades.",
+        null,
+        2,
+        1
+],
+        [
+        "Gnaisse",
+        "Rocha natural encontrada em diferentes padrões e tonalidades, podendo ser utilizada em aplicações ornamentais e arquitetônicas.",
+        null,
+        2,
+        1
+],
+        [
+        "Pedra-Sabão",
+        "Rocha natural de aparência característica, utilizada em peças arquitetônicas, decorativas e algumas aplicações específicas.",
+        null,
+        2,
         1
 ]
     ];

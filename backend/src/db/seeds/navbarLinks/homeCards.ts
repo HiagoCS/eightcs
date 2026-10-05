@@ -6,47 +6,38 @@ function homeCardsSeed(){
     const cards = [
         [
         1,
-        "Serviços",
-        "Conheça nossos serviços de gesso, drywall e acabamentos em geral para valorizar e transformar diferentes ambientes.",
-        "servicos",
-        "services",
+        "Projetos",
+        "Conheça projetos residenciais desenvolvidos com pedras e superfícies sob medida para cada ambiente.",
+        "projetos",
+        "projects",
         3,
         1
 ],
         [
         2,
-        "Residencial",
-        "Veja projetos de pintura realizados em ambientes residenciais, com diferentes estilos, cores e acabamentos.",
-        "residencial",
-        "residencial",
+        "Materiais",
+        "Conheça as opções de pedras naturais e superfícies disponíveis para transformar seu projeto.",
+        "materiais",
+        "materials",
         4,
         2
 ],
         [
         3,
-        "Predial",
-        "Confira trabalhos de pintura e revitalização realizados em fachadas, áreas comuns e espaços prediais.",
-        "predial",
-        "predial",
-        5,
-        3
-],
-        [
-        4,
-        "Contato",
-        "Entre em contato com a J.M Pinturas e Acabamentos para tirar dúvidas e conhecer nossos serviços.",
+        "Contatos",
+        "Entre em contato com a Star Leme Marmoraria para tirar dúvidas e conhecer nossos serviços.",
         "contact",
-        "about",
+        "contact",
         2,
         null
 ],
         [
-        5,
-        "Orçamento",
-        "Solicite um orçamento para seu projeto e conte com a J.M Pinturas e Acabamentos.",
+        4,
+        "Solicite um Orçamento",
+        "Envie as informações do seu projeto e consulte as possibilidades para seu ambiente.",
         "orcamento",
         "form",
-        6,
+        5,
         null
 ]
     ];

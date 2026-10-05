@@ -7,7 +7,7 @@
     height: 5pc;
     box-sizing: border-box;
     width: 100%;
-
+    z-index: 10000;
     .menu {
         display: none;
     }
@@ -21,7 +21,6 @@
         justify-content: space-around;
         align-items: center;
         font-size: 1pc;
-
         a.active {
             color: #97241D;
         }
@@ -30,7 +29,7 @@
             display: flex;
             text-decoration: none;
             align-items: center;
-            color: black;
+            color: #fff;
         }
     }
 

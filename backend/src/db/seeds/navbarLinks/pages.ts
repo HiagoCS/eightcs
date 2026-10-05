@@ -13,27 +13,20 @@ function pagesSeed(){
 ],
         [
         3,
-        "Serviços",
-        "ServicosPage",
-        "/services/acabamentos",
+        "Projetos",
+        "ProjetosPage",
+        "/marmoraria/projetos",
         1
 ],
         [
         4,
-        "Residencial",
-        "ResidencialPage",
-        "/services/residencial",
+        "Materiais",
+        "MateriaisPage",
+        "/marmoraria/materiais",
         2
 ],
         [
         5,
-        "Predial",
-        "PredialPage",
-        "/services/predial",
-        3
-],
-        [
-        6,
         "Orçamento",
         "OrcamentoPage",
         "/orcamento",

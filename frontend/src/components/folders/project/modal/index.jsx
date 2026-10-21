@@ -1,14 +1,15 @@
 import "./style.scss";
 import { useEffect, useState } from "react";
-import ArrowRight from '@/assets/icons/arrow-right-svgrepo-com.svg?react';
-import ArrowLeft from '@/assets/icons/arrow-left-svgrepo-com.svg?react';
-import CloseIcon from '@/assets/icons/close-svgrepo-com.svg?react';
 
-export default function modal({ project, onClose, images }) {
-    console.log(images);
+import ArrowRight from "@/assets/icons/arrow-right-svgrepo-com.svg?react";
+import ArrowLeft from "@/assets/icons/arrow-left-svgrepo-com.svg?react";
+import CloseIcon from "@/assets/icons/close-svgrepo-com.svg?react";
+
+export default function Modal({ project, onClose, images = [] }) {
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const modal = project.modal;
+    const modalItems = project?.modal ?? [];
+    const itemCount = modalItems.length;
 
     const sortedImages = [...images].sort((a, b) => {
         const getNumber = (path) => {
@@ -20,33 +21,44 @@ export default function modal({ project, onClose, images }) {
 
         return getNumber(a) - getNumber(b);
     });
-    const currentItem = modal[currentIndex];
+
+    const currentItem = modalItems[currentIndex];
     const image = sortedImages[currentIndex];
+
     const next = () => {
+        if (itemCount <= 1) return;
+
         setCurrentIndex((current) =>
-            current === modal.length - 1 ? 0 : current + 1
+            current >= itemCount - 1 ? 0 : current + 1
         );
     };
 
     const previous = () => {
+        if (itemCount <= 1) return;
+
         setCurrentIndex((current) =>
-            current === 0 ? modal.length - 1 : current - 1
+            current === 0 ? itemCount - 1 : current - 1
         );
     };
 
     useEffect(() => {
         const handleKeyDown = (event) => {
-
             if (event.key === "Escape") {
                 onClose();
             }
 
+            if (itemCount <= 1) return;
+
             if (event.key === "ArrowRight") {
-                next();
+                setCurrentIndex((current) =>
+                    current >= itemCount - 1 ? 0 : current + 1
+                );
             }
 
             if (event.key === "ArrowLeft") {
-                previous();
+                setCurrentIndex((current) =>
+                    current === 0 ? itemCount - 1 : current - 1
+                );
             }
         };
 
@@ -55,46 +67,64 @@ export default function modal({ project, onClose, images }) {
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
         };
-    }, [modal.length]);
+    }, [onClose, itemCount]);
 
     return (
-        <div className="modal">
-            <div className="close" onClick={onClose}>
-                <CloseIcon style={{width:'2.5vw', height:'2.5vh'}} />
-            </div>
-            <div className="previous" onClick={previous}>
-                <ArrowLeft style={{width:'2.5vw', height:'2.5vh'}} />
-            </div>
+        <div
+            className="modal"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Detalhes do projeto ${project?.title ?? ""}`}
+        >
+            <button
+                type="button"
+                className="close"
+                onClick={onClose}
+                aria-label="Fechar modal"
+            >
+                <CloseIcon className="icon" />
+            </button>
+
+            <button
+                type="button"
+                className="previous"
+                onClick={previous}
+                aria-label="Imagem anterior"
+            >
+                <ArrowLeft className="icon" />
+            </button>
 
             <div className="modal-content">
-
                 <div className="image">
                     {image && (
                         <img
                             src={`${import.meta.env.VITE_API_URL}${image}`}
-                            alt={currentItem.text}
+                            alt={currentItem?.text || project?.title || "Imagem do projeto"}
                         />
                     )}
                 </div>
 
                 <div className="info">
+                    <h2>{project?.title}</h2>
 
-                    <h2>{project.title}</h2>
-
-                    <span>
-                        {currentItem.text}
-                    </span>
+                    <span>{currentItem?.text ?? ""}</span>
 
                     <div className="counter">
-                        {currentIndex + 1} / {modal.length}
+                        {itemCount > 0
+                            ? `${currentIndex + 1} / ${itemCount}`
+                            : "0 / 0"}
                     </div>
-
                 </div>
+            </div>
 
-            </div>
-            <div className="next" onClick={next}>
-                <ArrowRight style={{width:'2.5vw', height:'2.5vh'}}></ArrowRight>
-            </div>
+            <button
+                type="button"
+                className="next"
+                onClick={next}
+                aria-label="Próxima imagem"
+            >
+                <ArrowRight className="icon" />
+            </button>
         </div>
     );
 }

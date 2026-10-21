@@ -1,50 +1,169 @@
 const { sqlite } = require("../../index");
 
 function modalSeed(){
-    const insert = sqlite.prepare(`INSERT OR IGNORE INTO modal(project_id, text, extension) VALUES (?, ?, ?)`);
-    const modals = [
-        [1, "tela de login com credencias de email e login, email sendo verificado para segurança dos usuários.", ".png"],
-        [1, "frente de caixa com campos de pesquisa para nome, codigo reduzido e codigo de barras. ajuste de filtro, seleção / criação de clientes e edição de produtos em tempo real.", ".png"],
-        [1, "clientes podem ser registrados com ou sem cpf", ".png"],
-        [1, "sistema equipado com exportação de nota fiscal por PDF ou impressão xml", ".png"],
-        [1, "exemplo nota fiscal pdf", ".png"],
-        [1, "seleção de cliente no ato da venda", ".png"],
-        [1, "visualização e exportação de notas fiscais", ".png"],
-        [1, "crud completo de produtos com campos de pesquisa e ações de edição, exclusão e copiar.", ".png"],
-        [1, "visualização de produto", ".png"],
-        [1, "botões: adicionar +1 no estoque, remover -1 no estoque, copiar produto, editar produto, excluir produto.", ".png"],
-        [1, "relatorios de entradas, vendas e saidas do estoque - visualização geral de todos os produtos.", ".png"],
-        [1, "visualização de toda movimentação do estoque simplificada", ".png"],
-        [1, "visualização de toda movimentação do estoque detalhada", ".png"],
-        [1, "dados de percentual de lucro para cada produto registrado", ".png"],
-        [1, "exportação da movimentação de estoque de cada produto.", ".png"],
-        [1, "relatórios graficos da movimentação do estoque.", ".png"],
-        [1, "exportação de todo o estoque.", ".png"],
-        [1, "modulo de serviços, alternativa de produtos, adiciona valor da mão de obra + adicionar produtos a soma.", ".png"],
-        [1, "registro de todos os clientes", ".png"],
-        [1, "configuração do perfil pessoal, configuração do perfil do comercio, configuração de permissões de usuarios + controle de usuarios.", ".png"],
-        [1, "menu responsivo com todos os modulos:\ncaixa - produtos visao geral - produtos estoque - produtos relatorios - serviços visao geral - serviços relatorios - clientes vendas - clientes visao geral", ".png"],
+    const insert = sqlite.prepare(`INSERT OR REPLACE INTO modal(project_id, text, extension) VALUES (?, ?, ?)`);
 
-        [2, "Tela inicial de autenticação com acesso seguro através de email e senha.", ".png"],
-        [2, "Dashboard mobile com acesso rápido aos principais módulos do sistema.", ".png"],
-        [2, "Frente de caixa adaptada para dispositivos móveis, permitindo pesquisar produtos por nome, código reduzido ou código de barras.", ".png"],
-        [2, "Carrinho de venda otimizado para telas menores, com edição de quantidade e remoção de produtos.", ".png"],
-        [2, "Seleção e cadastro de clientes diretamente durante o processo de venda", ".png"],
-        [2, "Cadastro de clientes com informações essenciais e possibilidade de utilização sem CPF.", ".png"],
-        [2, "Consulta rápida dos produtos cadastrados com informações de preço, estoque e identificação.", ".png"],
-        [2, "Gerenciamento de estoque com ações rápidas para adicionar ou remover unidades de um produto.", ".png"],
-        [2, "Visualização detalhada de produtos com informações comerciais e indicadores de estoque.", ".png"],
-        [2, "Histórico de movimentações do estoque organizado para consulta em dispositivos móveis.", ".png"],
-        [2, "Consulta de vendas realizadas e acesso aos respectivos documentos fiscais.", ".png"],
-        [2, "Visualização de relatórios de vendas, entradas e saídas do estoque.", ".png"],
-        [2, "Módulo de serviços para registrar mão de obra e combinar serviços com produtos na mesma operação.", ".png"],
-        [2, "Menu lateral responsivo reunindo os módulos de caixa, produtos, estoque, serviços, clientes e relatórios.", ".png"],
-        [2, "Interface adaptada para navegação por toque, priorizando ações rápidas e utilização com apenas uma mão.", ".png"]
+    const modals = [
+        [
+        1,
+        "Tela inicial de autenticação com acesso seguro através de email e senha.",
+        ".jpg"
+],
+        [
+        1,
+        "Dashboard mobile com acesso rápido aos principais módulos do sistema.",
+        ".jpg"
+],
+        [
+        1,
+        "Frente de caixa adaptada para dispositivos móveis, permitindo pesquisar produtos por nome, código reduzido ou código de barras.",
+        ".jpg"
+],
+        [
+        1,
+        "Seleção e cadastro de clientes diretamente durante o processo de venda",
+        ".jpg"
+],
+        [
+        1,
+        "Cadastro de clientes com informações essenciais e possibilidade de utilização sem CPF.",
+        ".jpg"
+],
+        [
+        1,
+        "Consulta rápida dos produtos cadastrados com informações de preço, estoque e identificação.",
+        ".jpg"
+],
+        [
+        1,
+        "Histórico de movimentações do estoque organizado para consulta em dispositivos móveis.",
+        ".jpg"
+],
+        [
+        1,
+        "Consulta de vendas realizadas e acesso aos respectivos documentos fiscais.",
+        ".jpg"
+],
+        [
+        1,
+        "Visualização de relatórios de vendas, entradas e saídas do estoque.",
+        ".jpg"
+],
+        [
+        1,
+        "Módulo de serviços para registrar mão de obra e combinar serviços com produtos na mesma operação.",
+        ".jpg"
+],
+        [
+        2,
+        "Tela de login com credencias de email e login, email sendo verificado para segurança dos usuários.",
+        ".jpg"
+],
+        [
+        2,
+        "Frente de caixa com campos de pesquisa para nome, codigo reduzido e codigo de barras. ajuste de filtro, seleção / criação de clientes e edição de produtos em tempo real.",
+        ".jpg"
+],
+        [
+        2,
+        "Clientes podem ser registrados com ou sem cpf.",
+        ".jpg"
+],
+        [
+        2,
+        "Sistema equipado com exportação de nota fiscal por PDF ou impressão xml.",
+        ".jpg"
+],
+        [
+        2,
+        "Exemplo nota fiscal pdf.",
+        ".jpg"
+],
+        [
+        2,
+        "Seleção de cliente no ato da venda.",
+        ".jpg"
+],
+        [
+        2,
+        "Crud completo de produtos com campos de pesquisa e ações de edição, exclusão e copiar.",
+        ".jpg"
+],
+        [
+        2,
+        "Visualização de produto.",
+        ".jpg"
+],
+        [
+        2,
+        "Botões: adicionar +1 no estoque, remover -1 no estoque, copiar produto, editar produto, excluir produto.",
+        ".jpg"
+],
+        [
+        2,
+        "Relatorios de entradas, vendas e saidas do estoque - visualização geral de todos os produtos.",
+        ".jpg"
+],
+        [
+        2,
+        "Visualização de toda movimentação do estoque detalhada.",
+        ".jpg"
+],
+        [
+        2,
+        "Dados de percentual de lucro para cada produto registrado.",
+        ".jpg"
+],
+        [
+        2,
+        "Relatórios graficos da movimentação do estoque.",
+        ".jpg"
+],
+        [
+        2,
+        "Exportação de todo o estoque.",
+        ".jpg"
+],
+        [
+        2,
+        "Modulo de serviços, alternativa de produtos, adiciona valor da mão de obra + adicionar produtos a soma.",
+        ".jpg"
+],
+        [
+        2,
+        "Registro de todos os clientes.",
+        ".jpg"
+],
+        [
+        2,
+        "Configuração do perfil pessoal, configuração do perfil do comercio, configuração de permissões de usuarios + controle de usuarios.",
+        ".jpg"
+],
+        [
+        2,
+        "menu responsivo com todos os modulos:\\ncaixa - produtos visao geral - produtos estoque - produtos relatorios - serviços visao geral - serviços relatorios - clientes vendas - clientes visao geral",
+        ".jpg"
+],
+        [
+        3,
+        "Página comercial com home, banner e indexação de links",
+        ".jpg"
+],
+        [
+        4,
+        "Página comercial com home, banner e indexação de links",
+        ".jpg"
+],
+        [
+        5,
+        "Página comercial com home, banner e indexação de links",
+        ".jpg"
+]
     ];
 
-    modals.map((data) =>{
+    modals.map((data) => {
         insert.run(...data);
     });
-
 }
-module.exports = {modalSeed}
+
+module.exports = { modalSeed };

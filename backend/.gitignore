@@ -33,7 +33,7 @@ out/
 src/db/migrations/
 
 # Storage generated/uploaded files
-storage/
+
 
 # OS
 .DS_Store

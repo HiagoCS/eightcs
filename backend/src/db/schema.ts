@@ -7,8 +7,10 @@ const personalInfos = sqliteTable("infos",{
     company:text("company").unique(),
     email:text("email").unique(),
     phone:text("phone").unique(),
+    whatsapp:text("whatsapp").unique(),
     location:text("location").unique(),
-    description:text("description").unique()
+    description:text("description").unique(),
+    footer:text("footer").unique()
 });
 //PROJETOS
 const projectType = sqliteTable("project_type",{

@@ -27,7 +27,7 @@ export default function ContactPage(){
                         <h3>{title[1]}</h3>
                     </div>
                     <div className="text">
-                        <p>Transformando ideias em soluções digitais, criativas, eficientes e de impacto</p>
+                        <p>{infos['footer']}</p>
                     </div>
                 </div>
                 <div className="frameworks">
@@ -55,7 +55,10 @@ export default function ContactPage(){
                         </div>
                         <div className="text">
                             <PhoneIcon className="icon"/>
-                            <p>{infos['phone']}</p>
+                            <a href={`https://wa.me/55${infos['phone'].replace(/\D/g, '').length===11?infos['phone'].replace(/\D/g, ''):infos['whatsapp'].replace(/\D/g, '')}`}
+                                target="_blank">
+                                {infos['phone']}
+                            </a>
                         </div>
                         <div className="text">
                             <PinIcon className="icon"/>
